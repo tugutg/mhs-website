@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Material Handling Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: an equipment spec sheet. Full-bleed graphite photo bands alternate with white and
+   steel-grey data panels on a 1200px grid. Condensed decal-style headings, Plex Sans text,
+   Plex Mono only where a real nameplate or data sheet would use it (values, part names, labels).
+   One deliberate light look with graphite bands; every colour is set explicitly. */
+:root{
+  --steel:#296391;        /* MHS logo blue */
+  --steel-ink:#1e4b70;    /* hover, links on white */
+  --sky:#9fcbec;          /* steel lifted for graphite bands */
+  --graphite:#121a21;
+  --graphite-2:#18232d;
+  --graphite-line:#2a3846;
+  --rivet:#3b4c5c;
+  --ink:#16212b;
+  --muted:#556574;
+  --line:#d4dce4;
+  --paper:#f0f3f6;
+  --white:#ffffff;
+  --on-dark:#e8eef3;
+  --on-dark-muted:#a9b8c5;
+  --slot-a:#24323e;
+  --slot-b:#19242e;
+  --slot-c:#2b4357;
+  --heat:#c4561d;         /* heat-sensing cable in the schematic */
+  --alert:#b3261e;        /* form errors */
+  --hint:#7a8794;         /* placeholders */
+  --display:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --gutter:clamp(16px,4vw,40px);
+  --maxw:1200px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:var(--steel-ink)}
+:focus-visible{outline:3px solid var(--steel);outline-offset:2px}
+h1,h2,h3{text-wrap:balance}
+.site[data-lang="mn"] [lang="en"],.site[data-lang="en"] [lang="mn"]{display:none!important}
+[hidden]{display:none!important}
+.site[data-build="live"] .slot figcaption{display:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--steel);color:var(--white);padding:10px 14px;text-decoration:none}
+.skip:focus{left:8px;top:8px}
+svg.i{width:18px;height:18px;flex:none}
+.nowrap{white-space:nowrap}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--white);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:none}
+.brand-mark{font-family:var(--body);font-weight:700;font-size:31px;line-height:1;letter-spacing:-.015em;color:var(--steel)}
+.brand-name{font:500 10.5px/1.25 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);max-width:13ch;padding-left:12px;border-left:1px solid var(--line)}
+.menu{margin-left:auto;display:flex;align-items:center;gap:2px}
+.menu a{font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:8px 10px;white-space:nowrap;transition:color .15s;box-shadow:inset 0 -2px 0 transparent}
+.menu a:hover{color:var(--steel)}
+.menu a[aria-current="true"]{color:var(--steel);box-shadow:inset 0 -2px 0 var(--steel)}
+.tools{display:flex;align-items:center;gap:12px;flex:none}
+.lang{display:inline-flex;border:1px solid var(--line)}
+.lang button{font:500 12px/1 var(--mono);letter-spacing:.06em;padding:9px 10px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--steel);color:var(--white)}
+.menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:40px;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer}
+.menu-btn svg{width:20px;height:20px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 15px/1.2 var(--body);padding:14px 22px;border:2px solid var(--steel);background:var(--steel);color:var(--white);text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.btn:hover{background:var(--steel-ink);border-color:var(--steel-ink)}
+.btn.line{background:transparent;color:var(--white);border-color:var(--on-dark-muted)}
+.btn.line:hover{border-color:var(--white);background:transparent}
+.btn.outline{background:transparent;color:var(--steel);border-color:var(--steel)}
+.btn.outline:hover{background:var(--steel);color:var(--white)}
+.btn.sm{padding:9px 14px;font-size:14px}
+
+/* Photo slots: hatched panels until a photo is set, then the photo covers them */
+.slot{position:relative;margin:0;overflow:hidden;background-color:var(--slot-b);background-image:repeating-linear-gradient(135deg,var(--slot-a) 0 1px,transparent 1px 12px),linear-gradient(155deg,var(--slot-c),var(--slot-b) 72%);max-width:100%}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot figcaption{position:absolute;z-index:2;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:8px;font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark-muted)}
+.slot.has-photo figcaption{display:none}
+.slot .credit{position:absolute;z-index:2;right:10px;bottom:8px;padding:5px 7px;font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark);background:rgba(18,26,33,.6)}
+
+/* Hero */
+.hero{position:relative;isolation:isolate;background:var(--graphite);color:var(--on-dark);scroll-margin-top:68px}
+.hero .slot{position:absolute;inset:0;z-index:-1}
+.hero .slot::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(18,26,33,.96) 0%,rgba(18,26,33,.8) 46%,rgba(18,26,33,.22) 100%)}
+.hero .slot figcaption{left:auto;right:var(--gutter);bottom:16px;justify-content:flex-end;max-width:440px;text-align:right}
+.hero-inner{display:grid;gap:24px;max-width:900px;padding-block:clamp(72px,10vw,128px) clamp(56px,7vw,96px)}
+.eyebrow{margin:0;font:500 12px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.hero .eyebrow,.dark .eyebrow{color:var(--sky)}
+h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(40px,6vw,84px);line-height:.96;letter-spacing:.004em;color:var(--white)}
+.lead{margin:0;max-width:58ch;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--on-dark-muted)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+.badge{display:grid;gap:5px;min-width:210px;padding:12px 16px 13px;border:1px solid rgba(169,184,197,.4);background:rgba(18,26,33,.55)}
+.badge small{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted)}
+.badge b{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-family:var(--display);font-weight:800;font-size:24px;line-height:1;letter-spacing:.02em;color:var(--white)}
+.badge b span{font:400 14px/1 var(--body);letter-spacing:0;color:var(--on-dark-muted)}
+
+/* Key figures */
+.figures{background:var(--white);border-bottom:1px solid var(--line)}
+.figures .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.fig{display:grid;gap:8px;align-content:start;padding:30px 24px 28px;border-left:1px solid var(--line)}
+.fig:first-child{border-left:0;padding-left:0}
+.fig b{font-family:var(--display);font-weight:800;font-size:clamp(36px,4.2vw,56px);line-height:1;color:var(--steel);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fig b .deg{letter-spacing:-.09em}
+.fig > span{font-size:14px;line-height:1.4;color:var(--muted)}
+
+/* Sections */
+.sec{padding-block:clamp(64px,8vw,112px);scroll-margin-top:68px}
+.paper{background:var(--paper)}
+.dark{background:var(--graphite);color:var(--on-dark)}
+.head{display:grid;gap:14px;max-width:780px;margin-bottom:clamp(32px,4vw,48px)}
+h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(32px,3.8vw,54px);line-height:1;letter-spacing:.004em}
+.dark h2{color:var(--white)}
+.head > p:not(.eyebrow),.body > p:not(.eyebrow){margin:0;max-width:62ch;font-size:17px;color:var(--muted)}
+.dark .head > p:not(.eyebrow){color:var(--on-dark-muted)}
+.sub{margin:0;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.dark .sub{color:var(--sky)}
+
+/* Offer cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{display:flex;flex-direction:column;min-width:0;background:var(--white);border:1px solid var(--line);color:inherit;text-decoration:none;transition:border-color .15s}
+.card:hover{border-color:var(--steel)}
+.card .slot{aspect-ratio:16/10}
+.card-body{flex:1;display:flex;flex-direction:column;gap:10px;padding:22px 22px 24px}
+.card h3{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:27px;line-height:1.02}
+.card p{margin:0;color:var(--muted)}
+.more{margin-top:auto;padding-top:8px;display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--steel)}
+
+/* Split layouts */
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,72px);align-items:start}
+.split.rev{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}
+.slot.tall{aspect-ratio:4/5}
+.body{display:grid;gap:18px;min-width:0}
+.specs{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--line)}
+.specs li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start;padding:13px 0;border-bottom:1px solid var(--line);font-weight:500}
+.specs svg{width:20px;height:20px;margin-top:2px;color:var(--steel)}
+.specs .note{font-weight:400;color:var(--muted)}
+
+/* Data sheet: key data table and the standards list */
+.sheet-row{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,64px);align-items:start;margin-top:clamp(48px,6vw,72px)}
+.sheet-row > div{display:grid;gap:14px;min-width:0}
+.spec{width:100%;border-collapse:collapse;border-top:2px solid var(--ink)}
+.spec th,.spec td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.spec th{width:36%;padding-right:16px;font:500 12px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.spec td{font-size:15.5px;line-height:1.5;color:var(--ink)}
+.spec td .mono{font:500 14.5px/1.5 var(--mono)}
+.std{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.std li{display:grid;grid-template-columns:116px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.std b{font:600 13px/1.55 var(--mono);color:var(--steel-ink)}
+.std span{font-size:15px;line-height:1.5;color:var(--muted)}
+.fine{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+
+/* How the system works: a drawing sheet with a title bar, the schematic, and its callout table */
+.how{margin-top:clamp(48px,6vw,72px);background:var(--white);border:1px solid var(--line);scroll-margin-top:84px}
+.how-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:14px 22px;border-bottom:1px solid var(--line)}
+.how-head h3,.duo h3{margin:0;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.sheet{padding:5px 8px;border:1px solid var(--line);font:500 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.how-fig{margin:0;padding:26px 28px 18px;min-width:0}
+.how-img{position:relative;max-width:1000px;margin-inline:auto}
+.how-img img{display:block;width:100%;height:auto}
+.how-img .mk{position:absolute;display:grid;place-items:center;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--steel);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);color:var(--white);font:600 14px/1 var(--mono)}
+.how-key{max-width:1000px;margin:12px auto 0;text-align:right;font:500 11px/1.4 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.how-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line)}
+.how-list li{display:grid;align-content:start;gap:10px;padding:18px 18px 22px;border-left:1px solid var(--line);min-width:0}
+.how-list li:first-child{border-left:0}
+.how-list .n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--steel);color:var(--white);font:600 13px/1 var(--mono)}
+.how-list b{display:block;font-weight:600;color:var(--ink)}
+.how-list p{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
+
+/* Delivery process and tender documents */
+.tl{list-style:none;margin:0;padding:0;counter-reset:t;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,4vw,48px);border-top:2px solid var(--ink)}
+.tl li{counter-increment:t;display:grid;grid-template-columns:56px minmax(0,1fr);align-content:start;gap:4px 16px;padding:18px 0 20px;border-bottom:1px solid var(--line)}
+.tl li::before{content:counter(t,decimal-leading-zero);grid-row:span 2;font:800 30px/1 var(--display);color:var(--steel);font-variant-numeric:tabular-nums}
+.tl b{font-weight:600;font-size:17px;line-height:1.35;color:var(--ink)}
+.tl p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+
+/* Two lists */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:10px}
+.duo h3{margin-bottom:10px}
+.duo ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.duo li{padding:11px 0;border-bottom:1px solid var(--line);font-weight:500}
+
+/* Parts and service columns */
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--graphite-line);border:1px solid var(--graphite-line)}
+.col{display:grid;gap:16px;align-content:start;padding:26px 24px 28px;background:var(--graphite)}
+.col h3{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:27px;line-height:1;color:var(--white)}
+.col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.col li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;color:var(--on-dark-muted)}
+.col li::before{content:"";width:10px;height:2px;margin-top:12px;background:var(--sky)}
+.stock{display:flex;align-items:center;gap:12px;margin:28px 0 0;font:500 13px/1.5 var(--mono);letter-spacing:.02em;color:var(--on-dark)}
+.stock svg{flex:none;width:20px;height:20px;color:var(--sky)}
+
+/* Installed base: by machine type (bars to scale), then by model */
+.fleet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.fleet > div{display:grid;gap:14px;min-width:0}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:14px;border-top:2px solid var(--ink);padding-top:18px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px 16px;align-items:end}
+.bar span{font-weight:500;line-height:1.3}
+.bar i{display:block;grid-column:1;height:16px;background:var(--line);position:relative}
+.bar i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--steel)}
+.bar b{grid-column:2;grid-row:1 / span 2;align-self:end;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--steel);text-align:right;font-variant-numeric:tabular-nums}
+.models{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.models li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
+.models .model{min-width:0;font:500 15.5px/1.4 var(--mono);color:var(--ink)}
+.models b{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums}
+.models li.total{border-bottom:0;padding-top:14px}
+.models li.total .model{font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:12px}
+.models li.total b{font-size:34px}
+
+/* Contact nameplate */
+.contact{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:start}
+.side-c{display:grid;gap:18px;min-width:0}
+.contact .actions{margin-top:0}
+.plate{position:relative;padding:30px 30px 26px;color:var(--on-dark);background-color:var(--graphite);border:1px solid var(--graphite-line);
+  background-image:radial-gradient(circle at 14px 14px,var(--rivet) 0 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 14px) 14px,var(--rivet) 0 3px,transparent 3.5px),radial-gradient(circle at 14px calc(100% - 14px),var(--rivet) 0 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 14px) calc(100% - 14px),var(--rivet) 0 3px,transparent 3.5px)}
+.plate-title{margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid var(--graphite-line);font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+.plate dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:16px 22px;margin:0}
+.plate dt{padding-top:3px;font:500 11px/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-muted)}
+.plate dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:16px;line-height:1.5;color:var(--white)}
+.copy{padding:7px 9px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted);background:transparent;border:1px solid var(--graphite-line);cursor:pointer}
+.copy:hover{color:var(--white);border-color:var(--on-dark-muted)}
+.copy .done{display:none}
+.copy.ok .idle{display:none}
+.copy.ok .done{display:inline}
+
+/* Quote request: composes an email the visitor sends from their own mail app */
+.quote{display:grid;gap:20px;margin-top:8px;padding:26px;background:var(--white);border:1px solid var(--line)}
+.quote fieldset{margin:0;padding:0;border:0;min-width:0}
+.quote legend,.quote .lbl{display:block;margin:0 0 8px;padding:0;font:500 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt .o{display:inline-flex;padding:9px 12px;font:500 14.5px/1.2 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--line);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.opt .o:hover{border-color:var(--steel)}
+.opt input:checked + .o{background:var(--steel);border-color:var(--steel);color:var(--white)}
+.opt input:focus-visible + .o{outline:3px solid var(--steel);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fld{display:grid;min-width:0}
+.fld input,.fld textarea,.q-text{width:100%;font:400 16px/1.45 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:0;padding:11px 12px}
+.fld textarea{min-height:88px;resize:vertical}
+.fld input:focus,.fld textarea:focus,.q-text:focus{outline:2px solid var(--steel);outline-offset:0;border-color:var(--steel)}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--hint)}
+.fld [aria-invalid="true"]{border-color:var(--alert)}
+.fld [aria-invalid="true"]:focus{outline-color:var(--alert);border-color:var(--alert)}
+.err{margin:8px 0 0;font-size:14.5px;font-weight:500;color:var(--alert)}
+.q-actions{display:flex;flex-wrap:wrap;gap:12px}
+.q-status{margin:0;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.q-text{min-height:160px;font:400 14px/1.5 var(--mono);resize:vertical}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,72px);align-items:start}
+.faq .head{margin-bottom:0}
+.qa{border-top:2px solid var(--ink)}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{display:grid;grid-template-columns:minmax(0,1fr) 22px;gap:16px;align-items:start;padding:18px 0;font-weight:600;font-size:17px;line-height:1.4;color:var(--ink);cursor:pointer;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font:500 22px/1 var(--mono);color:var(--steel);text-align:right}
+.qa details[open] summary::after{content:"−"}
+.qa summary:hover{color:var(--steel-ink)}
+.qa details p{margin:-6px 0 0;padding:0 38px 20px 0;max-width:62ch;color:var(--muted)}
+
+/* Phone quick-contact bar */
+.mbar{display:none}
+
+/* Footer */
+.foot{background:var(--graphite-2);color:var(--on-dark-muted);font-size:14.5px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:28px 32px;padding-block:48px 36px}
+.foot-grid > div{min-width:0}
+.foot h4{margin:0 0 14px;font:600 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sky)}
+.foot p{margin:0;line-height:1.55}
+.foot .fb{font-family:var(--body);font-weight:700;font-size:28px;line-height:1;color:var(--white);margin-bottom:10px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot a{color:var(--on-dark);text-decoration:none}
+.foot a:hover{color:var(--white);text-decoration:underline}
+.foot b{font-weight:600;color:var(--white)}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:18px 22px;border-top:1px solid var(--graphite-line);font-size:13.5px}
+
+/* Responsive */
+@media (max-width:1180px){
+  .menu{display:none}
+  .menu.open{display:flex;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;padding:6px var(--gutter) 14px;background:var(--white);border-bottom:1px solid var(--line);box-shadow:0 14px 24px -18px rgba(18,26,33,.45)}
+  .menu.open a{padding:13px 0;border-bottom:1px solid var(--line);box-shadow:none}
+  .menu-btn{display:inline-flex}
+  .tools{margin-left:auto}
+}
+@media (max-width:980px){
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .cards,.cols{grid-template-columns:1fr}
+  .split,.split.rev,.contact,.faq,.sheet-row,.fleet{grid-template-columns:1fr}
+  .tl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slot.tall{aspect-ratio:16/11}
+  .how-list{grid-template-columns:1fr}
+  .how-list li{grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 22px;border-left:0;border-top:1px solid var(--line)}
+  .how-list li:first-child{border-top:0}
+}
+@media (max-width:780px){
+  .fig{padding:24px 16px 22px}
+}
+@media (max-width:720px){
+  .mbar{position:fixed;z-index:45;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--white);border-top:1px solid var(--line);box-shadow:0 -12px 24px -20px rgba(18,26,33,.5);transition:transform .2s}
+  .mbar.away{transform:translateY(110%)}
+  .mbar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 10px;font:600 14.5px/1.2 var(--body);text-decoration:none;color:var(--steel);background:var(--white);border:2px solid var(--steel)}
+  .mbar a.primary{background:var(--steel);color:var(--white)}
+  .mbar svg{width:18px;height:18px;flex:none}
+  .legal{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:560px){
+  .tools .btn{display:none}
+  .brand-name{display:none}
+  .duo,.grid2,.foot-grid{grid-template-columns:1fr}
+  .badges{flex-direction:column}
+  .badge{min-width:0}
+  .plate{padding:26px 22px 22px}
+  .plate dl{grid-template-columns:1fr;gap:4px}
+  .plate dd{margin-bottom:12px}
+  .hero .slot figcaption{left:var(--gutter);right:var(--gutter);justify-content:flex-start;text-align:left}
+  .quote{padding:20px 16px}
+  .how-head{padding:12px 16px}
+  .how-fig{padding:14px 10px 12px}
+  .how-img .mk{width:22px;height:22px;margin:-11px 0 0 -11px;border-width:2px;font-size:11px}
+  .how-list li{padding:14px 16px}
+  .fig b{font-size:clamp(26px,8vw,36px)}
+  .figures .wrap{grid-template-columns:1fr}
+  .fig{grid-template-columns:96px minmax(0,1fr);align-items:center;column-gap:16px;padding:16px 0;border-left:0;border-top:1px solid var(--line)}
+  .fig:first-child{border-top:0}
+  .tl{grid-template-columns:1fr}
+  .tl li{grid-template-columns:44px minmax(0,1fr);gap:4px 12px}
+  .tl li::before{font-size:26px}
+  .spec th{width:42%}
+  .std li{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<meta name="description" content="Материал Хандлинг Системс ХХК (2014 оноос): DAFO автомат гал унтраах систем, SENNEBOGEN материал зөөвөрлөх машин, уурхайн техникийн сэлбэг, засвар үйлчилгээ. Улаанбаатар.">
+<link rel="canonical" href="https://mhs.mn/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23296391'/%3E%3Ctext x='32' y='40.5' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='23' letter-spacing='-0.5' text-anchor='middle' fill='%23ffffff'%3EMHS%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#121a21">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mhs.mn/">
+<meta property="og:site_name" content="MHS">
+<meta property="og:title" content="Material Handling Systems (MHS)">
+<meta property="og:description" content="Material Handling Systems LLC: authorized DAFO fire suppression distributor and official SENNEBOGEN partner in Mongolia, with parts and on-site service for mining fleets.">
+<meta property="og:locale" content="mn_MN">
+<meta property="og:locale:alternate" content="en_US">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": "+976 9697 0276", "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}}</script>
+</head>
+<body>
+<!-- Photos: put <img src="photos/hero.jpg" alt="…"> inside any <figure class="slot"> and the hatched panel
+     is covered automatically. Before going live, set data-build="live" on the .site div below to hide
+     the photo hints on slots that are still empty. -->
+<div class="site" data-lang="mn" data-build="live" data-title-mn="Материал Хандлинг Системс ХХК | DAFO, SENNEBOGEN" data-title-en="Material Handling Systems LLC | DAFO, SENNEBOGEN">
+<a class="skip" href="#main"><span lang="mn">Үндсэн агуулга руу шилжих</span><span lang="en">Skip to content</span></a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MHS, Material Handling Systems">
+      <span class="brand-mark">MHS</span>
+      <span class="brand-name"><span lang="mn">Материал Хандлинг Системс</span><span lang="en">Material Handling Systems</span></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Main">
+      <a href="#dafo">DAFO</a>
+      <a href="#process"><span lang="mn">Ажлын үе шат</span><span lang="en">Process</span></a>
+      <a href="#sennebogen">SENNEBOGEN</a>
+      <a href="#service"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span></a>
+      <a href="#references"><span lang="mn">Гүйцэтгэсэн ажил</span><span lang="en">Track record</span></a>
+      <a href="#about"><span lang="mn">Бидний тухай</span><span lang="en">About</span></a>
+    </nav>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Хэл / Language">
+        <button type="button" id="lang-mn" data-set-lang="mn" aria-pressed="true" title="Монгол">МН</button>
+        <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false" title="English">EN</button>
+      </div>
+      <a class="btn sm" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Get a quote</span></a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Цэс / Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <figure class="slot" data-photo="hero">
+          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO">
+      <figcaption>
+        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        <span lang="mn">Зураг: DAFO систем суурилуулсан уурхайн техник</span><span lang="en">Photo: mining machine fitted with DAFO</span>
+      </figcaption>
+    </figure>
+    <div class="wrap">
+      <div class="hero-inner">
+        <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК, Улаанбаатар</span><span lang="en">Material Handling Systems LLC, Ulaanbaatar</span></p>
+        <h1><span lang="mn">Тоног төхөөрөмжийг галын эрсдлээс хамгаална</span><span lang="en">We protect equipment from fire risk</span></h1>
+        <p class="lead"><span lang="mn">Материал Хандлинг Системс ХХК нь 2014 онд байгуулагдсан, Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN материал зөөвөрлөх тоног төхөөрөмжийн албан ёсны дилерээр ажиллаж байна.</span><span lang="en">Founded in 2014, Material Handling Systems LLC is the official dealer for DAFO automatic fire suppression systems from Sweden and SENNEBOGEN material handling equipment from Germany.</span></p>
+        <div class="actions">
+          <a class="btn" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span></a>
+          <a class="btn line" href="#how"><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></a>
+        </div>
+        <div class="badges">
+          <div class="badge"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span></span></b></div>
+          <div class="badge"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span></span></b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="figures" aria-label="MHS in numbers">
+    <div class="wrap">
+      <div class="fig"><b>23</b><span><span lang="mn">Монголд суурилуулсан DAFO систем</span><span lang="en">DAFO systems installed in Mongolia</span></span></div>
+      <div class="fig"><b>5</b><span><span lang="mn">нүүрсний уурхайн компанитай ажилласан</span><span lang="en">coal mining companies served</span></span></div>
+      <div class="fig"><b>2014</b><span><span lang="mn">онд байгуулагдсан</span><span lang="en">year founded</span></span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="solutions">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow"><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">What we do</span></p>
+        <h2><span lang="mn">Хамгаалалт, техник, үйлчилгээг нэг газраас</span><span lang="en">Protection, machines and service from one supplier</span></h2>
+      </div>
+      <div class="cards">
+        <a class="card" href="#dafo">
+          <figure class="slot" data-photo="card-dafo">
+            <img src="photos/dafo-sv-k-deck.jpg" width="1600" height="1000" loading="lazy" alt="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K agent tanks on an excavator deck">
+            <span class="credit"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Photo: Dafo Vehicle</span></span>
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: DAFO танк, хоолой</span><span lang="en">Photo: DAFO tank and piping</span></figcaption>
+          </figure>
+          <div class="card-body">
+            <h3><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></h3>
+            <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, ачигч, рийчстакерт зориулсан автомат гал илрүүлэх, унтраах систем.</span><span lang="en">Automatic fire detection and suppression for excavators, haul trucks, dozers, loaders and reach stackers.</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a class="card" href="#sennebogen">
+          <figure class="slot" data-photo="card-sennebogen">
+          <img src="photos/card-sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN машин ажиллаж буй нь" data-alt-mn="SENNEBOGEN машин ажиллаж буй нь" data-alt-en="SENNEBOGEN machine at work">
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN машин ажиллаж буй нь</span><span lang="en">Photo: SENNEBOGEN machine at work</span></figcaption>
+          </figure>
+          <div class="card-body">
+            <h3><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></h3>
+            <p><span lang="mn">Нүүрс, задгай ачаа, хаягдал төмрийг ачих, буулгах 875 E Hybrid зэрэг машин. Үйлдвэрийн сэлбэг, төлөвлөгөөт үйлчилгээтэй.</span><span lang="en">Machines such as the 875 E Hybrid that load and unload coal, bulk material and scrap, with factory parts and planned maintenance.</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a class="card" href="#service">
+          <figure class="slot" data-photo="card-service">
+          <img src="photos/card-service-20261013135748.jpg" width="2000" height="1333" loading="lazy" alt="манай баг ажил дээрээ" data-alt-mn="манай баг ажил дээрээ" data-alt-en="MHS crew at work">
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: манай баг ажил дээрээ</span><span lang="en">Photo: MHS crew at work</span></figcaption>
+          </figure>
+          <div class="card-body">
+            <h3><span lang="mn">Мэргэжлийн туршлагатай хамт олон</span><span lang="en">An experienced professional team</span></h3>
+            <p><span lang="mn">Уурхайн техникийн сэлбэгийг шуурхай нийлүүлж, засвар үйлчилгээ хийнэ.</span><span lang="en">Fast parts supply for mining equipment, plus repair and maintenance.</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="dafo">
+    <div class="wrap">
+      <div class="split">
+        <div class="body">
+          <p class="eyebrow"><span lang="mn">DAFO автомат гал унтраах систем</span><span lang="en">DAFO automatic fire suppression system</span></p>
+          <h2><span lang="mn">Галыг гарсан даруйд нь унтраана</span><span lang="en">Puts out a fire the moment it starts</span></h2>
+          <p><span lang="mn">DAFO систем хөдөлгүүрийн тасалгаа болон бусад эрсдэлтэй хэсгийн хэт халалтыг мэдэрч, фторгүй Forrex EVO шингэн бодисыг зэвэрдэггүй ган хоолойгоор цацаж, галыг тархахаас нь өмнө унтраана.</span><span lang="en">DAFO detects overheating in the engine bay and other risk zones, then releases fluorine-free Forrex EVO liquid agent through stainless steel piping before the fire can spread.</span></p>
+          <p><span lang="mn">Систем бүрийг тухайн техникт галын эрсдэлийн үнэлгээ хийсний үндсэн дээр SBF 127:17 стандартын дагуу зураг төсөл гаргаж, DAFO-гийн сургалттай техникчид суурилуулна.</span><span lang="en">Each system is designed for the specific machine after a fire risk assessment, to the SBF 127:17 standard, and installed by DAFO-trained technicians.</span></p>
+          <p class="sub"><span lang="mn">Хамгаалах хэсэг</span><span lang="en">Protected zones</span></p>
+          <ul class="specs" style="margin-top:0">
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Түлшний шүүлтүүр, насос <span class="note">(хэсгүүдийг эрсдэлийн үнэлгээгээр тогтооно)</span></span><span lang="en">Fuel filters and pumps <span class="note">(zones are set by the risk assessment)</span></span></span></li>
+          </ul>
+        </div>
+        <figure class="slot tall" data-photo="dafo">
+          <img src="photos/dafo-20261013065851.jpg" width="1920" height="1440" loading="lazy" alt="Bucyrus RH170 дээрх DAFO систем" data-alt-mn="Bucyrus RH170 дээрх DAFO систем" data-alt-en="DAFO system on a Bucyrus RH170">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: Bucyrus RH170 дээрх DAFO систем</span><span lang="en">Photo: DAFO system on a Bucyrus RH170</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="how" id="how">
+        <div class="how-head">
+          <h3><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></h3>
+          <span class="sheet"><span lang="mn">ДАФО SV‑K систем</span><span lang="en">DAFO SV-K system</span></span>
+        </div>
+        <figure class="how-fig">
+          <div class="how-img">
+            <img src="photos/dafo-system-layout.jpg" width="1100" height="636" loading="lazy" alt="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-mn="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-en="DAFO system layout: heat-sensing cable, CV-X control unit, alarm devices, display, red SV-K agent tank, separate nitrogen cartridge, piping and nozzles">
+            <div aria-hidden="true">
+              <span class="mk" style="left:13.6%;top:20.1%">1</span>
+              <span class="mk" style="left:65.6%;top:28.8%">2</span>
+              <span class="mk" style="left:53.8%;top:88.1%">3</span>
+              <span class="mk" style="left:54.7%;top:27.0%">4</span>
+              <span class="mk" style="left:25.6%;top:35.5%">5</span>
+            </div>
+          </div>
+          <figcaption class="how-key"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Image: Dafo Vehicle</span></figcaption>
+        </figure>
+        <ol class="how-list">
+            <li><span class="n">1</span><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span></p></div></li>
+            <li><span class="n">2</span><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span></p></div></li>
+            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurizes the tank to 20 bar. At rest the tank holds no pressure.</span></p></div></li>
+            <li><span class="n">4</span><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span></p></div></li>
+            <li><span class="n">5</span><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span></p></div></li>
+        </ol>
+      </div>
+
+      <div class="sheet-row">
+        <div>
+          <p class="sub"><span lang="mn">Үндсэн үзүүлэлт</span><span lang="en">Key data</span></p>
+          <table class="spec">
+            <tbody>
+              <tr><th scope="row"><span lang="mn">Гал унтраах бодис</span><span lang="en">Suppression agent</span></th><td><span lang="mn">Forrex EVO: фторгүй (PFAS-гүй), бэлэн холимог шингэн; A, B ангиллын гал. Материал, эд ангид хор нөлөөгүй, байгальд ээлтэй; цацсаны дараа усаар угаана. Хадгалах хугацаа 10 жил хүртэл.</span><span lang="en">Forrex EVO: fluorine-free (PFAS-free), premixed liquid for class A and B fires. Non-aggressive to materials and components, environmentally friendly; rinse with water after a discharge. Shelf life up to 10 years.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Температур</span><span lang="en">Temperature</span></th><td><span lang="mn">Forrex EVO <span class="mono">−40…+60 °C</span></span><span lang="en">Forrex EVO <span class="mono">−40 to +60 °C</span></span></td></tr>
+              <tr><th scope="row"><span lang="mn">Тооцооны үндэс</span><span lang="en">Design basis</span></th><td><span lang="mn">SBF 127:17: хамгаалах эзлэхүүний 1 м³ тутамд <span class="mono">3,0 л</span> Forrex EVO. Хошууны тоо, байрлалыг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">SBF 127:17: <span class="mono">3.0 L</span> of Forrex EVO per m³ of protected volume. Nozzle count and placement are set by the fire risk assessment.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Танк</span><span lang="en">Tank</span></th><td><span lang="mn">SV-K: улаан анодлосон хөнгөн цагаан, бүлүүртэй (поршень), хэвийн үед даралтгүй. <span class="mono">5–25 л</span>, уурхайн техникт ихэвчлэн 25 л. Ажлын даралт 20 бар, задрах даралт 100 бар. Хэвтээ, босоо суурилуулж болно.</span><span lang="en">SV-K: red-anodised aluminium piston tank, unpressurised at rest. <span class="mono">5–25 L</span>; mining machines usually take the 25 L. Working pressure 20 bar, burst pressure 100 bar. Mounts horizontally or vertically.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Шахалт, идэвхжүүлэгч</span><span lang="en">Propellant and actuator</span></th><td><span lang="mn">Азотын баллон N10 / N20 (TPED, DOT зөвшөөрөлтэй); механик, пневматик эсвэл цахилгаан идэвхжүүлэгч.</span><span lang="en">N10 / N20 nitrogen cartridge (TPED and DOT approved); mechanical, pneumatic or electric actuator.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span></th><td><span lang="mn">Шугаман дулаан мэдрэгч кабель, <span class="mono">180 °C</span>-т идэвхжинэ. Хэлхээг бүхэлд нь хянаж, тасралт, богино холболтыг илрүүлнэ (UL/FM). Сонголтоор Arvak оношилгоотой мэдрэгч.</span><span lang="en">Linear heat-sensing cable, activates at <span class="mono">180 °C</span>. Full-circuit supervision detects breaks and shorts (UL/FM listed). Arvak detector with built-in diagnostics as an option.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Удирдлагын блок</span><span lang="en">Control unit</span></th><td><span lang="mn">DAFO CV-X (стандарт) эсвэл CV-Xe: <span class="mono">9–36 В DC</span>, 2 бүс, хэлхээний гэмтлийн хяналт, бодит цагтай 4095 үйл явдлын бүртгэл, батарейгүй суперконденсаторын нөөц тэжээл 72 цаг хүртэл, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe: Ethernet, алсын хяналтын боломж. Кабины самбар: гараар идэвхжүүлэх товч, дохионы гэрэл, дуут дохио.</span><span lang="en">DAFO CV-X (standard) or CV-Xe: <span class="mono">9–36 V DC</span>, 2 zones, circuit fault monitoring, 4095-event log with real-time clock, battery-free supercapacitor backup up to 72 h, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe adds Ethernet and remote-monitoring options. Cab panel: manual release button, alarm lights, sounder.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Идэвхжүүлэлт</span><span lang="en">Release</span></th><td><span lang="mn">Автомат, тохируулж болох саатлын хугацаатай; кабины самбарын товч эсвэл гаднах механик идэвхжүүлэгчээр гараар. Сонголтоор хөдөлгүүр унтраах, түлш таслах, массын унтраалга салгах.</span><span lang="en">Automatic, with a configurable release delay; manual from the cab panel button or the external mechanical release. Options to stop the engine, cut fuel and open the battery master switch.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Хоолой, хошуу</span><span lang="en">Piping and nozzles</span></th><td><span lang="mn">Зэвэрдэггүй ган хоолой эсвэл шланг, JIC холбоос, DW2 хошуу; бага, тогтмол даралтаар цацна.</span><span lang="en">Stainless steel pipe or hose, JIC fittings, DW2 nozzles; discharge at constant low pressure.</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="sub"><span lang="mn">Стандарт, гэрчилгээ</span><span lang="en">Standards and approvals</span></p>
+          <ul class="std">
+            <li><b>SBF 127:17</b><span><span lang="mn">Шведийн Галын хамгаалалтын холбооны хүнд техникийн гал унтраах системийн дүрэм. Манай зураг төслийн үндэс.</span><span lang="en">Swedish Fire Protection Association rules for fire suppression on heavy vehicles. The basis of our system design.</span></span></li>
+            <li><b>AS 5062:2016</b><span><span lang="mn">Австралийн хөдөлгөөнт техникийн галын хамгаалалтын стандарт. Global-Mark гэрчилгээ.</span><span lang="en">Australian fire protection standard for mobile equipment. Global-Mark certificate.</span></span></li>
+            <li><b>UNECE R107</b><span><span lang="mn">Forrex SV-K системийн НҮБ-ын E5 төрлийн зөвшөөрөл; RISE туршсан.</span><span lang="en">UN E5 type approval of the Forrex SV-K system, tested by RISE.</span></span></li>
+            <li><b>SPCR 183<br>SPCR 199</b><span><span lang="mn">RISE (Швед) хүрээлэнгийн гэрчилгээ: SPCR 183 хөдөлгүүрийн тасалгааны систем; SPCR 199 ба SP 4912 (C3A) Forrex EVO бодис.</span><span lang="en">RISE (Sweden) certification: SPCR 183 for engine-bay systems; SPCR 199 and SP method 4912 (class C3A) for Forrex EVO.</span></span></li>
+            <li><b>UL / FM</b><span><span lang="mn">Мэдрэгч кабелийн UL/FM бүртгэл. CV-X удирдлагын блок FM 5970 хувилбартай.</span><span lang="en">UL/FM listing of the detection cable. The CV-X control unit is available in an FM 5970 version.</span></span></li>
+            <li><b>ISO 9001<br>ISO 14001</b><span><span lang="mn">Dafo Vehicle Fire Protection AB-ийн чанар, байгаль орчны менежментийн систем.</span><span lang="en">Quality and environmental management systems of Dafo Vehicle Fire Protection AB.</span></span></li>
+          </ul>
+          <p class="sub" style="margin-top:14px"><span lang="mn">Үйлчилгээ, баталгаа</span><span lang="en">Service and warranty</span></p>
+          <table class="spec">
+            <tbody>
+              <tr><th scope="row"><span lang="mn">Үйлчилгээний хуваарь</span><span lang="en">Service schedule</span></th><td><span lang="mn">7 хоног тутам операторын үзлэг. 12 сар тутам DAFO-гийн эрх бүхий техникчийн үйлчилгээ. 10 жилд бүлүүр, бодис солиж, азотын баллонд гидравлик туршилт хийнэ.</span><span lang="en">Weekly operator check. Service by a DAFO-authorised technician every 12 months. At 10 years the piston and agent are replaced and the nitrogen cartridge is hydrostatically tested.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Баталгаа</span><span lang="en">Warranty</span></th><td><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгаа. DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн үед хүчинтэй.</span><span lang="en">12-month DAFO Vehicle manufacturer’s warranty. Valid when the system is installed to the manual by DAFO-trained technicians, uses genuine DAFO parts and agent, and receives its 12-month service.</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow"><span lang="mn">ХАБЭА, худалдан авалтын багт</span><span lang="en">For HSE and procurement teams</span></p>
+        <h2><span lang="mn">Эрсдлийн үнэлгээ, ханган нийлүүлэлт, угсралт суурилуулалт, сургалт, хуваарьт үзлэг: бүх үйлчилгээ нэг дороос</span><span lang="en">Risk assessment, supply, installation, training and scheduled inspection: every service from one team</span></h2>
+        <p><span lang="mn">DAFO-гийн гэрчилгээтэй мэргэжилтэн систем бүрийг үнэлж, суурилуулж, туршиж хүлээлгэн өгч, ашиглалтын бүх үе шатанд хуваарьт үйлчилгээг үзүүлнэ.</span><span lang="en">DAFO-certified specialists assess, install, test and hand over every system, then provide scheduled service at every stage of its working life.</span></p>
+      </div>
+      <div class="process">
+        <ol class="tl">
+          <li><b><span lang="mn">Галын эрсдэлийн үнэлгээ</span><span lang="en">Fire risk assessment</span></b><p><span lang="mn">Техникийг газар дээр нь үзэж, халуун гадаргуу, түлш ба гидравликийн шугам, цахилгааны эрсдэлийг тогтооно.</span><span lang="en">We inspect the machine on site and map hot surfaces, fuel and hydraulic lines, and electrics.</span></p></li>
+          <li><b><span lang="mn">Системийн зураг төсөл</span><span lang="en">System design</span></b><p><span lang="mn">Мэдрэгч кабель, хошуу, танкийн байрлал, бодисын хэмжээг тухайн техникт SBF 127-ийн дагуу тооцоолно.</span><span lang="en">Detection cable, nozzles, tank position and agent volume are calculated for that machine to SBF 127.</span></p></li>
+          <li><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span></p></li>
+          <li><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span></p></li>
+          <li><b><span lang="mn">Сургалт</span><span lang="en">Training</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span></p></li>
+          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 5 ба 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 5- and 10-year major services. Recharge from stock in Ulaanbaatar after any discharge.</span></p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="sennebogen">
+    <div class="wrap">
+      <div class="split rev">
+        <figure class="slot tall" data-photo="sennebogen">
+          <img src="photos/sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-mn="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-en="SENNEBOGEN 875 E Hybrid loading coal">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь</span><span lang="en">Photo: SENNEBOGEN 875 E Hybrid loading coal</span></figcaption>
+        </figure>
+        <div class="body">
+          <p class="eyebrow"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></p>
+          <h2><span lang="mn">Нүүрс ачигч</span><span lang="en">Coal handlers</span></h2>
+          <p><span lang="mn">SENNEBOGEN-ий албан ёсны түншийн хувьд бид нүүрс болон задгай ачаа ачих, буулгахад зориулсан 875 E Hybrid загварыг санал болгож, эх үйлдвэрийн сэлбэг, засвар үйлчилгээгээр хангана. Бусад загварыг ажлын онцлогт тань тохируулан сонгоно.</span><span lang="en">As an official SENNEBOGEN partner we offer the 875 E Hybrid for loading and unloading coal and other bulk material, backed by genuine parts and service. Other models are selected to suit the job.</span></p>
+          <p class="sub"><span lang="mn">SENNEBOGEN 875 E Hybrid, sennebogen.com-ын мэдээллээр</span><span lang="en">SENNEBOGEN 875 E Hybrid, per sennebogen.com</span></p>
+          <ul class="specs" style="margin-top:0">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Ажлын жин 140–165 т, хүрээ 21–29 м</span><span lang="en">Operating weight 140–165 t, reach 21–29 m</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Дизель 391 кВт (Stage V) эсвэл цахилгаан 390 кВт хөдөлгүүр, Green Hybrid энерги хуримтлуулагчтай</span><span lang="en">391 kW Stage V diesel or 390 kW electric drive, with Green Hybrid energy recovery</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Явах анги: дугуйт пилон, гинжит эсвэл гинжит портал</span><span lang="en">Undercarriage: mobile pylon, crawler or crawler gantry</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Maxcab эсвэл Portcab кабин; нүүрс, үр тариа зэрэг задгай ачаа, хаягдал төмөр, модны ачилтад зориулагдсан</span><span lang="en">Maxcab or Portcab cab; built for bulk cargo such as coal and grain, scrap and timber</span></span></li>
+          </ul>
+          <div class="duo">
+            <div>
+              <h3><span lang="mn">Хэрэглээ</span><span lang="en">Applications</span></h3>
+              <ul>
+                <li><span lang="mn">Нүүрс, задгай ачаа ачих, буулгах</span><span lang="en">Coal and bulk material handling</span></li>
+                <li><span lang="mn">Төмөр замын вагон ачих</span><span lang="en">Rail wagon loading</span></li>
+                <li><span lang="mn">Хаягдал төмөр, дахин боловсруулалт</span><span lang="en">Scrap and recycling</span></li>
+                <li><span lang="mn">Ачаа тээврийн терминал</span><span lang="en">Freight terminals</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3><span lang="mn">Бидний үйлчилгээ</span><span lang="en">What we provide</span></h3>
+              <ul>
+                <li><span lang="mn">Загвар сонголт, нийлүүлэлт</span><span lang="en">Model selection and supply</span></li>
+                <li><span lang="mn">Үйлдвэрийн SENNEBOGEN сэлбэг</span><span lang="en">Factory SENNEBOGEN parts</span></li>
+                <li><span lang="mn">Төлөвлөгөөт үйлчилгээний иж бүрдэл</span><span lang="en">Planned maintenance kits</span></li>
+                <li><span lang="mn">Оношилгоо, засвар</span><span lang="en">Diagnostics and repair</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" id="service">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span></p>
+        <h2><span lang="mn">Тоног төхөөрөмжийн сэлбэг, засвар үйлчилгээ</span><span lang="en">Equipment parts, repair and maintenance</span></h2>
+        <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, кран, материал зөөвөрлөгчийн сэлбэгийг Европ, Азийн үйлдвэрлэгчдээс татан нийлүүлнэ.</span><span lang="en">We source parts for excavators, haul trucks, dozers, cranes and material handlers from makers in Europe and Asia.</span></p>
+      </div>
+      <div class="cols">
+        <div class="col">
+          <h3><span lang="mn">Сэлбэг</span><span lang="en">Parts</span></h3>
+          <ul>
+            <li><span lang="mn">Гидравлик насос, мотор, хавхлага</span><span lang="en">Hydraulic pumps, motors and valves</span></li>
+            <li><span lang="mn">Эргэлтийн механизмын редуктор, мотор, холхивч</span><span lang="en">Slew drives, motors and bearings</span></li>
+            <li><span lang="mn">Шанаганы гол (палец), втулк</span><span lang="en">Bucket pins and bushings</span></li>
+            <li><span lang="mn">Шүүлтүүр, үйлчилгээний иж бүрдэл</span><span lang="en">Filters and service kits</span></li>
+            <li><span lang="mn">Автомат тосолгооны систем, насос</span><span lang="en">Auto-lube systems and pumps</span></li>
+            <li><span lang="mn">Өргөх гинж, шакл, оосор</span><span lang="en">Lifting chains, shackles and slings</span></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3><span lang="mn">Аюулгүй ажиллагаа</span><span lang="en">Safety equipment</span></h3>
+          <ul>
+            <li><span lang="mn">DAFO гал унтраах систем, сэлбэг</span><span lang="en">DAFO systems and spares</span></li>
+            <li><span lang="mn">Forrex EVO бодис, азотын баллон</span><span lang="en">Forrex EVO agent and nitrogen cartridges</span></li>
+            <li><span lang="mn">Краны өндөр хүчдэлийн ойртолтын дохиолол</span><span lang="en">Crane high-voltage proximity alarms</span></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3><span lang="mn">Үйлчилгээ</span><span lang="en">Service</span></h3>
+          <ul>
+            <li><span lang="mn">Галын системийн үзлэг, цэнэглэлт</span><span lang="en">Fire-system inspection and recharge</span></li>
+            <li><span lang="mn">Хуучин системийг буулгаж, шинээр солих</span><span lang="en">Removing and replacing old systems</span></li>
+            <li><span lang="mn">Уурхай дээрх оношилгоо, засвар</span><span lang="en">Diagnostics and repairs at the mine</span></li>
+            <li><span lang="mn">Оператор, механикчийн сургалт</span><span lang="en">Operator and mechanic training</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="stock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
+        <span><span lang="mn">Forrex EVO бодис, азотын баллон, чухал сэлбэгийг Улаанбаатар дахь агуулахдаа байнга нөөцөлдөг.</span><span lang="en">Forrex EVO agent, nitrogen cartridges and critical spares are always in stock in Ulaanbaatar.</span></span>
+      </p>
+    </div>
+  </section>
+
+  <section class="sec" id="references">
+    <div class="wrap">
+      <div class="head">
+        <h2><span lang="mn">23 систем, Монголын уул уурхайд</span><span lang="en">23 systems in Mongolian mining</span></h2>
+        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span></p>
+      </div>
+      <div class="fleet">
+        <div>
+          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span></p>
+          <ul class="bars">
+            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span></span><i style="--w:100%"></i><b>12</b></li>
+            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span></span><i style="--w:41.67%"></i><b>5</b></li>
+            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span></span><i style="--w:33.33%"></i><b>4</b></li>
+            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span></span><i style="--w:16.67%"></i><b>2</b></li>
+          </ul>
+          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 10-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Hyundai, Hitachi, BelAZ and XCMG. Figures as of October 2026.</span></p>
+        </div>
+        <div>
+          <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span></p>
+          <ul class="models">
+            <li><span class="model">CAT 395</span><b>5</b></li>
+            <li><span class="model">Bucyrus RH170</span><b>4</b></li>
+            <li><span class="model">CAT 793D</span><b>4</b></li>
+            <li><span class="model">Hyundai 780</span><b>4</b></li>
+            <li><span class="model">Bucyrus RH120</span><b>2</b></li>
+            <li><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span></span><b>2</b></li>
+            <li><span class="model">BelAZ 75306</span><b>1</b></li>
+            <li><span class="model">Hitachi EX1200</span><b>1</b></li>
+            <li class="total"><span class="model"><span lang="mn">Нийт</span><span lang="en">Total</span></span><b>23</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="about">
+    <div class="wrap">
+      <div class="split">
+        <div class="body">
+          <p class="eyebrow"><span lang="mn">Бидний тухай</span><span lang="en">About MHS</span></p>
+          <h2><span lang="mn">Үндэсний компани</span><span lang="en">A national company</span></h2>
+          <p><span lang="mn">Материал Хандлинг Системс ХХК 2014 онд байгуулагдсан. Бид Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN нүүрс ачигч техникийг Монголын зах зээлд амжилттай нэвтрүүлэн ажиллаж байна.</span><span lang="en">Material Handling Systems LLC was founded in 2014. We have successfully introduced Swedish DAFO automatic fire suppression systems and German SENNEBOGEN coal handling machines to the Mongolian market.</span></p>
+          <ul class="specs">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">DAFO-гийн сертификаттай мэргэжилтнүүд</span><span lang="en">DAFO-certified specialists</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Улаанбаатарт гал унтраах бодис, сэлбэгийн байнгын нөөц</span><span lang="en">Fire suppression agent and spare parts always in stock in Ulaanbaatar</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Гадны мэргэжилтнүүдтэй хамтран ажилласан туршлага</span><span lang="en">Experience working alongside international specialists</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Засварын бааз: O&amp;OCH засварын төв, Сонгинохайрхан дүүрэг</span><span lang="en">Workshop base: O&amp;OCH repair shop, Songinokhairkhan district</span></span></li>
+          </ul>
+        </div>
+        <figure class="slot tall" data-photo="crew">
+          <img src="photos/crew-20261013125314.jpg" width="1920" height="1440" loading="lazy" alt="MHS-ийн баг" data-alt-mn="MHS-ийн баг" data-alt-en="the MHS crew">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: MHS-ийн баг</span><span lang="en">Photo: the MHS crew</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap faq">
+      <div class="head">
+        <p class="eyebrow"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span></p>
+        <h2><span lang="mn">Худалдан авагчид юу асуудаг вэ</span><span lang="en">What buyers ask us</span></h2>
+        <p><span lang="mn">Өөр асуулт байвал залгаарай, эсвэл и-мэйл бичээрэй.</span><span lang="en">For anything else, call or email us.</span></p>
+      </div>
+      <div class="qa">
+        <details open>
+          <summary><span lang="mn">Ямар техникт DAFO систем суурилуулж болох вэ?</span><span lang="en">Which machines can you fit with DAFO?</span></summary>
+          <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, грейдер, ачигч, ричстакер зэрэг бүх хүнд техникт, маркаас үл хамааран. Бид CAT, Bucyrus, Hyundai, BelAZ, Hitachi, XCMG техникт суурилуулсан.</span><span lang="en">Any heavy machine, whatever the brand: excavators, haul trucks, dozers, graders, loaders and reach stackers. We have fitted CAT, Bucyrus, Hyundai, BelAZ, Hitachi and XCMG machines.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Ажиллаж байгаа техникт суурилуулж болох уу?</span><span lang="en">Can you fit machines that are already working?</span></summary>
+          <p><span lang="mn">Тийм. Уурхайд ажиллаж буй техникт газар дээр нь суурилуулна. Хуучин системтэй бол солино.</span><span lang="en">Yes. We fit systems on site to machines already working at the mine, and replace an existing system where there is one.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Монголын өвлийн хүйтэнд ажиллах уу?</span><span lang="en">Does it work in a Mongolian winter?</span></summary>
+          <p><span lang="mn">Тийм. DAFO-гийн техникийн үзүүлэлтээр Forrex EVO бодис, танк, азотын баллон, CV-X удирдлагын блок бүгд −40…+60 °C-д ажиллана.</span><span lang="en">Yes. Per DAFO’s datasheets, the Forrex EVO agent, tank, nitrogen cartridge and CV-X control unit all work from −40 to +60 °C.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Гал гарсныг систем яаж мэдэх вэ?</span><span lang="en">How does the system detect a fire?</span></summary>
+          <p><span lang="mn">Хөдөлгүүрийн тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ. CV-X удирдлагын блок кабинд дуут, гэрлэн дохио өгч, бодисыг автоматаар цацна. Оператор товч дарж гараар ч идэвхжүүлж болно. Блок кабелийн тасралт, богино холболтыг байнга хянаж, үйл явдал бүрийг бүртгэнэ.</span><span lang="en">A linear heat-sensing cable runs through the engine bay and activates at 180 °C. The CV-X control unit sounds and lights the alarm in the cab and releases the agent automatically. The operator can also release it with the manual button. The unit supervises the cable for breaks and shorts and logs every event.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Forrex EVO бодис техникийг гэмтээх үү?</span><span lang="en">Will Forrex EVO damage the machine?</span></summary>
+          <p><span lang="mn">DAFO-гийн техникийн үзүүлэлтээр Forrex EVO фторгүй, материал болон эд ангид хор нөлөөгүй, байгальд ээлтэй. Цацсаны дараа хөдөлгүүрийн тасалгааг усаар угаахад хангалттай.</span><span lang="en">Per DAFO’s datasheet, Forrex EVO is fluorine-free, non-aggressive to materials and components, and environmentally friendly. After a discharge the engine bay only needs rinsing with water.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Систем цацагдсаны дараа юу хийх вэ?</span><span lang="en">What happens after the system discharges?</span></summary>
+          <p><span lang="mn">Бидэнд мэдэгдээрэй. Улаанбаатар дахь нөөцөөс бодис, азотын баллоныг сольж цэнэглээд, ажиллагааг шалгаж техникийг ажилд гаргана.</span><span lang="en">Tell us. We recharge the agent and replace the nitrogen cartridge from stock in Ulaanbaatar, test the system and return the machine to work.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Хэр олон удаа үйлчилгээ хэрэгтэй вэ?</span><span lang="en">How often does the system need service?</span></summary>
+          <p><span lang="mn">DAFO нь бусад системстэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 5 жилд идэвхжүүлэгчийг, 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; the actuator replaced at 5 years, and at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
+        </details>
+        <details>
+          <summary><span lang="mn">Баталгаа ямар вэ?</span><span lang="en">What warranty do you give?</span></summary>
+          <p><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгааг нөхцөлийнх нь дагуу бүрэн олгоно: DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн байх. Нөхцөлийг саналд тодорхой тусгана.</span><span lang="en">We pass on the 12-month DAFO Vehicle manufacturer’s warranty in full, on its terms: installation to the manual by DAFO-trained technicians, genuine DAFO parts and agent, and the 12-month service. The conditions are stated in our proposal.</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="contact">
+    <div class="wrap contact">
+      <div class="body">
+        <p class="eyebrow"><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></p>
+        <h2><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span></h2>
+        <p><span lang="mn">Техникийнхээ марк, загвар, тоог илгээнэ үү. Бид техникийн болон үнийн санал боловсруулж хариу өгнө.</span><span lang="en">Send us the make, model and number of your machines, and we will prepare a technical and price proposal.</span></p>
+        <form class="quote" id="quote" novalidate>
+          <fieldset>
+            <legend><span lang="mn">Юу хэрэгтэй вэ?</span><span lang="en">What do you need?</span></legend>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="need" id="need-dafo" data-mn="Шинэ DAFO систем" data-en="New DAFO system"><span class="o"><span lang="mn">Шинэ DAFO систем</span><span lang="en">New DAFO system</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-replace" data-mn="Хуучин системийг солих" data-en="Replace an existing system"><span class="o"><span lang="mn">Хуучин системийг солих</span><span lang="en">Replace an existing system</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-service" data-mn="Үзлэг, цэнэглэлт" data-en="Inspection or recharge"><span class="o"><span lang="mn">Үзлэг, цэнэглэлт</span><span lang="en">Inspection or recharge</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-senn" data-mn="SENNEBOGEN машин" data-en="SENNEBOGEN machine"><span class="o"><span lang="mn">SENNEBOGEN машин</span><span lang="en">SENNEBOGEN machine</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-parts" data-mn="Сэлбэг" data-en="Parts"><span class="o"><span lang="mn">Сэлбэг</span><span lang="en">Parts</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-other" data-mn="Бусад" data-en="Other"><span class="o"><span lang="mn">Бусад</span><span lang="en">Other</span></span></label>
+            </div>
+          </fieldset>
+          <div class="fld">
+            <label class="lbl" for="q-models"><span lang="mn">Техникийн марк, загвар, тоо</span><span lang="en">Machine models and quantities</span></label>
+            <textarea id="q-models" rows="3" aria-describedby="q-models-err" placeholder="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-mn="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-en="For example: CAT 793D — 4, Hitachi EX1200 — 1"></textarea>
+            <p class="err" id="q-models-err" hidden><span lang="mn">Техникийн марк, загвар, тоог бичнэ үү.</span><span lang="en">Add the machine models and quantities.</span></p>
+          </div>
+          <div class="grid2">
+            <div class="fld">
+              <label class="lbl" for="q-name"><span lang="mn">Нэр</span><span lang="en">Name</span></label>
+              <input id="q-name" type="text" autocomplete="name">
+            </div>
+            <div class="fld">
+              <label class="lbl" for="q-company"><span lang="mn">Байгууллага</span><span lang="en">Company</span></label>
+              <input id="q-company" type="text" autocomplete="organization">
+            </div>
+            <div class="fld">
+              <label class="lbl" for="q-phone"><span lang="mn">Утас</span><span lang="en">Phone</span></label>
+              <input id="q-phone" type="tel" autocomplete="tel">
+            </div>
+            <div class="fld">
+              <label class="lbl" for="q-email"><span lang="mn">И-мэйл</span><span lang="en">Email</span></label>
+              <input id="q-email" type="email" autocomplete="email">
+            </div>
+            <div class="fld">
+              <label class="lbl" for="q-site"><span lang="mn">Байршил</span><span lang="en">Location</span></label>
+              <input id="q-site" type="text" placeholder="Уурхай, аймаг" data-ph-mn="Уурхай, аймаг" data-ph-en="Mine or aimag">
+            </div>
+          </div>
+          <div class="q-actions">
+            <a class="btn" id="q-mail" href="mailto:tuguldur@mhs.mn">
+              <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл бэлтгэх</span><span lang="en">Prepare email</span></a>
+            <button class="btn outline" type="button" id="q-copy"><span lang="mn">Хүсэлтийг хуулах</span><span lang="en">Copy request</span></button>
+          </div>
+          <p class="q-status" id="q-status" aria-live="polite">
+            <span data-st="idle"><span lang="mn">Таны и-мэйл программ хүсэлтийг бөглөсөн байдлаар нээнэ. Илгээх товчийг та өөрөө дарна.</span><span lang="en">Your email app opens with the request filled in, and you press send.</span></span>
+            <span data-st="mail" hidden><span lang="mn">И-мэйл программ нээгдэх ёстой. Нээгдээгүй бол «Хүсэлтийг хуулах»-ыг дараад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Your email app should open now. If it didn’t, use Copy request and send the text to <span>tuguldur@mhs.mn</span>.</span></span>
+            <span data-st="copied" hidden><span lang="mn">Хуулсан. И-мэйл эсвэл мессеждээ буулгаад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Copied. Paste it into an email or message to <span>tuguldur@mhs.mn</span>.</span></span>
+            <span data-st="manual" hidden><span lang="mn">Доорх текстийг сонгоод хуулна уу.</span><span lang="en">Select and copy the text below.</span></span>
+          </p>
+          <textarea class="q-text" id="q-text" readonly hidden aria-label="Request text"></textarea>
+        </form>
+      </div>
+      <div class="side-c">
+        <div class="plate">
+          <p class="plate-title">MHS <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></p>
+          <dl>
+            <dt><span lang="mn">Хаяг</span><span lang="en">Address</span></dt>
+            <dd><span lang="mn">O&amp;OCH засварын төв, Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">O&amp;OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270, Mongolia</span></dd>
+            <dt><span lang="mn">Утас</span><span lang="en">Phone</span></dt>
+            <dd><span id="phone">+976 9697 0276</span>
+              <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></dd>
+            <dt><span lang="mn">И-мэйл</span><span lang="en">Email</span></dt>
+            <dd><span id="email">tuguldur@mhs.mn</span>
+              <button type="button" class="copy" id="copy-email" data-copy="tuguldur@mhs.mn" aria-controls="email"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></dd>
+          </dl>
+        </div>
+        <div class="actions">
+          <a class="btn" href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл илгээх</span><span lang="en">Send an email</span></a>
+          <a class="btn outline" href="tel:+97696970276">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="fb">MHS</p>
+        <p><b><span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></b></p>
+        <p><span lang="mn">Уул уурхайн техникийн галын хамгаалалт, материал зөөвөрлөх машин, сэлбэг, засвар үйлчилгээ. 2014 оноос, Улаанбаатар.</span><span lang="en">Fire protection for mining machines, material handlers, parts and field service. Since 2014, Ulaanbaatar.</span></p>
+      </div>
+      <div>
+        <h4><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">Products and services</span></h4>
+        <ul>
+          <li><a href="#dafo"><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></a></li>
+          <li><a href="#process"><span lang="mn">Суурилуулалт, жил бүрийн үзлэг</span><span lang="en">Installation and annual inspection</span></a></li>
+          <li><a href="#sennebogen"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></a></li>
+          <li><a href="#service"><span lang="mn">Сэлбэг, засвар үйлчилгээ</span><span lang="en">Parts and field service</span></a></li>
+          <li><a href="#faq"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></h4>
+        <ul>
+          <li><b>DAFO</b><br><span lang="mn">Dafo Vehicle Fire Protection AB, Швед</span><span lang="en">Dafo Vehicle Fire Protection AB, Sweden</span></li>
+          <li><b>SENNEBOGEN</b><br><span lang="mn">SENNEBOGEN Maschinenfabrik GmbH, Герман</span><span lang="en">SENNEBOGEN Maschinenfabrik GmbH, Germany</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></h4>
+        <ul>
+          <li><a href="tel:+97696970276">+976 9697 0276</a></li>
+          <li><a href="mailto:tuguldur@mhs.mn">tuguldur@mhs.mn</a></li>
+          <li><span lang="mn">Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></span>
+      <span>mhs.mn</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="mbar" id="mbar" aria-label="Quick contact">
+  <a href="tel:+97696970276"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span></a>
+  <a href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл</span><span lang="en">Email</span></a>
+  <a class="primary" href="#contact"><span lang="mn">Үнийн санал</span><span lang="en">Get a quote</span></a>
+</nav>
+</div>
+
+<script>
+(function () {
+  function mail() {
+    var el = document.getElementById('email');
+    var v = el ? el.textContent.trim() : '';
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? v : 'tuguldur@mhs.mn';
+  }
+  var site = document.querySelector('.site');
+  var buttons = document.querySelectorAll('[data-set-lang]');
+
+  /* Quote request: builds the email text from the form */
+  var form = document.getElementById('quote');
+  var mailBtn = document.getElementById('q-mail');
+  var copyBtn = document.getElementById('q-copy');
+  var statusEl = document.getElementById('q-status');
+  var textEl = document.getElementById('q-text');
+  var modelsEl = document.getElementById('q-models');
+  var errEl = document.getElementById('q-models-err');
+  var LABELS = {
+    mn: { title: 'Үнийн санал хүсэх', subject: 'Үнийн санал', need: 'Хэрэгцээ', models: 'Техник, тоо ширхэг', site: 'Байршил', name: 'Нэр', company: 'Байгууллага', phone: 'Утас', email: 'И-мэйл' },
+    en: { title: 'Quote request', subject: 'Quote request', need: 'Needs', models: 'Machines and quantities', site: 'Location', name: 'Name', company: 'Company', phone: 'Phone', email: 'Email' }
+  };
+  function currentLang() { return site.getAttribute('data-lang') === 'en' ? 'en' : 'mn'; }
+  function field(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function composeQuote() {
+    var lang = currentLang();
+    var L = LABELS[lang];
+    var needs = [];
+    form.querySelectorAll('input[name="need"]:checked').forEach(function (i) { needs.push(i.getAttribute('data-' + lang)); });
+    var company = field('q-company');
+    var lines = [L.title, ''];
+    if (needs.length) lines.push(L.need + ': ' + needs.join(', '));
+    lines.push(L.models + ':', field('q-models') || '—', '');
+    [['q-site', L.site], ['q-name', L.name], ['q-company', L.company], ['q-phone', L.phone], ['q-email', L.email]].forEach(function (p) {
+      var v = field(p[0]);
+      if (v) lines.push(p[1] + ': ' + v);
+    });
+    return { subject: L.subject + (company ? ' — ' + company : ''), body: lines.join('\r\n') };
+  }
+  function updateQuote() {
+    if (!form) return;
+    var q = composeQuote();
+    mailBtn.setAttribute('href', 'mailto:' + mail() + '?subject=' + encodeURIComponent(q.subject) + '&body=' + encodeURIComponent(q.body));
+  }
+  function setStatus(state) {
+    statusEl.querySelectorAll('[data-st]').forEach(function (el) { el.hidden = el.getAttribute('data-st') !== state; });
+  }
+  function modelsGiven() {
+    var ok = field('q-models') !== '';
+    errEl.hidden = ok;
+    if (ok) modelsEl.removeAttribute('aria-invalid'); else { modelsEl.setAttribute('aria-invalid', 'true'); modelsEl.focus(); }
+    return ok;
+  }
+  if (form) {
+    form.addEventListener('input', function () {
+      updateQuote();
+      if (!errEl.hidden && field('q-models')) { errEl.hidden = true; modelsEl.removeAttribute('aria-invalid'); }
+    });
+    form.addEventListener('change', updateQuote);
+    form.addEventListener('submit', function (e) { e.preventDefault(); modelsGiven(); });
+    mailBtn.addEventListener('click', function (e) {
+      if (!modelsGiven()) { e.preventDefault(); return; }
+      updateQuote();
+      setStatus('mail');
+    });
+    copyBtn.addEventListener('click', function () {
+      if (!modelsGiven()) return;
+      var text = composeQuote().body;
+      function manual() { textEl.value = text; textEl.hidden = false; textEl.focus(); textEl.select(); setStatus('manual'); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { textEl.hidden = true; setStatus('copied'); }, manual);
+      } else {
+        manual();
+      }
+    });
+  }
+
+  /* Language: MN by default; ?lang=en or #en opens the English version */
+  function setLang(lang) {
+    site.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang)); });
+    document.querySelectorAll('[data-ph-' + lang + ']').forEach(function (el) { el.setAttribute('placeholder', el.getAttribute('data-ph-' + lang)); });
+    document.querySelectorAll('[data-alt-' + lang + ']').forEach(function (el) { el.setAttribute('alt', el.getAttribute('data-alt-' + lang)); });
+    document.querySelectorAll('[data-aria-' + lang + ']').forEach(function (el) { el.setAttribute('aria-label', el.getAttribute('data-aria-' + lang)); });
+    document.querySelectorAll('[data-subject-' + lang + ']').forEach(function (el) {
+      el.setAttribute('href', 'mailto:' + mail() + '?subject=' + encodeURIComponent(el.getAttribute('data-subject-' + lang)));
+    });
+    var title = site.getAttribute('data-title-' + lang);
+    if (title) document.title = title;
+    updateQuote();
+    try { localStorage.setItem('mhs-lang', lang); } catch (e) {}
+  }
+  var saved = null, asked = null;
+  try { saved = localStorage.getItem('mhs-lang'); } catch (e) {}
+  try { asked = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+  if (!asked && /^#(en|mn)$/.test(location.hash)) asked = location.hash.slice(1);
+  setLang(asked === 'en' || asked === 'mn' ? asked : (saved === 'en' ? 'en' : 'mn'));
+  buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); }); });
+  window.MHS = { refresh: function () { setLang(currentLang()); } };
+
+  /* Menu */
+  var menuBtn = document.getElementById('menu-btn');
+  var menu = document.getElementById('menu');
+  function closeMenu() { menuBtn.setAttribute('aria-expanded', 'false'); menu.classList.remove('open'); }
+  menuBtn.addEventListener('click', function () {
+    var open = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!open));
+    menu.classList.toggle('open', !open);
+  });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  /* Menu: mark the section on screen */
+  var links = Array.prototype.slice.call(menu.querySelectorAll('a[href^="#"]'));
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
+  if (targets.length && 'IntersectionObserver' in window) {
+    var onScreen = {};
+    var sectionWatch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { onScreen[en.target.id] = en.isIntersecting; });
+      var current = null;
+      targets.forEach(function (t) { if (!current && onScreen[t.id]) current = t.id; });
+      links.forEach(function (a) {
+        if (current && a.getAttribute('href') === '#' + current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    targets.forEach(function (t) { sectionWatch.observe(t); });
+  }
+
+  /* Copy buttons */
+  function selectText(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var target = btn.getAttribute('aria-controls');
+      function done() { btn.classList.add('ok'); setTimeout(function () { btn.classList.remove('ok'); }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { selectText(target); });
+      } else {
+        selectText(target);
+      }
+    });
+  });
+
+  /* Phone bar steps aside while the contact section is on screen */
+  var mbar = document.getElementById('mbar');
+  var contact = document.getElementById('contact');
+  if (mbar && contact && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { mbar.classList.toggle('away', entries[0].isIntersecting); }, { threshold: 0.12 }).observe(contact);
+  }
+
+  /* Photo slots: hide the hint once a photo has loaded */
+  document.querySelectorAll('.slot img').forEach(function (img) {
+    var mark = function () { img.closest('.slot').classList.add('has-photo'); };
+    if (img.complete && img.naturalWidth) mark(); else img.addEventListener('load', mark);
+  });
+})();
+</script>
+</body>
+</html>
