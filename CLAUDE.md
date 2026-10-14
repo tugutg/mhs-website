@@ -19,6 +19,7 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 - Photos live in `docs/photos/` and are linked with relative paths (`photos/…`). Keep them about 2000 px wide or less and compressed (JPEG; the build only makes copies of JPEGs); use `loading="lazy"` below the first screen. The owner replaces a photo by uploading a file with the same name; nothing else is needed.
 - `docs/og-image.jpg` is the link-preview picture (1200×630, cropped from the hero photo, used by `og:image` on both pages). Regenerate it if the hero photo changes, and keep `<title>`, `og:title` and `og:description` in step with the page's wording.
 - Keep `data-build="live"` on the `.site` div.
+- Videos are plain links to YouTube (`.vid` tiles: play icon, bilingual title, `target="_blank" rel="noopener"`, hidden "opens in a new tab" text), never embedded players, which would load Google's scripts and cookies.
 - The quote form only builds an email (mailto) — there is no server. Keep it that way unless the user asks for a form service.
 - Do not delete `docs/CNAME` (`mhs.mn`). Keep URLs in `robots.txt` and `sitemap.xml` on `https://mhs.mn/`; the sitemap lists `/` and `/en/` with hreflang alternates — bump both `<lastmod>` when content changes.
 - Before committing, run `python3 tools/build_site.py docs _site`, serve `_site/` (e.g. `python3 -m http.server -d _site`) and open `/` and `/en/` at desktop and phone widths: every image loads, no warnings, the MN/EN switch changes address.

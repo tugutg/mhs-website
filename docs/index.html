@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Материал Хандлинг Системс ХХК | DAFO, SENNEBOGEN</title>
+<title>DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК</title>
 <link rel="preload" href="fonts/fira-sans-extra-condensed-cyrillic-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/ibm-plex-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -204,6 +204,18 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .tl b{font-weight:600;font-size:17px;line-height:1.35;color:var(--ink)}
 .tl p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
 
+/* Video links: tiles that open the clip on YouTube in a new tab (links only, no embedded player) */
+.vids{display:grid;gap:12px;min-width:0}
+.sheet-vids{margin-top:clamp(32px,4vw,48px)}
+.vid-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.vid{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 14px;align-items:center;height:100%;padding:14px 16px;background:var(--white);border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:border-color .15s}
+.vid:hover{border-color:var(--steel)}
+.vid svg{grid-row:span 2;width:40px;height:40px;color:var(--steel)}
+.vid b{font-weight:600;line-height:1.35}
+.vid small{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qa .vlink{font-weight:500}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
 /* Two lists */
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:10px}
 .duo h3{margin-bottom:10px}
@@ -372,7 +384,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mhs.mn/">
 <meta property="og:site_name" content="MHS">
-<meta property="og:title" content="Материал Хандлинг Системс ХХК | DAFO, SENNEBOGEN">
+<meta property="og:title" content="DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК">
 <meta property="og:description" content="Материал Хандлинг Системс ХХК (2014 оноос): DAFO автомат гал унтраах систем, SENNEBOGEN материал зөөвөрлөх машин, уурхайн техникийн сэлбэг, засвар үйлчилгээ. Улаанбаатар.">
 <meta property="og:locale" content="mn_MN">
 <meta property="og:locale:alternate" content="en_US">
@@ -382,13 +394,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:image:alt" content="DAFO систем суурилуулсан уурхайн техник">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mhs.mn/#website", "name": "MHS", "alternateName": ["Material Handling Systems", "Материал Хандлинг Системс"], "url": "https://mhs.mn/", "inLanguage": ["mn", "en"], "publisher": {"@id": "https://mhs.mn/#org"}}, {"@id": "https://mhs.mn/#org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}, "logo": "https://mhs.mn/apple-touch-icon.png", "image": "https://mhs.mn/og-image.jpg", "areaServed": {"@type": "Country", "name": "Mongolia"}, "knowsLanguage": ["mn", "en"]}]}</script>
 </head>
 <body>
 <!-- Photos: put <img src="photos/hero.jpg" alt="…"> inside any <figure class="slot"> and the hatched panel
      is covered automatically. Before going live, set data-build="live" on the .site div below to hide
      the photo hints on slots that are still empty. -->
-<div class="site" data-lang="mn" data-build="live" data-title-mn="Материал Хандлинг Системс ХХК | DAFO, SENNEBOGEN" data-title-en="Material Handling Systems LLC | DAFO, SENNEBOGEN">
+<div class="site" data-lang="mn" data-build="live" data-title-mn="DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК" data-title-en="DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC">
 <a class="skip" href="#main"><span lang="mn">Үндсэн агуулга руу шилжих</span><span lang="en">Skip to content</span></a>
 
 <header class="top">
@@ -548,6 +560,15 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </ol>
       </div>
 
+      <div class="vids sheet-vids">
+        <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span></p>
+        <ul class="vid-list">
+          <li><a class="vid" href="https://youtu.be/Crj35qCe9To" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">DAFO систем танилцуулга</span><span lang="en">Introducing the DAFO system</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+          <li><a class="vid" href="https://youtu.be/xlfrOsjDK2U" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Гал унтраах бодис цацагдах байдал</span><span lang="en">How the agent discharges</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+          <li><a class="vid" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Бодис цацсаны дараах цэвэрлэгээ</span><span lang="en">Cleaning up after a discharge</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+        </ul>
+      </div>
+
       <div class="sheet-row">
         <div>
           <p class="sub"><span lang="mn">Үндсэн үзүүлэлт</span><span lang="en">Key data</span></p>
@@ -625,6 +646,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Явах анги: дугуйт пилон, гинжит эсвэл гинжит портал</span><span lang="en">Undercarriage: mobile pylon, crawler or crawler gantry</span></span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Maxcab эсвэл Portcab кабин; нүүрс, үр тариа зэрэг задгай ачаа, хаягдал төмөр, модны ачилтад зориулагдсан</span><span lang="en">Maxcab or Portcab cab; built for bulk cargo such as coal and grain, scrap and timber</span></span></li>
           </ul>
+          <div class="vids">
+            <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span></p>
+            <ul class="vid-list">
+              <li><a class="vid" href="https://youtu.be/f8A3k4XT3mI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN 875 E товч танилцуулна</span><span lang="en">SENNEBOGEN 875 E: a short introduction</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+              <li><a class="vid" href="https://youtu.be/jy6VQ9mh1QM" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN Монголд ирлээ</span><span lang="en">SENNEBOGEN arrives in Mongolia</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+            </ul>
+          </div>
           <div class="duo">
             <div>
               <h3><span lang="mn">Хэрэглээ</span><span lang="en">Applications</span></h3>
@@ -777,7 +805,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </details>
         <details>
           <summary><span lang="mn">Forrex EVO бодис техникийг гэмтээх үү?</span><span lang="en">Will Forrex EVO damage the machine?</span></summary>
-          <p><span lang="mn">DAFO-гийн техникийн үзүүлэлтээр Forrex EVO фторгүй, материал болон эд ангид хор нөлөөгүй, байгальд ээлтэй. Цацсаны дараа хөдөлгүүрийн тасалгааг усаар угаахад хангалттай.</span><span lang="en">Per DAFO’s datasheet, Forrex EVO is fluorine-free, non-aggressive to materials and components, and environmentally friendly. After a discharge the engine bay only needs rinsing with water.</span></p>
+          <p><span lang="mn">DAFO-гийн техникийн үзүүлэлтээр Forrex EVO фторгүй, материал болон эд ангид хор нөлөөгүй, байгальд ээлтэй. Цацсаны дараа хөдөлгүүрийн тасалгааг усаар угаахад хангалттай. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Видео: Бодис цацсаны дараах цэвэрлэгээ<span class="vh"> (YouTube, шинэ цонхонд нээгдэнэ)</span></a></span><span lang="en">Per DAFO’s datasheet, Forrex EVO is fluorine-free, non-aggressive to materials and components, and environmentally friendly. After a discharge the engine bay only needs rinsing with water. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Video: cleaning up after a discharge<span class="vh"> (YouTube, opens in a new tab)</span></a></span></p>
         </details>
         <details>
           <summary><span lang="mn">Систем цацагдсаны дараа юу хийх вэ?</span><span lang="en">What happens after the system discharges?</span></summary>
