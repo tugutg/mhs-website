@@ -321,7 +321,12 @@ REDIRECT = ("<script>(function(){try{var p=new URLSearchParams(location.search),
             "if(!q&&/^#(en|mn)$/.test(h))q=h.slice(1);%s"
             "if(q===%s){p.delete('lang');p=p.toString();"
             "location.replace(%s+(p?'?'+p:'')+(/^#(en|mn)$/.test(h)?'':h));}}catch(e){}})();</script>")
-REDIRECT_MN = REDIRECT % ("try{s=localStorage.getItem('mhs-lang')}catch(e){}if(!q&&s==='en')q='en';", "'en'", "'%s/'" % EN_DIR)
+# A saved English choice applies to visits from outside the site, not to Back/Forward (a page reloaded from
+# history would bounce straight back to /en/) or to the Mongolian page opened from our own link.
+REDIRECT_MN = REDIRECT % ("try{s=localStorage.getItem('mhs-lang')}catch(e){}"
+                          "var n=performance.getEntriesByType('navigation')[0];"
+                          "if(!q&&s==='en'&&!(n&&n.type==='back_forward')&&document.referrer.indexOf(location.origin+'/')!==0)q='en';",
+                          "'en'", "'%s/'" % EN_DIR)
 REDIRECT_EN = REDIRECT % ("", "'mn'", "'../'")
 
 
