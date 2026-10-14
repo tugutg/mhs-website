@@ -464,6 +464,14 @@ def english_hero_alt(page):
 # ---------------------------------------------------------------- main
 
 def build(src_dir, out_dir):
+    # The output folder is deleted first, so it must never be the source, inside it, or contain it.
+    src_real = os.path.normcase(os.path.realpath(src_dir))
+    out_real = os.path.normcase(os.path.realpath(out_dir))
+    if os.path.commonpath([src_real, out_real]) in (src_real, out_real):
+        print("ERROR: output folder %s overlaps source folder %s (same folder, or one inside the other); "
+              "nothing was built or deleted. Use a separate output folder, e.g. _site." % (out_dir, src_dir),
+              file=sys.stderr)
+        sys.exit(2)
     if os.path.exists(out_dir):
         shutil.rmtree(out_dir)
     shutil.copytree(src_dir, out_dir)
