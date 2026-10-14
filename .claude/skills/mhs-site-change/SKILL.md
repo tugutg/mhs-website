@@ -15,7 +15,7 @@ git status -sb && git log --oneline origin/main..HEAD   # anything uncommitted, 
 git checkout -B "$(git branch --show-current)" origin/main   # ONLY if the line above showed nothing
 ```
 
-- **Unmerged work on your branch:** if `origin/main..HEAD` lists commits, don't reset; that throws them away. Get their PR opened and merged first (with the owner's yes), or `git rebase origin/main` and build on it. Never force-push to get rid of them.
+- **Unmerged work on your branch:** if `origin/main..HEAD` lists commits, don't reset; that throws them away. Get their PR opened and merged first (following the merge rule in step 5), or `git rebase origin/main` and build on it. Never force-push to get rid of them.
 - **Other sessions:** several Claude sessions work on this repo at the same time, and `main` moved three times during one session. Check whether anyone else is doing the same thing:
   - read the recent `git log origin/main`;
   - list the open PRs (GitHub MCP `list_pull_requests`).
@@ -37,7 +37,7 @@ python3 .claude/skills/mhs-site-change/site_text.py find "гал унтраах 
   - The owner answers these quickly.
 - **The owner's text goes in verbatim.** If it may contain a typo (for example «унтаах» for «унтраах»), don't fix it silently, and ask only once:
   - **If the change needs a merge question** (see step 5), build the PR with the text as given and offer the fix there: "Fix to «унтраах», merge" / "Keep as written, merge" / "Don't merge yet".
-  - **If it's a small wording change, which merges without asking,** put the typo in the scope question. If there is no scope question, ask it on its own before building.
+  - **If it's a small wording change, which merges without asking,** ask about the typo as a separate question in the same AskUserQuestion call as the scope question. If there is no scope question, ask it on its own before building.
 - **English is your job.** Every visible string needs `<span lang="mn">…</span><span lang="en">…</span>`. Translate the owner's Mongolian into plain English and say in the PR that you did.
   - A wording change to the Mongolian alone leaves the English alone.
   - If the change alters a fact (number, model, name, contact, date), ask in the same question whether the English follows.
@@ -114,19 +114,26 @@ T=<scratchpad>/tools; NODE_PATH="$T/node_modules" node .claude/skills/mhs-site-c
    - Push with `git push -u origin HEAD`. After step 0's reset the branch tracks origin/main, so a bare `git push` goes to the wrong place.
    - Open the PR. Use a before/after table for wording changes, say what is your translation or unverified, and add a short Checks list.
 2. **Merge.** The owner's standing rule since 14 Oct 2026 (also in CLAUDE.md) decides whether to ask first.
-   - **Small wording change: merge without asking,** once the build has 0 warnings and `check.cjs` passes. Tell the owner afterwards what went live. Small wording means:
-     - only visible text changes: words, or a sentence or plain paragraph (`<p>` with the two language spans) added or removed in the existing style;
-     - plus the matching alt, aria, placeholder and title text, and the sitemap dates.
+   - **Small wording change the owner asked for: merge without asking,** once the build has 0 warnings and `check.cjs` passes. Tell the owner afterwards what went live. Small wording means:
+     - only visible text in `docs/index.html`: words changed, or a sentence added to or removed from an existing paragraph. The visible title of an existing link or video tile counts as wording;
+     - plus the matching alt, aria and placeholder text, the meta and `og:description`, `og:image:alt`, and the sitemap dates.
+
+     Questions you asked and the owner answered before building (scope, typo, English) don't change this.
    - **Everything else: ask first** with one AskUserQuestion ("Yes, merge and deploy" / "No, I'll review", plus the typo-fix option from step 1 if there is one). That covers:
-     - new kinds of elements (tiles, lists, tables, sections), and new or changed links or videos;
+     - wording the owner didn't ask for (your own spelling, style, consistency or SEO changes): list it in the PR;
+     - new paragraphs, FAQ entries, list items, table rows, and new kinds of elements (tiles, lists, tables, sections);
+     - new, removed or re-pointed links or videos (any new or changed `href`);
+     - the page titles (`<title>`, `data-title-*`, `og:title`) and anything listed under CLAUDE.md's "Owner's decisions" (update that line in the same PR);
      - CSS, JS, photos and fonts;
-     - `tools/`, workflows, CLAUDE.md and skills.
+     - `tools/`, workflows, CLAUDE.md and skills;
+     - any change with a question still unanswered when the PR is ready.
    - **When unsure, ask.**
    - Merge with `merge_method: merge` and the full 40-character `expectedHeadSha` (`git rev-parse HEAD`).
 3. **Deploy.**
    - Wait for it with `.claude/skills/mhs-site-change/deploy_wait.sh <merge sha>`. It prints the job ids when the run succeeds.
    - The script then waits for the **Live check** workflow (`.github/workflows/live-check.yml`, `tools/check_live.py`). That workflow runs after every deploy, every Monday, and on demand. It checks that https://mhs.mn serves exactly the build of that commit, that every file loads, and that each linked YouTube video still exists, with its title.
-   - Exit code 3 means the live check failed. Open its run: the summary lists what is wrong. Also use its YouTube titles to confirm the links point at the right videos, which this environment can't open.
+   - Read the Live check's result with GitHub MCP `get_job_logs` (the `check` job id the script prints, `return_content: true`). The log has the same list as the run summary. Use its YouTube titles to confirm the links point at the right videos, which this environment can't open.
+   - Exit code 3 means the live check failed; its log says what is wrong. Exit code 4 means the site was published but the Live check had not finished (or was not found) after about 14 minutes. Run the script again or look at the Actions tab before telling the owner the live site was checked.
    - Read the build log with GitHub MCP `get_job_logs`, using the `job_id` of the `build` job and `return_content: true`. A run id alone is refused unless `failed_only` is set. Confirm `Built _site from docs with 0 warning(s).`
 4. **Sync the branch:** `git fetch origin main && git merge --ff-only origin/main && git push`. The stop hook complains about unpushed commits otherwise.
 5. **Tell the owner** what is live, in a few lines, and what they must check themselves (below).

@@ -6,17 +6,22 @@
 - /, /en/, /robots.txt and /sitemap.xml answer 200, and /en redirects to /en/.
 - With --built DIR: the live / and /en/ are byte for byte the pages in DIR (the build of the same commit).
   Right after a deploy the CDN may still serve the old pages, so this retries for up to --wait seconds.
-- Every photo, font and other file the two pages use answers 200.
+  If main has moved on since (a newer commit was published), a mismatch is only a warning: the Live check
+  of that newer commit covers the site.
+- Every photo, font and other file the two pages use (og-image.jpg too) answers 200.
 - Every linked YouTube video is still there: YouTube's oEmbed answers 200 (and gives its title).
   404 means the video was removed or the link is wrong (a problem). 401/403 means private or embedding
-  turned off (a warning: the link may still open on youtube.com).
+  turned off (a warning: the link may still open on youtube.com). A YouTube link in a form this script
+  doesn't know is listed as a warning, not skipped.
 Writes a summary for the Actions run page when $GITHUB_STEP_SUMMARY is set. Exit code 1 on any problem.
 """
 import argparse
 import html
+import http.client
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.error
@@ -42,7 +47,7 @@ def get(url, follow=True, tries=3):
         except urllib.error.HTTPError as e:
             if e.code < 500 or i == tries - 1:
                 return e.code, e.headers, e.read()
-        except (urllib.error.URLError, OSError) as e:
+        except (urllib.error.URLError, http.client.HTTPException, OSError) as e:  # HTTPException: a cut-off answer
             if i == tries - 1:
                 return 0, {}, str(e).encode()
         time.sleep(3 * (i + 1))
@@ -56,6 +61,7 @@ def local_urls(page_html, page_url, site):
     for srcset in re.findall(r'\ssrcset="([^"]+)"', page_html):
         refs += [c.strip().split()[0] for c in srcset.split(',') if c.strip()]
     refs += [u.strip('\'"') for u in re.findall(r'url\(([^)]+)\)', page_html)]
+    refs += re.findall(r'<meta\s[^>]*property="og:image"[^>]*content="([^"]+)"', page_html)  # link preview
     for ref in refs:
         ref = html.unescape(ref)
         if ref.startswith(('#', 'mailto:', 'tel:', 'data:', 'javascript:')):
@@ -66,8 +72,29 @@ def local_urls(page_html, page_url, site):
     return found
 
 
-def youtube_ids(page_html):
-    return set(re.findall(r'https://(?:youtu\.be/|www\.youtube\.com/watch\?v=)([A-Za-z0-9_-]{11})', page_html))
+def youtube_links(page_html):
+    """(video ids, links whose form is unknown) for every link to YouTube on a page."""
+    ids, unknown = set(), set()
+    for link in re.findall(r'href="(https?://(?:[\w-]+\.)?(?:youtube\.com|youtu\.be)/[^"]*)"', page_html):
+        link = html.unescape(link)
+        m = re.search(r'(?:youtu\.be/|[?&]v=|/shorts/|/live/|/embed/)([A-Za-z0-9_-]{11})', link)
+        if m:
+            ids.add(m.group(1))
+        else:
+            unknown.add(link)
+    return ids, unknown
+
+
+def main_moved_on(sha):
+    """True when main is no longer at sha: a newer commit was published since, and its own Live check covers it."""
+    if not re.fullmatch(r'[0-9a-f]{40}', sha or ''):
+        return False
+    try:
+        out = subprocess.run(['git', 'ls-remote', 'origin', 'refs/heads/main'],
+                             capture_output=True, text=True, timeout=30).stdout.split()
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return bool(out) and out[0] != sha
 
 
 def main():
@@ -81,16 +108,17 @@ def main():
     stamp = os.environ.get('LIVE_CHECK_STAMP') or os.environ.get('GITHUB_SHA') or str(int(time.time()))
 
     pages = {}
+    deadline = time.time() + args.wait  # one budget for both pages: they are deployed together
     for path in ('/', '/en/'):
         url = site + path
         want = None
         if args.built:
             with open(os.path.join(args.built, path.strip('/'), 'index.html'), 'rb') as f:
                 want = f.read()
-        deadline = time.time() + args.wait
         while True:
-            # the query string makes the CDN fetch a fresh copy instead of serving its cached one
-            status, _, body = get('%s?live-check=%s' % (url, stamp))
+            # a new query string on every try: the CDN caches each address (query included) for a few minutes,
+            # so asking again for the same address could only return the same, possibly old, copy
+            status, _, body = get('%s?live-check=%s-%d' % (url, stamp, time.time()))
             if status == 200 and (want is None or body == want):
                 break
             if time.time() > deadline:
@@ -100,7 +128,11 @@ def main():
             problems.append('%s answered %s' % (url, status or 'no connection: ' + body.decode(errors='replace')[:120]))
             continue
         if want is not None and body != want:
-            problems.append('%s is not the page built from this commit (still the old one after %d s?)' % (url, args.wait))
+            if main_moved_on(stamp):
+                warnings.append('%s is not the build of %s, but main has moved on since; the Live check of the newer '
+                                'commit covers it' % (url, stamp[:7]))
+            else:
+                problems.append('%s is not the page built from this commit (still the old one after %d s?)' % (url, args.wait))
         else:
             notes.append('%s: 200%s' % (url, ', same as the build' if want is not None else ''))
         pages[path] = body.decode('utf-8', errors='replace')
@@ -128,15 +160,24 @@ def main():
     else:
         notes.append('all %d files used by the pages load' % len(files))
 
+    vids, unknown = set(), set()
+    for body in pages.values():
+        found, odd = youtube_links(body)
+        vids |= found
+        unknown |= odd
+    for link in sorted(unknown):
+        warnings.append('YouTube link not checked (unknown form): %s' % link)
     if not args.no_youtube:
-        for vid in sorted(set().union(*[youtube_ids(b) for b in pages.values()]) if pages else []):
+        for vid in sorted(vids):
             watch = 'https://www.youtube.com/watch?v=' + vid
             status, _, body = get('https://www.youtube.com/oembed?format=json&url=' + urllib.parse.quote(watch, safe=''))
             if status == 200:
                 try:
-                    title = json.loads(body).get('title', 'ok')
-                except ValueError:
-                    title = 'ok'
+                    title = json.loads(body)['title']
+                except (ValueError, KeyError, TypeError):
+                    warnings.append('YouTube %s: oEmbed answered 200 but not with its usual JSON (a consent or bot '
+                                    'page?); check that %s opens' % (vid, watch))
+                    continue
                 notes.append('YouTube %s: «%s»' % (vid, title))
             elif status in (401, 403):
                 warnings.append('YouTube %s is private or has embedding turned off (%s); check that %s opens' % (vid, status, watch))
