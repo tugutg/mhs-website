@@ -1,0 +1,38 @@
+# Checks https://mhs.mn after every successful "Publish site" run, every Monday, and on demand (Run workflow):
+# the live pages are exactly what was built, every photo and font loads, and the linked YouTube videos are
+# still there. It never changes the site; a red run means something on the live site needs a look.
+# See tools/check_live.py.
+name: Live check
+
+on:
+  workflow_run:
+    workflows: ["Publish site"]
+    types: [completed]
+  schedule:
+    - cron: "17 1 * * 1"   # Mondays 01:17 UTC (09:17 in Ulaanbaatar)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # after a publish: the commit that was deployed; otherwise: main as it is now
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check Pillow==12.3.0
+      - name: Build the site from docs/ (to compare with what is live)
+        run: python tools/build_site.py docs _site
+      - name: Check https://mhs.mn
+        env:
+          LIVE_CHECK_STAMP: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: python tools/check_live.py --built _site --wait 300

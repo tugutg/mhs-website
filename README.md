@@ -28,6 +28,14 @@ Every commit to `main` starts the **Publish site** workflow (Actions tab). It co
 
 The site is live a minute or two after the workflow turns green. If it turns red, open the run to see why; you can start it again with **Run workflow**. Lines starting with `WARNING` in the build log mean the build met something it did not recognise and published that part unchanged — the site still works.
 
+After each publish, a second workflow, **Live check**, opens https://mhs.mn from GitHub's servers. It checks that:
+
+- the live pages are exactly what was just built;
+- every photo and font loads;
+- each linked YouTube video still exists. Its summary lists the video titles.
+
+It also runs every Monday morning, and you can start it any time with **Run workflow**. It never changes the site. A red Live check means something on the live site needs a look; open the run, and the summary says what is wrong.
+
 ## Hosting
 
 - GitHub Pages: Settings → Pages → Build and deployment → Source: **GitHub Actions**. Custom domain `mhs.mn`, Enforce HTTPS on.

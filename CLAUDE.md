@@ -1,6 +1,6 @@
 # Notes for Claude — mhs.mn website
 
-Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions").
+Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions"). After every successful deploy, every Monday and on demand, `.github/workflows/live-check.yml` runs `tools/check_live.py`. It checks that the live pages are exactly that build, that every file loads, and that the linked YouTube videos still exist; it never changes the site.
 
 ## Rules
 
@@ -27,7 +27,7 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 ## Working on this repo
 
 - Other Claude sessions push to `main` in parallel. Before starting, `git fetch` and read `git log origin/main` and the open PRs for overlapping work. Do it again before pushing, and re-read this file after fetching.
-- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section), `check.cjs` (browser checks) and `deploy_wait.sh`. Merges need the owner's yes each time.
+- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section), `check.cjs` (browser checks) and `deploy_wait.sh`. Merging follows the owner's rule below.
 
 ## Owner's decisions (don't reopen)
 
@@ -38,5 +38,8 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 - Titles (`data-title-mn/en` and `<title>`): MN «DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК», EN "DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC".
 - No Facebook or YouTube channel links on the site. The videos stay plain YouTube links: five `.vid` tiles (three DAFO, two SENNEBOGEN), plus the clean-up video linked again in the FAQ answer (`a.vlink`), so six links show in each language.
 - Leave as they are: the Mongolian aria labels, and the English FAQ sentence "… at 10 years the piston and agent replaced …".
+- **Merging (standing rule since 14 Oct 2026):**
+  - **Small wording changes merge without asking,** once the build has 0 warnings and the skill's `check.cjs` passes. Tell the owner afterwards what went live. Small wording means only visible text: words, or a sentence or plain paragraph added or removed in the existing style, plus matching alt, aria, placeholder and title text and the sitemap dates.
+  - **Everything else asks first:** new kinds of elements, links or videos, CSS, JS, photos, fonts, `tools/`, workflows, CLAUDE.md and skills. So does any change with an open question (scope, typo, or whether the English follows).
 - Search Console is verified for mhs.mn as a Domain property (DNS), so no verification tag is needed.
 - A "DAFO Монголиа" listing on huree.mn has nothing to do with MHS or DAFO. Ignore it.
