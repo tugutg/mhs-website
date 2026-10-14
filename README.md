@@ -14,6 +14,8 @@ docs/                      the website source: the only place to edit
   sitemap.xml
 tools/build_site.py        turns docs/ into the published site (runs on GitHub, not on your computer)
 .github/workflows/pages.yml  runs the build and publishes the site after every change to main
+tools/check_live.py        checks the live site (runs on GitHub)
+.github/workflows/live-check.yml  runs that check after each publish, every Monday and on demand
 README.md                  this file (not published)
 CLAUDE.md                  editing rules for Claude (not published)
 ```
@@ -27,6 +29,14 @@ Every commit to `main` starts the **Publish site** workflow (Actions tab). It co
 - links that tell search engines the two pages are the same site in two languages.
 
 The site is live a minute or two after the workflow turns green. If it turns red, open the run to see why; you can start it again with **Run workflow**. Lines starting with `WARNING` in the build log mean the build met something it did not recognise and published that part unchanged — the site still works.
+
+After each publish, a second workflow, **Live check**, opens https://mhs.mn from GitHub's servers. It checks that:
+
+- the live pages are exactly what was just built;
+- every photo and font loads;
+- each linked YouTube video still exists. Its summary lists the video titles.
+
+It also runs every Monday morning (09:17 Ulaanbaatar time), and you can start it any time with **Run workflow**. If the repository has had no changes for 60 days, GitHub pauses the Monday run; Actions → Live check → **Enable workflow** turns it back on. It never changes the site. A red Live check means something on the live site needs a look; open the run, and the summary says what is wrong.
 
 ## Hosting
 

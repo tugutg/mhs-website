@@ -1,6 +1,6 @@
 # Notes for Claude — mhs.mn website
 
-Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions").
+Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions"). After every successful deploy, every Monday and on demand, `.github/workflows/live-check.yml` runs `tools/check_live.py`. It checks that the live pages are exactly that build, that every file loads, and that the linked YouTube videos still exist; it never changes the site.
 
 ## Rules
 
@@ -27,16 +27,30 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 ## Working on this repo
 
 - Other Claude sessions push to `main` in parallel. Before starting, `git fetch` and read `git log origin/main` and the open PRs for overlapping work. Do it again before pushing, and re-read this file after fetching.
-- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section), `check.cjs` (browser checks) and `deploy_wait.sh`. Merges need the owner's yes each time.
+- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section), `check.cjs` (browser checks) and `deploy_wait.sh`. Merging follows the owner's rule below.
 
 ## Owner's decisions (don't reopen)
 
-- The owner's Mongolian text goes in verbatim. A possible typo is offered as a fix option in the merge question, once the PR is open, never fixed silently. «эрсдлээс» (hero heading) is spelled on purpose; leave the page's other forms («эрсдэлийн», «эрсдэлтэй») as they are, and don't make them match either way.
+- The owner's Mongolian text goes in verbatim. A possible typo is never fixed silently, and is asked about once: for a small wording change (see Merging below), before building, in the same AskUserQuestion call as the scope question (or on its own); for any other change, as a fix option in the merge question. «эрсдлээс» (hero heading) is spelled on purpose; leave the page's other forms («эрсдэлийн», «эрсдэлтэй») as they are, and don't make them match either way.
 - Claude writes the English side. A wording change to the Mongolian alone leaves the English as it is. If the change alters a fact (number, model, name, contact, date), ask whether the English follows.
 - DAFO and SENNEBOGEN: MHS is their "official dealer" («Албан ёсны дилер»), never "partner". The rule above means only these two brands are shown. The service schedule names only the 10-year major service, with no 5-year actuator replacement. The warranty text says «DAFO Vehicle».
 - The extinguishing agent is «Форрекс» in the DAFO video title, the key-data row label and the About list. Elsewhere «Forrex EVO бодис» stays in Latin, and the English stays "agent" / "Forrex EVO". «галын хор» is fine in the owner's own Forrex EVO paragraph.
 - Titles (`data-title-mn/en` and `<title>`): MN «DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК», EN "DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC".
 - No Facebook or YouTube channel links on the site. The videos stay plain YouTube links: five `.vid` tiles (three DAFO, two SENNEBOGEN), plus the clean-up video linked again in the FAQ answer (`a.vlink`), so six links show in each language.
 - Leave as they are: the Mongolian aria labels, and the English FAQ sentence "… at 10 years the piston and agent replaced …".
+- **Merging (standing rule since 14 Oct 2026):**
+  - **Small wording changes the owner asked for merge without asking,** once the build has 0 warnings and the skill's `check.cjs` passes. Tell the owner afterwards what went live.
+    - Small wording means only visible text in `docs/index.html`: words changed, or a sentence added to or removed from an existing paragraph. The visible title of an existing link or video tile counts as wording.
+    - It includes the matching alt, aria and placeholder text, the meta and `og:description`, `og:image:alt` and the sitemap dates.
+    - Questions answered before building (scope, a possible typo, whether the English follows) don't change this.
+  - **Everything else asks first:**
+    - wording Claude proposes on its own (spelling, style, consistency, SEO): list it in the PR instead;
+    - new paragraphs, FAQ entries, list items or table rows, and new kinds of elements;
+    - new, removed or re-pointed links or videos (any new or changed `href`);
+    - the page titles (`<title>`, `data-title-*`, `og:title`) and anything else listed in this section; update its line here in the same PR;
+    - CSS, JS, photos, fonts, `tools/`, workflows, CLAUDE.md and skills;
+    - any change with a question still unanswered when the PR is ready.
+
+    When unsure, ask.
 - Search Console is verified for mhs.mn as a Domain property (DNS), so no verification tag is needed.
 - A "DAFO Монголиа" listing on huree.mn has nothing to do with MHS or DAFO. Ignore it.
