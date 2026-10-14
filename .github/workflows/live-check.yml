@@ -1,4 +1,4 @@
-# Checks https://mhs.mn after every successful "Publish site" run, every Monday, and on demand (Run workflow):
+# Checks https://mhs.mn after every successful "Publish site" run, once a month, and on demand (Run workflow):
 # the live pages are exactly what was built, every photo and font loads, and the linked YouTube videos are
 # still there. It never changes the site; a red run means something on the live site needs a look.
 # See tools/check_live.py.
@@ -9,7 +9,7 @@ on:
     workflows: ["Publish site"]
     types: [completed]
   schedule:
-    - cron: "17 1 * * 1"   # Mondays 01:17 UTC (09:17 in Ulaanbaatar)
+    - cron: "17 1 1 * *"   # the 1st of each month, 01:17 UTC (09:17 in Ulaanbaatar)
   workflow_dispatch:
 
 permissions:

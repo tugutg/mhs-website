@@ -1,6 +1,6 @@
 # Notes for Claude — mhs.mn website
 
-Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions"). After every successful deploy, every Monday and on demand, `.github/workflows/live-check.yml` runs `tools/check_live.py`. It checks that the live pages are exactly that build, that every file loads, and that the linked YouTube videos still exist; it never changes the site.
+Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the source. On every push to `main` that changes `docs/`, `tools/build_site.py` or `pages.yml` (nothing else publishes), GitHub Actions (`.github/workflows/pages.yml`) runs `tools/build_site.py`, which turns `docs/` into the published site, and deploys it to https://mhs.mn (Settings → Pages → Source: "GitHub Actions"). After every successful deploy, on the 1st of each month and on demand, `.github/workflows/live-check.yml` runs `tools/check_live.py`. It checks that the live pages are exactly that build, that every file loads, and that the linked YouTube videos still exist; it never changes the site.
 
 ## Rules
 

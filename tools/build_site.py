@@ -3,7 +3,7 @@
 
     python tools/build_site.py [SOURCE_DIR] [OUTPUT_DIR]      (defaults: docs _site)
 
-GitHub Actions runs this on every push to main (.github/workflows/pages.yml) and publishes the output.
+GitHub Actions runs this on every push to main that changes docs/ or the build (.github/workflows/pages.yml) and publishes the output.
 Needs Python 3.9+ and Pillow, nothing else. docs/ stays the only thing anyone edits:
 
   * Everything in docs/ is copied as it is (CNAME, robots.txt, sitemap.xml, og-image.jpg, fonts, photos).
