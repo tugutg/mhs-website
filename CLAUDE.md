@@ -37,6 +37,7 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 - The extinguishing agent is «Форрекс» in the DAFO video title, the key-data row label and the About list. Elsewhere «Forrex EVO бодис» stays in Latin, and the English stays "agent" / "Forrex EVO". «галын хор» is fine in the owner's own Forrex EVO paragraph.
 - Titles (`data-title-mn/en` and `<title>`): MN «DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК», EN "DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC".
 - No Facebook or YouTube channel links on the site. The videos stay plain YouTube links: five `.vid` tiles (three DAFO, two SENNEBOGEN), plus the clean-up video linked again in the FAQ answer (`a.vlink`), so six links show in each language.
+- The «Форрекс цацагдах байдал» video (`xlfrOsjDK2U`) stays: its YouTube title names "Forrex AB-50" while the page says Forrex EVO, and the owner chose to keep it (14 Oct 2026).
 - Leave as they are: the Mongolian aria labels, and the English FAQ sentence "… at 10 years the piston and agent replaced …".
 - **Merging (standing rule since 14 Oct 2026):**
   - **Small wording changes the owner asked for merge without asking,** once the build has 0 warnings and the skill's `check.cjs` passes. Tell the owner afterwards what went live.
