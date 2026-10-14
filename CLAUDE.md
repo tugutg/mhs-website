@@ -23,3 +23,20 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 - The quote form only builds an email (mailto) — there is no server. Keep it that way unless the user asks for a form service.
 - Do not delete `docs/CNAME` (`mhs.mn`). Keep URLs in `robots.txt` and `sitemap.xml` on `https://mhs.mn/`; the sitemap lists `/` and `/en/` with hreflang alternates — bump both `<lastmod>` when content changes.
 - Before committing, run `python3 tools/build_site.py docs _site`, serve `_site/` (e.g. `python3 -m http.server -d _site`) and open `/` and `/en/` at desktop and phone widths: every image loads, no warnings, the MN/EN switch changes address.
+
+## Working on this repo
+
+- Other Claude sessions push to `main` in parallel. Before starting, `git fetch` and read `git log origin/main` and the open PRs for overlapping work. Do it again before pushing, and re-read this file after fetching.
+- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section), `check.cjs` (browser checks) and `deploy_wait.sh`. Merges need the owner's yes each time.
+
+## Owner's decisions (don't reopen)
+
+- The owner's Mongolian text goes in verbatim. A possible typo is offered as a fix option in the merge question, once the PR is open, never fixed silently. «эрсдлээс» (hero heading) is spelled on purpose; leave the page's other forms («эрсдэлийн», «эрсдэлтэй») as they are, and don't make them match either way.
+- Claude writes the English side. A wording change to the Mongolian alone leaves the English as it is. If the change alters a fact (number, model, name, contact, date), ask whether the English follows.
+- DAFO and SENNEBOGEN: MHS is their "official dealer" («Албан ёсны дилер»), never "partner". The rule above means only these two brands are shown. The service schedule names only the 10-year major service, with no 5-year actuator replacement. The warranty text says «DAFO Vehicle».
+- The extinguishing agent is «Форрекс» in the DAFO video title, the key-data row label and the About list. Elsewhere «Forrex EVO бодис» stays in Latin, and the English stays "agent" / "Forrex EVO". «галын хор» is fine in the owner's own Forrex EVO paragraph.
+- Titles (`data-title-mn/en` and `<title>`): MN «DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК», EN "DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC".
+- No Facebook or YouTube channel links on the site. The videos stay plain YouTube links: five `.vid` tiles (three DAFO, two SENNEBOGEN), plus the clean-up video linked again in the FAQ answer (`a.vlink`), so six links show in each language.
+- Leave as they are: the Mongolian aria labels, and the English FAQ sentence "… at 10 years the piston and agent replaced …".
+- Search Console is verified for mhs.mn as a Domain property (DNS), so no verification tag is needed.
+- A "DAFO Монголиа" listing on huree.mn has nothing to do with MHS or DAFO. Ignore it.
