@@ -277,7 +277,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .foot{background:var(--graphite-2);color:var(--on-dark-muted);font-size:14.5px}
 .foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:28px 32px;padding-block:48px 36px}
 .foot-grid > div{min-width:0}
-.foot h4{margin:0 0 14px;font:600 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sky)}
+.foot h3{margin:0 0 14px;font:600 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sky)}
 .foot p{margin:0;line-height:1.55}
 .foot .fb{font-family:var(--body);font-weight:700;font-size:28px;line-height:1;color:var(--white);margin-bottom:10px}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -358,6 +358,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:image" content="https://mhs.mn/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DAFO систем суурилуулсан уурхайн техник">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": "+976 9697 0276", "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}}</script>
@@ -371,11 +372,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="MHS, Material Handling Systems">
+    <a class="brand" href="#top" aria-label="MHS, Материал Хандлинг Системс" data-aria-mn="MHS, Материал Хандлинг Системс" data-aria-en="MHS, Material Handling Systems">
       <span class="brand-mark">MHS</span>
       <span class="brand-name"><span lang="mn">Материал Хандлинг Системс</span><span lang="en">Material Handling Systems</span></span>
     </a>
-    <nav class="menu" id="menu" aria-label="Main">
+    <nav class="menu" id="menu" aria-label="Үндсэн цэс" data-aria-mn="Үндсэн цэс" data-aria-en="Main">
       <a href="#dafo">DAFO</a>
       <a href="#process"><span lang="mn">Ажлын үе шат</span><span lang="en">Process</span></a>
       <a href="#sennebogen">SENNEBOGEN</a>
@@ -384,12 +385,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       <a href="#about"><span lang="mn">Бидний тухай</span><span lang="en">About</span></a>
     </nav>
     <div class="tools">
-      <div class="lang" role="group" aria-label="Хэл / Language">
+      <div class="lang" role="group" aria-label="Хэл" data-aria-mn="Хэл" data-aria-en="Language">
         <button type="button" id="lang-mn" data-set-lang="mn" aria-pressed="true" title="Монгол">МН</button>
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false" title="English">EN</button>
       </div>
       <a class="btn sm" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Get a quote</span></a>
-      <button class="menu-btn" id="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Цэс / Menu">
+      <button class="menu-btn" id="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Цэс" data-aria-mn="Цэс" data-aria-en="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
@@ -400,7 +401,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="hero" id="top">
     <figure class="slot" data-photo="hero">
-          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO">
+          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" fetchpriority="high" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO">
       <figcaption>
         <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
         <span lang="mn">Зураг: DAFO систем суурилуулсан уурхайн техник</span><span lang="en">Photo: mining machine fitted with DAFO</span>
@@ -423,7 +424,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     </div>
   </section>
 
-  <section class="figures" aria-label="MHS in numbers">
+  <section class="figures" aria-label="MHS тоогоор" data-aria-mn="MHS тоогоор" data-aria-en="MHS in numbers">
     <div class="wrap">
       <div class="fig"><b>23</b><span><span lang="mn">Монголд суурилуулсан DAFO систем</span><span lang="en">DAFO systems installed in Mongolia</span></span></div>
       <div class="fig"><b>5</b><span><span lang="mn">нүүрсний уурхайн компанитай ажилласан</span><span lang="en">coal mining companies served</span></span></div>
@@ -446,7 +447,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           </figure>
           <div class="card-body">
             <h3><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></h3>
-            <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, ачигч, рийчстакерт зориулсан автомат гал илрүүлэх, унтраах систем.</span><span lang="en">Automatic fire detection and suppression for excavators, haul trucks, dozers, loaders and reach stackers.</span></p>
+            <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, ачигч, ричстакерт зориулсан автомат гал илрүүлэх, унтраах систем.</span><span lang="en">Automatic fire detection and suppression for excavators, haul trucks, dozers, loaders and reach stackers.</span></p>
             <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </a>
@@ -579,7 +580,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <li><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span></p></li>
           <li><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span></p></li>
           <li><b><span lang="mn">Сургалт</span><span lang="en">Training</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span></p></li>
-          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 5 ба 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 5- and 10-year major services. Recharge from stock in Ulaanbaatar after any discharge.</span></p></li>
+          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 10-year major service. Recharge from stock in Ulaanbaatar after any discharge.</span></p></li>
         </ol>
       </div>
     </div>
@@ -595,7 +596,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         <div class="body">
           <p class="eyebrow"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></p>
           <h2><span lang="mn">Нүүрс ачигч</span><span lang="en">Coal handlers</span></h2>
-          <p><span lang="mn">SENNEBOGEN-ий албан ёсны түншийн хувьд бид нүүрс болон задгай ачаа ачих, буулгахад зориулсан 875 E Hybrid загварыг санал болгож, эх үйлдвэрийн сэлбэг, засвар үйлчилгээгээр хангана. Бусад загварыг ажлын онцлогт тань тохируулан сонгоно.</span><span lang="en">As an official SENNEBOGEN partner we offer the 875 E Hybrid for loading and unloading coal and other bulk material, backed by genuine parts and service. Other models are selected to suit the job.</span></p>
+          <p><span lang="mn">SENNEBOGEN-ий албан ёсны дилерийн хувьд бид нүүрс болон задгай ачаа ачих, буулгахад зориулсан 875 E Hybrid загварыг санал болгож, эх үйлдвэрийн сэлбэг, засвар үйлчилгээгээр хангана. Бусад загварыг ажлын онцлогт тань тохируулан сонгоно.</span><span lang="en">As an official SENNEBOGEN dealer we offer the 875 E Hybrid for loading and unloading coal and other bulk material, backed by genuine parts and service. Other models are selected to suit the job.</span></p>
           <p class="sub"><span lang="mn">SENNEBOGEN 875 E Hybrid, sennebogen.com-ын мэдээллээр</span><span lang="en">SENNEBOGEN 875 E Hybrid, per sennebogen.com</span></p>
           <ul class="specs" style="margin-top:0">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Ажлын жин 140–165 т, хүрээ 21–29 м</span><span lang="en">Operating weight 140–165 t, reach 21–29 m</span></span></li>
@@ -763,7 +764,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </details>
         <details>
           <summary><span lang="mn">Хэр олон удаа үйлчилгээ хэрэгтэй вэ?</span><span lang="en">How often does the system need service?</span></summary>
-          <p><span lang="mn">DAFO нь бусад системстэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 5 жилд идэвхжүүлэгчийг, 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; the actuator replaced at 5 years, and at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
+          <p><span lang="mn">DAFO нь бусад системстэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
         </details>
         <details>
           <summary><span lang="mn">Баталгаа ямар вэ?</span><span lang="en">What warranty do you give?</span></summary>
@@ -829,7 +830,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <span data-st="copied" hidden><span lang="mn">Хуулсан. И-мэйл эсвэл мессеждээ буулгаад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Copied. Paste it into an email or message to <span>tuguldur@mhs.mn</span>.</span></span>
             <span data-st="manual" hidden><span lang="mn">Доорх текстийг сонгоод хуулна уу.</span><span lang="en">Select and copy the text below.</span></span>
           </p>
-          <textarea class="q-text" id="q-text" readonly hidden aria-label="Request text"></textarea>
+          <textarea class="q-text" id="q-text" readonly hidden aria-label="Хүсэлтийн текст" data-aria-mn="Хүсэлтийн текст" data-aria-en="Request text"></textarea>
         </form>
       </div>
       <div class="side-c">
@@ -867,7 +868,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         <p><span lang="mn">Уул уурхайн техникийн галын хамгаалалт, материал зөөвөрлөх машин, сэлбэг, засвар үйлчилгээ. 2014 оноос, Улаанбаатар.</span><span lang="en">Fire protection for mining machines, material handlers, parts and field service. Since 2014, Ulaanbaatar.</span></p>
       </div>
       <div>
-        <h4><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">Products and services</span></h4>
+        <h3><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">Products and services</span></h3>
         <ul>
           <li><a href="#dafo"><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></a></li>
           <li><a href="#process"><span lang="mn">Суурилуулалт, жил бүрийн үзлэг</span><span lang="en">Installation and annual inspection</span></a></li>
@@ -877,14 +878,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </ul>
       </div>
       <div>
-        <h4><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></h4>
+        <h3><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></h3>
         <ul>
           <li><b>DAFO</b><br><span lang="mn">Dafo Vehicle Fire Protection AB, Швед</span><span lang="en">Dafo Vehicle Fire Protection AB, Sweden</span></li>
           <li><b>SENNEBOGEN</b><br><span lang="mn">SENNEBOGEN Maschinenfabrik GmbH, Герман</span><span lang="en">SENNEBOGEN Maschinenfabrik GmbH, Germany</span></li>
         </ul>
       </div>
       <div>
-        <h4><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></h4>
+        <h3><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></h3>
         <ul>
           <li><a href="tel:+97696970276">+976 9697 0276</a></li>
           <li><a href="mailto:tuguldur@mhs.mn">tuguldur@mhs.mn</a></li>
@@ -899,7 +900,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   </div>
 </footer>
 
-<nav class="mbar" id="mbar" aria-label="Quick contact">
+<nav class="mbar" id="mbar" aria-label="Шуурхай холбоо барих" data-aria-mn="Шуурхай холбоо барих" data-aria-en="Quick contact">
   <a href="tel:+97696970276"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span></a>
   <a href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл</span><span lang="en">Email</span></a>
   <a class="primary" href="#contact"><span lang="mn">Үнийн санал</span><span lang="en">Get a quote</span></a>
