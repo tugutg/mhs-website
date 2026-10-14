@@ -228,6 +228,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .plate dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:16px 22px;margin:0}
 .plate dt{padding-top:3px;font:500 11px/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-muted)}
 .plate dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:16px;line-height:1.5;color:var(--white)}
+.plate dd.multi{flex-direction:column;align-items:flex-start}
+.plate dd .line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .copy{padding:7px 9px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted);background:transparent;border:1px solid var(--graphite-line);cursor:pointer}
 .copy:hover{color:var(--white);border-color:var(--on-dark-muted)}
 .copy .done{display:none}
@@ -361,7 +363,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:image:alt" content="DAFO систем суурилуулсан уурхайн техник">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": "+976 9697 0276", "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Material Handling Systems LLC", "foundingDate": "2014", "alternateName": ["MHS", "Материал Хандлинг Системс ХХК"], "url": "https://mhs.mn/", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}}</script>
 </head>
 <body>
 <!-- Photos: put <img src="photos/hero.jpg" alt="…"> inside any <figure class="slot"> and the hatched panel
@@ -503,7 +505,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       <div class="how" id="how">
         <div class="how-head">
           <h3><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></h3>
-          <span class="sheet"><span lang="mn">ДАФО SV‑K систем</span><span lang="en">DAFO SV-K system</span></span>
+          <span class="sheet"><span lang="mn">DAFO SV‑K систем</span><span lang="en">DAFO SV-K system</span></span>
         </div>
         <figure class="how-fig">
           <div class="how-img">
@@ -521,7 +523,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         <ol class="how-list">
             <li><span class="n">1</span><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span></p></div></li>
             <li><span class="n">2</span><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span></p></div></li>
-            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurizes the tank to 20 bar. At rest the tank holds no pressure.</span></p></div></li>
+            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurises the tank to 20 bar. At rest the tank holds no pressure.</span></p></div></li>
             <li><span class="n">4</span><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span></p></div></li>
             <li><span class="n">5</span><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span></p></div></li>
         </ol>
@@ -558,7 +560,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <table class="spec">
             <tbody>
               <tr><th scope="row"><span lang="mn">Үйлчилгээний хуваарь</span><span lang="en">Service schedule</span></th><td><span lang="mn">7 хоног тутам операторын үзлэг. 12 сар тутам DAFO-гийн эрх бүхий техникчийн үйлчилгээ. 10 жилд бүлүүр, бодис солиж, азотын баллонд гидравлик туршилт хийнэ.</span><span lang="en">Weekly operator check. Service by a DAFO-authorised technician every 12 months. At 10 years the piston and agent are replaced and the nitrogen cartridge is hydrostatically tested.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Баталгаа</span><span lang="en">Warranty</span></th><td><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгаа. DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн үед хүчинтэй.</span><span lang="en">12-month DAFO Vehicle manufacturer’s warranty. Valid when the system is installed to the manual by DAFO-trained technicians, uses genuine DAFO parts and agent, and receives its 12-month service.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Баталгаа</span><span lang="en">Warranty</span></th><td><span lang="mn">Dafo Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгаа. DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн үед хүчинтэй.</span><span lang="en">12-month Dafo Vehicle manufacturer’s warranty. Valid when the system is installed to the manual by DAFO-trained technicians, uses genuine DAFO parts and agent, and receives its 12-month service.</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -764,11 +766,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </details>
         <details>
           <summary><span lang="mn">Хэр олон удаа үйлчилгээ хэрэгтэй вэ?</span><span lang="en">How often does the system need service?</span></summary>
-          <p><span lang="mn">DAFO нь бусад системстэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
+          <p><span lang="mn">DAFO нь бусад системтэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
         </details>
         <details>
           <summary><span lang="mn">Баталгаа ямар вэ?</span><span lang="en">What warranty do you give?</span></summary>
-          <p><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгааг нөхцөлийнх нь дагуу бүрэн олгоно: DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн байх. Нөхцөлийг саналд тодорхой тусгана.</span><span lang="en">We pass on the 12-month DAFO Vehicle manufacturer’s warranty in full, on its terms: installation to the manual by DAFO-trained technicians, genuine DAFO parts and agent, and the 12-month service. The conditions are stated in our proposal.</span></p>
+          <p><span lang="mn">Dafo Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгааг нөхцөлийнх нь дагуу бүрэн олгоно: DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн байх. Нөхцөлийг саналд тодорхой тусгана.</span><span lang="en">We pass on the 12-month Dafo Vehicle manufacturer’s warranty in full, on its terms: installation to the manual by DAFO-trained technicians, genuine DAFO parts and agent, and the 12-month service. The conditions are stated in our proposal.</span></p>
         </details>
       </div>
     </div>
@@ -840,8 +842,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <dt><span lang="mn">Хаяг</span><span lang="en">Address</span></dt>
             <dd><span lang="mn">O&amp;OCH засварын төв, Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">O&amp;OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270, Mongolia</span></dd>
             <dt><span lang="mn">Утас</span><span lang="en">Phone</span></dt>
-            <dd><span id="phone">+976 9697 0276</span>
-              <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></dd>
+            <dd class="multi">
+              <div class="line"><span id="phone">+976&nbsp;9697&nbsp;0276</span>
+                <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div>
+              <div class="line"><span id="phone-2">+976&nbsp;9907&nbsp;8171</span>
+                <button type="button" class="copy" id="copy-phone-2" data-copy="+97699078171" aria-controls="phone-2"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div></dd>
             <dt><span lang="mn">И-мэйл</span><span lang="en">Email</span></dt>
             <dd><span id="email">tuguldur@mhs.mn</span>
               <button type="button" class="copy" id="copy-email" data-copy="tuguldur@mhs.mn" aria-controls="email"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></dd>
@@ -887,7 +892,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       <div>
         <h3><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></h3>
         <ul>
-          <li><a href="tel:+97696970276">+976 9697 0276</a></li>
+          <li><a href="tel:+97696970276">+976&nbsp;9697&nbsp;0276</a></li>
+          <li><a href="tel:+97699078171">+976&nbsp;9907&nbsp;8171</a></li>
           <li><a href="mailto:tuguldur@mhs.mn">tuguldur@mhs.mn</a></li>
           <li><span lang="mn">Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270</span></li>
         </ul>
