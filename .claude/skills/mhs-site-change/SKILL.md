@@ -130,8 +130,9 @@ T=<scratchpad>/tools; NODE_PATH="$T/node_modules" node .claude/skills/mhs-site-c
    - **When unsure, ask.**
    - Merge with `merge_method: merge` and the full 40-character `expectedHeadSha` (`git rev-parse HEAD`).
 3. **Deploy.**
+   - Only a merge that changes `docs/`, `tools/build_site.py` or `pages.yml` publishes. After any other merge (CLAUDE.md, README, the skill), there is nothing to wait for; skip to step 4.
    - Wait for it with `.claude/skills/mhs-site-change/deploy_wait.sh <merge sha>`. It prints the job ids when the run succeeds.
-   - The script then waits for the **Live check** workflow (`.github/workflows/live-check.yml`, `tools/check_live.py`). That workflow runs after every deploy, every Monday, and on demand. It checks that https://mhs.mn serves exactly the build of that commit, that every file loads, and that each linked YouTube video still exists, with its title.
+   - The script then waits for the **Live check** workflow (`.github/workflows/live-check.yml`, `tools/check_live.py`). That workflow runs after every deploy, on the 1st of each month, and on demand. It checks that https://mhs.mn serves exactly the build of that commit, that every file loads, and that each linked YouTube video still exists, with its title.
    - Read the Live check's result with GitHub MCP `get_job_logs` (the `check` job id the script prints, `return_content: true`). The log has the same list as the run summary. Use its YouTube titles to confirm the links point at the right videos, which this environment can't open.
    - Exit code 3 means the live check failed; its log says what is wrong. Exit code 4 means the site was published but the Live check had not finished (or was not found) after about 14 minutes. Run the script again or look at the Actions tab before telling the owner the live site was checked.
    - Read the build log with GitHub MCP `get_job_logs`, using the `job_id` of the `build` job and `return_content: true`. A run id alone is refused unless `failed_only` is set. Confirm `Built _site from docs with 0 warning(s).`

@@ -5,6 +5,11 @@ name: Publish site
 on:
   push:
     branches: [main]
+    # only when the site itself can change; edits to CLAUDE.md, README or the skill publish nothing
+    paths:
+      - "docs/**"
+      - "tools/build_site.py"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:

@@ -13,16 +13,16 @@ docs/                      the website source: the only place to edit
   robots.txt
   sitemap.xml
 tools/build_site.py        turns docs/ into the published site (runs on GitHub, not on your computer)
-.github/workflows/pages.yml  runs the build and publishes the site after every change to main
+.github/workflows/pages.yml  runs the build and publishes the site when docs/ or the build changes on main
 tools/check_live.py        checks the live site (runs on GitHub)
-.github/workflows/live-check.yml  runs that check after each publish, every Monday and on demand
+.github/workflows/live-check.yml  runs that check after each publish, once a month and on demand
 README.md                  this file (not published)
 CLAUDE.md                  editing rules for Claude (not published)
 ```
 
 ## How publishing works
 
-Every commit to `main` starts the **Publish site** workflow (Actions tab). It copies `docs/` and adds:
+Every commit to `main` that changes `docs/` or the build starts the **Publish site** workflow (Actions tab); changes to other files, such as this README, publish nothing. It copies `docs/` and adds:
 
 - smaller copies of the photos, so phones download a photo that fits their screen instead of the full-size file;
 - the English page `https://mhs.mn/en/`, made automatically from `docs/index.html` (English text, title and link preview). There is no separate English file to edit;
@@ -36,7 +36,7 @@ After each publish, a second workflow, **Live check**, opens https://mhs.mn from
 - every photo and font loads;
 - each linked YouTube video still exists. Its summary lists the video titles.
 
-It also runs every Monday morning (09:17 Ulaanbaatar time), and you can start it any time with **Run workflow**. If the repository has had no changes for 60 days, GitHub pauses the Monday run; Actions → Live check → **Enable workflow** turns it back on. It never changes the site. A red Live check means something on the live site needs a look; open the run, and the summary says what is wrong.
+It also runs on the 1st of each month (09:17 Ulaanbaatar time), and you can start it any time with **Run workflow**. If the repository has had no changes for 60 days, GitHub pauses the monthly run; Actions → Live check → **Enable workflow** turns it back on. It never changes the site. A red Live check means something on the live site needs a look; open the run, and the summary says what is wrong.
 
 ## Hosting
 
