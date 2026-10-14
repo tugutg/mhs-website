@@ -12,6 +12,7 @@ docs/                      the website source: the only place to edit
   CNAME                    custom domain: mhs.mn (do not delete)
   robots.txt
   sitemap.xml
+  llms.txt                 plain-text summary of the business for AI tools (keep its facts in step with the page)
 tools/build_site.py        turns docs/ into the published site (runs on GitHub, not on your computer)
 .github/workflows/pages.yml  runs the build and publishes the site when docs/ or the build changes on main
 tools/check_live.py        checks the live site (runs on GitHub)
@@ -26,7 +27,8 @@ Every commit to `main` that changes `docs/` or the build starts the **Publish si
 
 - smaller copies of the photos, so phones download a photo that fits their screen instead of the full-size file;
 - the English page `https://mhs.mn/en/`, made automatically from `docs/index.html` (English text, title and link preview). There is no separate English file to edit;
-- links that tell search engines the two pages are the same site in two languages.
+- links that tell search engines the two pages are the same site in two languages;
+- one language per page: the Mongolian page keeps only the Mongolian text and the English page only the English, so search engines and AI tools never read the two mixed together. `docs/index.html` keeps both.
 
 The site is live a minute or two after the workflow turns green. If it turns red, open the run to see why; you can start it again with **Run workflow**. Lines starting with `WARNING` in the build log mean the build met something it did not recognise and published that part unchanged — the site still works.
 
@@ -52,5 +54,6 @@ It also runs on the 1st of each month (09:17 Ulaanbaatar time), and you can star
 2. To change a photo, upload the new photo into `docs/photos/` with **exactly the same file name** as the old one (Add file → Upload files, then Commit). The phone-size copies are made automatically. Use a JPG about 2000 px wide or less, and make sure no customer names or logos are visible.
 3. The live site updates when the Publish site workflow finishes (Actions tab).
 4. When content changes, update both `<lastmod>` dates in `docs/sitemap.xml`.
+5. If you change a phone number, the email, the address, the hours, the system counts or the services, change them in `docs/llms.txt` and in the `application/ld+json` block near the top of `docs/index.html` too.
 
 Mongolian opens at https://mhs.mn and English at https://mhs.mn/en/; the МН / EN buttons switch between them. Old links `https://mhs.mn/?lang=en` and `https://mhs.mn/#en` still open the English page.
