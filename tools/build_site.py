@@ -13,6 +13,8 @@ Needs Python 3.9+ and Pillow, nothing else. docs/ stays the only thing anyone ed
     the same scale, from a smaller file.
   * en/index.html is the same page with English as the default language and its own address.
   * Both pages get hreflang links, and the MN/EN buttons switch between the two addresses.
+  * Each published page keeps only its own language: the other language's <span lang="..."> text is
+    removed, so search engines and AI tools read one language per address. docs/index.html keeps both.
 
 The build never fails because the page changed: anything it does not recognise (a missing photo, a new
 kind of slot, a missing tag) is published unchanged with a WARNING line in the log.
@@ -447,8 +449,11 @@ def css_up(css):
 
 
 def english_description(page):
-    """The English text of the hero's lead paragraph (the page's own summary)."""
+    """data-desc-en on .site if it is set, otherwise the English text of the hero's lead paragraph."""
     tags = Scanner(page).tags
+    site = next((t for t in tags if "site" in t.cls() and (t.attrs.get("data-desc-en") or "").strip()), None)
+    if site is not None:
+        return site.attrs["data-desc-en"].strip()
     for t in tags:
         if t.name == "span" and t.attrs.get("lang") == "en" and any(a.name == "p" and "lead" in a.cls() for a in t.ancestors):
             text = inner_text(page, t)
@@ -464,6 +469,37 @@ def english_hero_alt(page):
             alt = t.attrs["data-alt-en"]
             return alt[:1].upper() + alt[1:]
     return None
+
+
+LANG_SPAN = re.compile(r'<span lang="(mn|en)">')
+SPAN_TAG = re.compile(r"<(/?)span\b[^>]*>", re.I)
+
+
+def one_language(page, drop):
+    """Remove every <span lang="DROP">...</span> in <body>, nested markup included.
+
+    The page carries each text twice and CSS hides one language; people never see the hidden one, but
+    crawlers that ignore CSS read both. If a span is not closed, the page is published unchanged."""
+    body = page.find("<body")
+    parts, pos, removed = [], 0, 0
+    for m in LANG_SPAN.finditer(page, max(body, 0)):
+        if m.group(1) != drop or m.start() < pos:
+            continue
+        depth, end = 1, None
+        for t in SPAN_TAG.finditer(page, m.end()):
+            depth += -1 if t.group(1) else 1
+            if depth == 0:
+                end = t.end()
+                break
+        if end is None:
+            warn('a <span lang="%s"> is not closed; this page keeps both languages' % drop)
+            return page
+        parts.append(page[pos:m.start()])
+        pos = end
+        removed += 1
+    parts.append(page[pos:])
+    print("  removed %d %s texts" % (removed, drop))
+    return "".join(parts)
 
 
 # ---------------------------------------------------------------- main
@@ -502,6 +538,9 @@ def build(src_dir, out_dir):
         mongolian = lang_links(page, SITE)
         mongolian = add_head_script(mongolian, REDIRECT_MN)
         mongolian = lang_buttons(mongolian, {"mn": "./", "en": EN_DIR + "/"}, "mn")
+        print("One language per page:")
+        mongolian = one_language(mongolian, "en")
+        english = one_language(english, "mn")
     except Exception as e:
         warn("English page not built (%s: %s); the site is published with the in-page language switch only" % (type(e).__name__, e))
         english, mongolian = None, page
