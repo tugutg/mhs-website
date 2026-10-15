@@ -13,6 +13,7 @@ docs/                      the website source: the only place to edit
   robots.txt
   sitemap.xml
   llms.txt                 plain-text summary of the business for AI tools (keep its facts in step with the page)
+  ef8d0dd29fefc4380d8930910c1606e7.txt   IndexNow key that lets the site ask Bing to crawl it (do not delete)
 tools/build_site.py        turns docs/ into the published site (runs on GitHub, not on your computer)
 .github/workflows/pages.yml  runs the build and publishes the site when docs/ or the build changes on main
 tools/check_live.py        checks the live site (runs on GitHub)
