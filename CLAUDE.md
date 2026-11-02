@@ -61,3 +61,6 @@ Static one-page site for Material Handling Systems LLC (MHS). `docs/` is the sou
 - Hours: Monday–Friday, 09:00–17:00. MHS works at mines anywhere in Mongolia (owner, 14 Oct 2026). Shown in the contact plate, the second FAQ answer, the JSON-LD and llms.txt.
 - The state-register spelling of the company name and the register number are not shown on the site, in the JSON-LD or in llms.txt (owner, 14 Oct 2026).
 - MHS has no company Facebook or LinkedIn page (owner, 14 Oct 2026).
+- Redesign direction (owner, 2 Nov 2026): direction C, "drawing set" (today's look evolved into a technical datasheet: sheet frames, DAFO parts drawn in red, a machine selector showing protected zones by machine type), with A's release-sequence panel and one-mark-per-system track record, and B's −40…+60 °C temperature scale and winter question. It ships in stages, and each stage asks first. The research, mockups and proposals are in a private page the owner has; competitor names and tender details from that research never go into this public repository, its commits or its PRs.
+- No time promises on the site: no reply, response or recharge times (owner, 2 Nov 2026).
+- No tender-documents block on the site. A printable summary of the page itself is fine (owner, 2 Nov 2026).
