@@ -38,9 +38,9 @@ python3 .claude/skills/mhs-site-change/site_text.py find "гал унтраах 
 - **The owner's text goes in verbatim.** If it may contain a typo (for example «унтаах» for «унтраах»), don't fix it silently, and ask only once:
   - **If the change needs a merge question** (see step 5), build the PR with the text as given and offer the fix there: "Fix to «унтраах», merge" / "Keep as written, merge" / "Don't merge yet".
   - **If it's a small wording change, which merges without asking,** ask about the typo as a separate question in the same AskUserQuestion call as the scope question. If there is no scope question, ask it on its own before building.
-- **English is your job.** Every visible string needs `<span lang="mn">…</span><span lang="en">…</span>`. Translate the owner's Mongolian into plain English and say in the PR that you did.
-  - A wording change to the Mongolian alone leaves the English alone.
-  - If the change alters a fact (number, model, name, contact, date), ask in the same question whether the English follows.
+- **English and Chinese are your job.** Every visible string needs `<span lang="mn">…</span><span lang="en">…</span><span lang="zh">…</span>`. Translate the owner's Mongolian into plain English and plain Simplified Chinese and say in the PR that you did.
+  - A wording change to the Mongolian alone leaves the English and Chinese alone.
+  - If the change alters a fact (number, model, name, contact, date), ask in the same question whether the English and Chinese follow.
 - **Don't reopen settled decisions:** CLAUDE.md lists them under "Owner's decisions".
 
 ## 2. Edit
@@ -87,16 +87,16 @@ T=<scratchpad>/tools; npm i --prefix "$T" playwright-core html-validate@9 >/dev/
 
 ```bash
 T=<scratchpad>/tools; NODE_PATH="$T/node_modules" node .claude/skills/mhs-site-change/check.cjs \
-  --base http://127.0.0.1:<port> --expect "new Mongolian text" --expect-en "new English text" \
+  --base http://127.0.0.1:<port> --expect "new Mongolian text" --expect-en "new English text" --expect-zh "new Chinese text" \
   --absent "old text" --shot "#dafo .body" --out <scratchpad>
 ```
 
-- **What it checks:** `/` and `/en/` at 390 and 1440 px for lang, horizontal scroll, broken images, console and network errors, requests to other sites, language leaks and the switch addresses. It also covers `?lang=en`, `#en`, a saved English choice and Back after tapping EN.
+- **What it checks:** `/`, `/en/` and `/zh/` at 390 and 1440 px for lang, horizontal scroll, broken images, console and network errors, requests to other sites, language leaks (Mongolian, English or Chinese on the wrong page) and the switch addresses. It also covers `?lang=en` / `?lang=zh`, `#en` / `#zh`, a saved choice and Back after tapping EN.
 - **Text checks:** `--expect` and `--absent` ignore case and include FAQ answers.
 - **Look at the screenshots** it writes. Element screenshots (`--shot`) are reliable; full-page clips from screen coordinates are not.
 - **Text-only change:** a build with 0 warnings plus `check.cjs` with `--expect` / `--absent` is enough.
 - **Layout, CSS, JS, photo or build change:** also do these.
-  - **html-validate:** `T=<scratchpad>/tools; "$T/node_modules/.bin/html-validate" _site/index.html _site/en/index.html`. Compare against a build of `origin/main`. In October 2026 the baseline was 19 problems per page, so the command printed `✖ 38 problems` for the two (no-inline-style, form-dup-name, doctype-style, wcag/h32). Report new ones only.
+  - **html-validate:** `T=<scratchpad>/tools; "$T/node_modules/.bin/html-validate" _site/index.html _site/en/index.html _site/zh/index.html`. Compare against a build of `origin/main`. In October 2026 the baseline was 19 problems per page, so the command printed `✖ 38 problems` for the two (no-inline-style, form-dup-name, doctype-style, wcag/h32). Report new ones only.
   - **Lighthouse,** with applied throttling, which is closer to a real phone. Take the median of 3–5 runs and compare against a build of `origin/main` served on another free port. Default simulated mode against the local HTTP/1.1 server gave misleading results for fonts and preloads.
 
     ```bash

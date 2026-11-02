@@ -1,12 +1,12 @@
 # mhs.mn — Material Handling Systems website
 
-One-page bilingual (Mongolian / English) website for Material Handling Systems LLC, published with GitHub Pages at https://mhs.mn (Mongolian) and https://mhs.mn/en/ (English).
+One-page website in three languages (Mongolian, English, Chinese) for Material Handling Systems LLC, published with GitHub Pages at https://mhs.mn (Mongolian), https://mhs.mn/en/ (English) and https://mhs.mn/zh/ (Chinese).
 
 ## What's where
 
 ```
 docs/                      the website source: the only place to edit
-  index.html               the whole site (HTML, CSS and JS in one file, both languages)
+  index.html               the whole site (HTML, CSS and JS in one file, all three languages)
   photos/                  site photos (JPG)
   fonts/                   the site's fonts (woff2, SIL Open Font License texts included)
   CNAME                    custom domain: mhs.mn (do not delete)
@@ -27,9 +27,9 @@ CLAUDE.md                  editing rules for Claude (not published)
 Every commit to `main` that changes `docs/` or the build starts the **Publish site** workflow (Actions tab); changes to other files, such as this README, publish nothing. It copies `docs/` and adds:
 
 - smaller copies of the photos, so phones download a photo that fits their screen instead of the full-size file;
-- the English page `https://mhs.mn/en/`, made automatically from `docs/index.html` (English text, title and link preview). There is no separate English file to edit;
-- links that tell search engines the two pages are the same site in two languages;
-- one language per page: the Mongolian page keeps only the Mongolian text and the English page only the English, so search engines and AI tools never read the two mixed together. `docs/index.html` keeps both.
+- the English page `https://mhs.mn/en/` and the Chinese page `https://mhs.mn/zh/`, made automatically from `docs/index.html` (that language's text, title and link preview). There is no separate English or Chinese file to edit;
+- links that tell search engines the three pages are the same site in three languages;
+- one language per page: the Mongolian page keeps only the Mongolian text, the English page only the English and the Chinese page only the Chinese, so search engines and AI tools never read them mixed together. `docs/index.html` keeps all three.
 
 The site is live a minute or two after the workflow turns green. If it turns red, open the run to see why; you can start it again with **Run workflow**. Lines starting with `WARNING` in the build log mean the build met something it did not recognise and published that part unchanged — the site still works.
 
@@ -51,10 +51,10 @@ It also runs on the 1st of each month (09:17 Ulaanbaatar time), and you can star
 
 ## Updating the site
 
-1. Edit `docs/index.html` on GitHub (open the file → pencil icon → Commit changes). Both languages live in this one file: each text appears twice, once in `<span lang="mn">` and once in `<span lang="en">`.
+1. Edit `docs/index.html` on GitHub (open the file → pencil icon → Commit changes). All three languages live in this one file: each text appears three times, in `<span lang="mn">`, `<span lang="en">` and `<span lang="zh">`.
 2. To change a photo, upload the new photo into `docs/photos/` with **exactly the same file name** as the old one (Add file → Upload files, then Commit). The phone-size copies are made automatically. Use a JPG about 2000 px wide or less, and make sure no customer names or logos are visible.
 3. The live site updates when the Publish site workflow finishes (Actions tab).
-4. When content changes, update both `<lastmod>` dates in `docs/sitemap.xml`.
+4. When content changes, update the three `<lastmod>` dates in `docs/sitemap.xml`.
 5. If you change a phone number, the email, the address, the hours, the system counts or the services, change them in `docs/llms.txt` and in the `application/ld+json` block near the top of `docs/index.html` too.
 
-Mongolian opens at https://mhs.mn and English at https://mhs.mn/en/; the МН / EN buttons switch between them. Old links `https://mhs.mn/?lang=en` and `https://mhs.mn/#en` still open the English page.
+Mongolian opens at https://mhs.mn, English at https://mhs.mn/en/ and Chinese at https://mhs.mn/zh/; the МН / EN / CN buttons switch between them. Old links `https://mhs.mn/?lang=en` and `https://mhs.mn/#en` still open the English page, and `?lang=zh` / `#zh` the Chinese one.

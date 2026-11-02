@@ -68,7 +68,11 @@ a{color:var(--steel-ink)}
 :focus-visible{outline:3px solid var(--steel);outline-offset:2px}
 .hero :focus-visible,.dark :focus-visible,.plate :focus-visible,.foot :focus-visible{outline-color:var(--sky)}
 h1,h2,h3{text-wrap:balance}
-.site[data-lang="mn"] [lang="en"],.site[data-lang="en"] [lang="mn"]{display:none!important}
+.site[data-lang="mn"] [lang="en"],.site[data-lang="mn"] [lang="zh"],.site[data-lang="en"] [lang="mn"],.site[data-lang="en"] [lang="zh"],.site[data-lang="zh"] [lang="mn"],.site[data-lang="zh"] [lang="en"]{display:none!important}
+/* Chinese: the site fonts carry no CJK glyphs, so a system CJK face follows each stack (Latin and digits stay in the site fonts) */
+.site[data-lang="zh"]{--cjk:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC","WenQuanYi Zen Hei";--display:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",var(--cjk),sans-serif;--body:"IBM Plex Sans","Segoe UI",Roboto,Arial,var(--cjk),sans-serif;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,var(--cjk),monospace;font-family:var(--body)}
+.site[data-lang="zh"] p,.site[data-lang="zh"] li,.site[data-lang="zh"] td,.site[data-lang="zh"] dd{line-height:1.75}
+.site[data-lang="zh"] h1,.site[data-lang="zh"] h2,.site[data-lang="zh"] .card h3,.site[data-lang="zh"] .col h3{letter-spacing:.02em;line-height:1.12}
 [hidden]{display:none!important}
 .site[data-build="live"] .slot figcaption{display:none}
 .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
@@ -79,15 +83,15 @@ svg.i{width:18px;height:18px;flex:none}
 
 /* Header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--white);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:none}
 .brand-mark{font-family:var(--body);font-weight:700;font-size:31px;line-height:1;letter-spacing:-.015em;color:var(--steel)}
 .brand-name{font:500 10.5px/1.25 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);max-width:13ch;padding-left:12px;border-left:1px solid var(--line)}
 .menu{margin-left:auto;display:flex;align-items:center;gap:2px}
-.menu a{font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:8px 10px;white-space:nowrap;transition:color .15s;box-shadow:inset 0 -2px 0 transparent}
+.menu a{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;padding:8px 8px;white-space:nowrap;transition:color .15s;box-shadow:inset 0 -2px 0 transparent}
 .menu a:hover{color:var(--steel)}
 .menu a[aria-current="true"]{color:var(--steel);box-shadow:inset 0 -2px 0 var(--steel)}
-.tools{display:flex;align-items:center;gap:12px;flex:none}
+.tools{display:flex;align-items:center;gap:10px;flex:none}
 .lang{display:inline-flex;border:1px solid var(--line)}
 .lang button{font:500 12px/1 var(--mono);letter-spacing:.06em;padding:9px 10px;border:0;background:transparent;color:var(--muted);cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--steel);color:var(--white)}
@@ -408,42 +412,44 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:description" content="DAFO автомат гал унтраах системийн албан ёсны дилер: уурхайн техник, хүнд машин механизмд суурилуулалт, үзлэг, цэнэглэлт. SENNEBOGEN, сэлбэг, 2014 оноос.">
 <meta property="og:locale" content="mn_MN">
 <meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:image" content="https://mhs.mn/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="DAFO систем суурилуулсан уурхайн техник">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mhs.mn/#website", "name": "MHS", "alternateName": ["Material Handling Systems", "Материал Хандлинг Системс"], "url": "https://mhs.mn/", "inLanguage": ["mn", "en"], "publisher": {"@id": "https://mhs.mn/#org"}}, {"@type": "LocalBusiness", "@id": "https://mhs.mn/#org", "name": "Material Handling Systems LLC", "alternateName": ["MHS", "MHS LLC", "Материал Хандлинг Системс ХХК"], "description": "Official dealer in Mongolia for DAFO automatic fire suppression systems (Dafo Vehicle Fire Protection AB, Sweden) and SENNEBOGEN material handlers (SENNEBOGEN Maschinenfabrik GmbH, Germany). Parts, repair and field service for mining equipment. Founded 2014, Ulaanbaatar; works at mines anywhere in Mongolia.", "foundingDate": "2014", "url": "https://mhs.mn/", "logo": "https://mhs.mn/apple-touch-icon.png", "image": "https://mhs.mn/og-image.jpg", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}], "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+976 9697 0276", "email": "tuguldur@mhs.mn", "availableLanguage": ["mn", "en"], "areaServed": "MN"}, "areaServed": {"@type": "Country", "name": "Mongolia"}, "knowsLanguage": ["mn", "en"], "knowsAbout": ["Vehicle fire suppression", "Fire protection for mining equipment", "DAFO fire suppression systems", "SENNEBOGEN material handlers", "Mining equipment parts"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#dafo", "name": "DAFO automatic fire suppression for mining machines", "serviceType": "Vehicle fire suppression: supply, installation, training and service", "description": "Fire risk assessment, system design to SBF 127:17, installation at the mine, dry and wet discharge testing, handover, operator training, 12-month service and recharge from stock in Ulaanbaatar.", "brand": {"@type": "Brand", "name": "DAFO"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#sennebogen", "name": "SENNEBOGEN material handlers: supply, parts and maintenance", "description": "Official SENNEBOGEN dealer. 875 E Hybrid for coal and bulk material handling, factory parts, planned maintenance kits, diagnostics and repair.", "brand": {"@type": "Brand", "name": "SENNEBOGEN"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#service", "name": "Mining equipment parts, repair and field service", "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mhs.mn/#website", "name": "MHS", "alternateName": ["Material Handling Systems", "Материал Хандлинг Системс"], "url": "https://mhs.mn/", "inLanguage": ["mn", "en", "zh"], "publisher": {"@id": "https://mhs.mn/#org"}}, {"@type": "LocalBusiness", "@id": "https://mhs.mn/#org", "name": "Material Handling Systems LLC", "alternateName": ["MHS", "MHS LLC", "Материал Хандлинг Системс ХХК"], "description": "Official dealer in Mongolia for DAFO automatic fire suppression systems (Dafo Vehicle Fire Protection AB, Sweden) and SENNEBOGEN material handlers (SENNEBOGEN Maschinenfabrik GmbH, Germany). Parts, repair and field service for mining equipment. Founded 2014, Ulaanbaatar; works at mines anywhere in Mongolia.", "foundingDate": "2014", "url": "https://mhs.mn/", "logo": "https://mhs.mn/apple-touch-icon.png", "image": "https://mhs.mn/og-image.jpg", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}], "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+976 9697 0276", "email": "tuguldur@mhs.mn", "availableLanguage": ["mn", "en", "zh"], "areaServed": "MN"}, "areaServed": {"@type": "Country", "name": "Mongolia"}, "knowsLanguage": ["mn", "en", "zh"], "knowsAbout": ["Vehicle fire suppression", "Fire protection for mining equipment", "DAFO fire suppression systems", "SENNEBOGEN material handlers", "Mining equipment parts"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#dafo", "name": "DAFO automatic fire suppression for mining machines", "serviceType": "Vehicle fire suppression: supply, installation, training and service", "description": "Fire risk assessment, system design to SBF 127:17, installation at the mine, dry and wet discharge testing, handover, operator training, 12-month service and recharge from stock in Ulaanbaatar.", "brand": {"@type": "Brand", "name": "DAFO"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#sennebogen", "name": "SENNEBOGEN material handlers: supply, parts and maintenance", "description": "Official SENNEBOGEN dealer. 875 E Hybrid for coal and bulk material handling, factory parts, planned maintenance kits, diagnostics and repair.", "brand": {"@type": "Brand", "name": "SENNEBOGEN"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#service", "name": "Mining equipment parts, repair and field service", "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}]}]}</script>
 </head>
 <body>
 <!-- Photos: put <img src="photos/hero.jpg" alt="…"> inside any <figure class="slot"> and the hatched panel
      is covered automatically. Before going live, set data-build="live" on the .site div below to hide
      the photo hints on slots that are still empty. -->
-<div class="site" data-lang="mn" data-build="live" data-title-mn="DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК" data-title-en="DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC" data-desc-en="Official DAFO dealer in Mongolia: fire suppression for mining machines, from risk assessment and installation to annual service. SENNEBOGEN and parts.">
-<a class="skip" href="#main"><span lang="mn">Үндсэн агуулга руу шилжих</span><span lang="en">Skip to content</span></a>
+<div class="site" data-lang="mn" data-build="live" data-title-mn="DAFO гал унтраах систем, SENNEBOGEN | Материал Хандлинг Системс ХХК" data-title-en="DAFO Fire Suppression, SENNEBOGEN in Mongolia | MHS LLC" data-title-zh="DAFO 自动灭火系统、SENNEBOGEN 蒙古国官方经销商 | MHS" data-desc-en="Official DAFO dealer in Mongolia: fire suppression for mining machines, from risk assessment and installation to annual service. SENNEBOGEN and parts." data-desc-zh="DAFO 矿山设备自动灭火系统的蒙古国官方经销商：风险评估、安装、年度保养与再充装。SENNEBOGEN 物料搬运机、备件。">
+<a class="skip" href="#main"><span lang="mn">Үндсэн агуулга руу шилжих</span><span lang="en">Skip to content</span><span lang="zh">跳到主要内容</span></a>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="MHS, Материал Хандлинг Системс" data-aria-mn="MHS, Материал Хандлинг Системс" data-aria-en="MHS, Material Handling Systems">
+    <a class="brand" href="#top" aria-label="MHS, Материал Хандлинг Системс" data-aria-mn="MHS, Материал Хандлинг Системс" data-aria-en="MHS, Material Handling Systems" data-aria-zh="MHS, Material Handling Systems">
       <span class="brand-mark">MHS</span>
-      <span class="brand-name"><span lang="mn">Материал Хандлинг Системс</span><span lang="en">Material Handling Systems</span></span>
+      <span class="brand-name"><span lang="mn">Материал Хандлинг Системс</span><span lang="en">Material Handling Systems</span><span lang="zh">Material Handling Systems</span></span>
     </a>
-    <nav class="menu" id="menu" aria-label="Үндсэн цэс" data-aria-mn="Үндсэн цэс" data-aria-en="Main">
+    <nav class="menu" id="menu" aria-label="Үндсэн цэс" data-aria-mn="Үндсэн цэс" data-aria-en="Main" data-aria-zh="主菜单">
       <a href="#dafo">DAFO</a>
-      <a href="#process"><span lang="mn">Ажлын үе шат</span><span lang="en">Process</span></a>
+      <a href="#process"><span lang="mn">Ажлын үе шат</span><span lang="en">Process</span><span lang="zh">服务流程</span></a>
       <a href="#sennebogen">SENNEBOGEN</a>
-      <a href="#service"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span></a>
-      <a href="#references"><span lang="mn">Гүйцэтгэсэн ажил</span><span lang="en">Track record</span></a>
-      <a href="#about"><span lang="mn">Бидний тухай</span><span lang="en">About</span></a>
+      <a href="#service"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span><span lang="zh">备件与服务</span></a>
+      <a href="#references"><span lang="mn">Гүйцэтгэсэн ажил</span><span lang="en">Track record</span><span lang="zh">业绩</span></a>
+      <a href="#about"><span lang="mn">Бидний тухай</span><span lang="en">About</span><span lang="zh">关于我们</span></a>
     </nav>
     <div class="tools">
-      <div class="lang" role="group" aria-label="Хэл" data-aria-mn="Хэл" data-aria-en="Language">
+      <div class="lang" role="group" aria-label="Хэл" data-aria-mn="Хэл" data-aria-en="Language" data-aria-zh="语言">
         <button type="button" id="lang-mn" data-set-lang="mn" aria-pressed="true" title="Монгол">МН</button>
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false" title="English">EN</button>
+        <button type="button" id="lang-zh" data-set-lang="zh" aria-pressed="false" title="中文">CN</button>
       </div>
-      <a class="btn sm" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Get a quote</span></a>
-      <button class="menu-btn" id="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Цэс" data-aria-mn="Цэс" data-aria-en="Menu">
+      <a class="btn sm" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Get a quote</span><span lang="zh">获取报价</span></a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Цэс" data-aria-mn="Цэс" data-aria-en="Menu" data-aria-zh="菜单">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
@@ -454,76 +460,76 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="hero" id="top">
     <figure class="slot" data-photo="hero">
-          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" fetchpriority="high" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO">
+          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" fetchpriority="high" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO" data-alt-zh="安装了 DAFO 系统的矿山设备">
       <figcaption>
         <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
-        <span lang="mn">Зураг: DAFO систем суурилуулсан уурхайн техник</span><span lang="en">Photo: mining machine fitted with DAFO</span>
+        <span lang="mn">Зураг: DAFO систем суурилуулсан уурхайн техник</span><span lang="en">Photo: mining machine fitted with DAFO</span><span lang="zh">图：安装了 DAFO 系统的矿山设备</span>
       </figcaption>
     </figure>
     <div class="wrap">
       <div class="hero-inner">
-        <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК, Улаанбаатар</span><span lang="en">Material Handling Systems LLC, Ulaanbaatar</span></p>
-        <h1><span lang="mn">Тоног төхөөрөмжийг галын эрсдлээс хамгаална</span><span lang="en">We protect equipment from fire risk</span></h1>
-        <p class="lead"><span lang="mn">Материал Хандлинг Системс ХХК нь 2014 онд байгуулагдсан, Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN материал зөөвөрлөх тоног төхөөрөмжийн албан ёсны дилерээр ажиллаж байна.</span><span lang="en">Founded in 2014, Material Handling Systems LLC is the official dealer for DAFO automatic fire suppression systems from Sweden and SENNEBOGEN material handling equipment from Germany.</span></p>
+        <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК, Улаанбаатар</span><span lang="en">Material Handling Systems LLC, Ulaanbaatar</span><span lang="zh">Material Handling Systems LLC，乌兰巴托</span></p>
+        <h1><span lang="mn">Тоног төхөөрөмжийг галын эрсдлээс хамгаална</span><span lang="en">We protect equipment from fire risk</span><span lang="zh">保护设备远离火灾风险</span></h1>
+        <p class="lead"><span lang="mn">Материал Хандлинг Системс ХХК нь 2014 онд байгуулагдсан, Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN материал зөөвөрлөх тоног төхөөрөмжийн албан ёсны дилерээр ажиллаж байна.</span><span lang="en">Founded in 2014, Material Handling Systems LLC is the official dealer for DAFO automatic fire suppression systems from Sweden and SENNEBOGEN material handling equipment from Germany.</span><span lang="zh">Material Handling Systems LLC 成立于 2014 年，是瑞典 DAFO 自动灭火系统和德国 SENNEBOGEN 物料搬运设备的蒙古国官方经销商。</span></p>
         <div class="actions">
-          <a class="btn" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span></a>
-          <a class="btn line" href="#how"><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></a>
+          <a class="btn" href="#contact"><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span><span lang="zh">索取报价</span></a>
+          <a class="btn line" href="#how"><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span><span lang="zh">系统工作原理</span></a>
         </div>
         <div class="badges">
-          <a class="badge" href="#dafo"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span></span></b></a>
-          <a class="badge" href="#sennebogen"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span></span></b></a>
+          <a class="badge" href="#dafo"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span><span lang="zh">官方经销商</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span><span lang="zh">瑞典</span></span></b></a>
+          <a class="badge" href="#sennebogen"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span><span lang="zh">官方经销商</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span><span lang="zh">德国</span></span></b></a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="figures" aria-label="MHS тоогоор" data-aria-mn="MHS тоогоор" data-aria-en="MHS in numbers">
+  <section class="figures" aria-label="MHS тоогоор" data-aria-mn="MHS тоогоор" data-aria-en="MHS in numbers" data-aria-zh="MHS 数据">
     <div class="wrap">
-      <div class="fig"><b>23</b><span><span lang="mn">Монголд суурилуулсан DAFO систем</span><span lang="en">DAFO systems installed in Mongolia</span></span></div>
-      <div class="fig"><b>5</b><span><span lang="mn">нүүрсний уурхайн компанитай ажилласан</span><span lang="en">coal mining companies served</span></span></div>
-      <div class="fig"><b>2014</b><span><span lang="mn">онд байгуулагдсан</span><span lang="en">year founded</span></span></div>
+      <div class="fig"><b>23</b><span><span lang="mn">Монголд суурилуулсан DAFO систем</span><span lang="en">DAFO systems installed in Mongolia</span><span lang="zh">套 DAFO 系统已在蒙古国安装</span></span></div>
+      <div class="fig"><b>5</b><span><span lang="mn">нүүрсний уурхайн компанитай ажилласан</span><span lang="en">coal mining companies served</span><span lang="zh">家煤矿企业客户</span></span></div>
+      <div class="fig"><b>2014</b><span><span lang="mn">онд байгуулагдсан</span><span lang="en">year founded</span><span lang="zh">年成立</span></span></div>
     </div>
   </section>
 
   <section class="sec" id="solutions">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">What we do</span></p>
-        <h2><span lang="mn">Хамгаалалт, техник, үйлчилгээг нэг газраас</span><span lang="en">Protection, machines and service from one supplier</span></h2>
+        <p class="eyebrow"><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">What we do</span><span lang="zh">产品与服务</span></p>
+        <h2><span lang="mn">Хамгаалалт, техник, үйлчилгээг нэг газраас</span><span lang="en">Protection, machines and service from one supplier</span><span lang="zh">防护、设备与服务，一站式供应</span></h2>
       </div>
       <div class="cards">
         <a class="card" href="#dafo">
           <figure class="slot" data-photo="card-dafo">
-            <img src="photos/dafo-sv-k-deck.jpg" width="1600" height="1000" loading="lazy" alt="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K agent tanks on an excavator deck">
-            <span class="credit"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Photo: Dafo Vehicle</span></span>
-            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: DAFO танк, хоолой</span><span lang="en">Photo: DAFO tank and piping</span></figcaption>
+            <img src="photos/dafo-sv-k-deck.jpg" width="1600" height="1000" loading="lazy" alt="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K agent tanks on an excavator deck" data-alt-zh="挖掘机平台上的 DAFO SV-K 储罐">
+            <span class="credit"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Photo: Dafo Vehicle</span><span lang="zh">图：Dafo Vehicle</span></span>
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: DAFO танк, хоолой</span><span lang="en">Photo: DAFO tank and piping</span><span lang="zh">图：DAFO 储罐和管路</span></figcaption>
           </figure>
           <div class="card-body">
-            <h3><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></h3>
-            <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, ачигч, ричстакер зэрэг уурхайн техник, хүнд машин механизмд зориулсан автомат гал илрүүлэх, унтраах систем.</span><span lang="en">Automatic fire detection and suppression for excavators, haul trucks, dozers, loaders and reach stackers.</span></p>
-            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <h3><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span><span lang="zh">DAFO 灭火系统</span></h3>
+            <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, грейдер, ачигч, өрмийн машин, түлшний машин, кран, ричстакер зэрэг бүх уурхайн техник, хүнд машин механизмд зориулсан автомат гал илрүүлэх, унтраах систем.</span><span lang="en">Automatic fire detection and suppression for excavators, haul trucks, dozers, graders, loaders, drill rigs, fuel trucks, cranes, reach stackers and other mining and heavy machines.</span><span lang="zh">适用于挖掘机、矿用自卸车、推土机、平地机、装载机、钻机、油料车、起重机、正面吊等各类矿山设备和重型机械的自动火灾探测与灭火系统。</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><span lang="zh">了解更多</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </a>
         <a class="card" href="#sennebogen">
           <figure class="slot" data-photo="card-sennebogen">
-          <img src="photos/card-sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN машин ажиллаж буй нь" data-alt-mn="SENNEBOGEN машин ажиллаж буй нь" data-alt-en="SENNEBOGEN machine at work">
-            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN машин ажиллаж буй нь</span><span lang="en">Photo: SENNEBOGEN machine at work</span></figcaption>
+          <img src="photos/card-sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN машин ажиллаж буй нь" data-alt-mn="SENNEBOGEN машин ажиллаж буй нь" data-alt-en="SENNEBOGEN machine at work" data-alt-zh="作业中的 SENNEBOGEN 设备">
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN машин ажиллаж буй нь</span><span lang="en">Photo: SENNEBOGEN machine at work</span><span lang="zh">图：作业中的 SENNEBOGEN 设备</span></figcaption>
           </figure>
           <div class="card-body">
-            <h3><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></h3>
-            <p><span lang="mn">Нүүрс, задгай ачаа, хаягдал төмрийг ачих, буулгах 875 E Hybrid зэрэг машин. Үйлдвэрийн сэлбэг, төлөвлөгөөт үйлчилгээтэй.</span><span lang="en">Machines such as the 875 E Hybrid that load and unload coal, bulk material and scrap, with factory parts and planned maintenance.</span></p>
-            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <h3><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span><span lang="zh">SENNEBOGEN 物料搬运机</span></h3>
+            <p><span lang="mn">Нүүрс, задгай ачаа, хаягдал төмрийг ачих, буулгах 875 E Hybrid зэрэг машин. Үйлдвэрийн сэлбэг, төлөвлөгөөт үйлчилгээтэй.</span><span lang="en">Machines such as the 875 E Hybrid that load and unload coal, bulk material and scrap, with factory parts and planned maintenance.</span><span lang="zh">875 E Hybrid 等用于装卸煤炭、散货和废钢的设备，配套原厂备件和计划保养。</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><span lang="zh">了解更多</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </a>
         <a class="card" href="#service">
           <figure class="slot" data-photo="card-service">
-          <img src="photos/card-service-20261013135748.jpg" width="2000" height="1333" loading="lazy" alt="манай баг ажил дээрээ" data-alt-mn="манай баг ажил дээрээ" data-alt-en="MHS crew at work">
-            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: манай баг ажил дээрээ</span><span lang="en">Photo: MHS crew at work</span></figcaption>
+          <img src="photos/card-service-20261013135748.jpg" width="2000" height="1333" loading="lazy" alt="манай баг ажил дээрээ" data-alt-mn="манай баг ажил дээрээ" data-alt-en="MHS crew at work" data-alt-zh="MHS 团队作业现场">
+            <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: манай баг ажил дээрээ</span><span lang="en">Photo: MHS crew at work</span><span lang="zh">图：MHS 团队作业现场</span></figcaption>
           </figure>
           <div class="card-body">
-            <h3><span lang="mn">Мэргэжлийн туршлагатай хамт олон</span><span lang="en">An experienced professional team</span></h3>
-            <p><span lang="mn">Уурхайн техникийн сэлбэгийг шуурхай нийлүүлж, засвар үйлчилгээ хийнэ.</span><span lang="en">Fast parts supply for mining equipment, plus repair and maintenance.</span></p>
-            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <h3><span lang="mn">Мэргэжлийн туршлагатай хамт олон</span><span lang="en">An experienced professional team</span><span lang="zh">经验丰富的专业团队</span></h3>
+            <p><span lang="mn">Уурхайн техникийн сэлбэгийг шуурхай нийлүүлж, засвар үйлчилгээ хийнэ.</span><span lang="en">Fast parts supply for mining equipment, plus repair and maintenance.</span><span lang="zh">快速供应矿山设备备件，并提供维修和保养。</span></p>
+            <span class="more"><span lang="mn">Дэлгэрэнгүй</span><span lang="en">Learn more</span><span lang="zh">了解更多</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </a>
       </div>
@@ -534,34 +540,34 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     <div class="wrap">
       <div class="split">
         <div class="body">
-          <p class="eyebrow"><span lang="mn">DAFO автомат гал унтраах систем</span><span lang="en">DAFO automatic fire suppression system</span></p>
-          <h2><span lang="mn">Галыг гарсан даруйд нь унтраана</span><span lang="en">Puts out a fire the moment it starts</span></h2>
-          <p><span lang="mn">DAFO систем хөдөлгүүрийн тасалгаа болон бусад эрсдэлтэй хэсгийн хэт халалтыг мэдэрч, фторгүй Forrex EVO шингэн бодисыг зэвэрдэггүй ган хоолойгоор цацаж, галыг тархахаас нь өмнө унтраана.</span><span lang="en">DAFO detects overheating in the engine bay and other risk zones, then releases fluorine-free Forrex EVO liquid agent through stainless steel piping before the fire can spread.</span></p>
-          <p><span lang="mn">DW2 хошуугаар тоосруулан цацагддаг Forrex EVO нь хуурай (галыг эгшин зуур унтраах) болон шингэн (хөргөж, бүрхүүл үүсгэдэг) галын хорнуудын давуу талуудыг нэгэн зэрэг агуулсан хамгийн дэвшилтэт технологи бүхий шингэн галын хор юм.</span><span lang="en">Sprayed as a fine mist through DW2 nozzles, Forrex EVO is a liquid fire suppression agent built on the most advanced technology: it combines the strengths of dry agents (which knock the fire down instantly) and liquid agents (which cool and form a protective film).</span></p>
-          <p><span lang="mn">Систем бүрийг тухайн техникт галын эрсдэлийн үнэлгээ хийсний үндсэн дээр SBF 127:17 стандартын дагуу зураг төсөл гаргаж, DAFO-гийн сургалттай техникчид суурилуулна.</span><span lang="en">Each system is designed for the specific machine after a fire risk assessment, to the SBF 127:17 standard, and installed by DAFO-trained technicians.</span></p>
-          <p class="sub"><span lang="mn">Хамгаалах хэсэг</span><span lang="en">Protected zones</span></p>
+          <p class="eyebrow"><span lang="mn">DAFO автомат гал унтраах систем</span><span lang="en">DAFO automatic fire suppression system</span><span lang="zh">DAFO 自动灭火系统</span></p>
+          <h2><span lang="mn">Галыг гарсан даруйд нь унтраана</span><span lang="en">Puts out a fire the moment it starts</span><span lang="zh">火灾初起即刻扑灭</span></h2>
+          <p><span lang="mn">DAFO систем хөдөлгүүрийн тасалгаа болон бусад эрсдэлтэй хэсгийн хэт халалтыг мэдэрч, фторгүй Forrex EVO шингэн бодисыг зэвэрдэггүй ган хоолойгоор цацаж, галыг тархахаас нь өмнө унтраана.</span><span lang="en">DAFO detects overheating in the engine bay and other risk zones, then releases fluorine-free Forrex EVO liquid agent through stainless steel piping before the fire can spread.</span><span lang="zh">DAFO 系统探测发动机舱及其他风险区域的过热，并通过不锈钢管路喷放无氟 Forrex EVO 液体灭火剂，在火势蔓延之前将其扑灭。</span></p>
+          <p><span lang="mn">DW2 хошуугаар тоосруулан цацагддаг Forrex EVO нь хуурай (галыг эгшин зуур унтраах) болон шингэн (хөргөж, бүрхүүл үүсгэдэг) галын хорнуудын давуу талуудыг нэгэн зэрэг агуулсан хамгийн дэвшилтэт технологи бүхий шингэн галын хор юм.</span><span lang="en">Sprayed as a fine mist through DW2 nozzles, Forrex EVO is a liquid fire suppression agent built on the most advanced technology: it combines the strengths of dry agents (which knock the fire down instantly) and liquid agents (which cool and form a protective film).</span><span lang="zh">Forrex EVO 通过 DW2 喷嘴以细雾形式喷出，是一种采用先进技术的液体灭火剂：兼具干粉灭火剂（瞬间压制火焰）和液体灭火剂（冷却并形成保护膜）的优点。</span></p>
+          <p><span lang="mn">Систем бүрийг тухайн техникт галын эрсдэлийн үнэлгээ хийсний үндсэн дээр SBF 127:17 стандартын дагуу зураг төсөл гаргаж, DAFO-гийн сургалттай техникчид суурилуулна.</span><span lang="en">Each system is designed for the specific machine after a fire risk assessment, to the SBF 127:17 standard, and installed by DAFO-trained technicians.</span><span lang="zh">每套系统都在对具体设备进行火灾风险评估后，按 SBF 127:17 标准设计，并由经 DAFO 培训的技术人员安装。</span></p>
+          <p class="sub"><span lang="mn">Хамгаалах хэсэг</span><span lang="en">Protected zones</span><span lang="zh">保护区域</span></p>
           <ul class="specs" style="margin-top:0">
-            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Түлшний шүүлтүүр, насос <span class="note">(хэсгүүдийг эрсдэлийн үнэлгээгээр тогтооно)</span></span><span lang="en">Fuel filters and pumps <span class="note">(zones are set by the risk assessment)</span></span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span><span lang="zh">变速箱和液力变矩器</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Түлшний шүүлтүүр, насос <span class="note">(хэсгүүдийг эрсдэлийн үнэлгээгээр тогтооно)</span></span><span lang="en">Fuel filters and pumps <span class="note">(zones are set by the risk assessment)</span></span><span lang="zh">燃油滤清器和燃油泵 <span class="note">（保护区域由风险评估确定）</span></span></span></li>
           </ul>
         </div>
         <figure class="slot tall" data-photo="dafo">
-          <img src="photos/dafo-20261013065851.jpg" width="1920" height="1440" loading="lazy" alt="Bucyrus RH170 дээрх DAFO систем" data-alt-mn="Bucyrus RH170 дээрх DAFO систем" data-alt-en="DAFO system on a Bucyrus RH170">
-          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: Bucyrus RH170 дээрх DAFO систем</span><span lang="en">Photo: DAFO system on a Bucyrus RH170</span></figcaption>
+          <img src="photos/dafo-20261013065851.jpg" width="1920" height="1440" loading="lazy" alt="Bucyrus RH170 дээрх DAFO систем" data-alt-mn="Bucyrus RH170 дээрх DAFO систем" data-alt-en="DAFO system on a Bucyrus RH170" data-alt-zh="Bucyrus RH170 上的 DAFO 系统">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: Bucyrus RH170 дээрх DAFO систем</span><span lang="en">Photo: DAFO system on a Bucyrus RH170</span><span lang="zh">图：Bucyrus RH170 上的 DAFO 系统</span></figcaption>
         </figure>
       </div>
 
       <div class="how" id="how">
         <div class="how-head">
-          <h3><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></h3>
-          <span class="sheet"><span lang="mn">DAFO SV‑K систем</span><span lang="en">DAFO SV-K system</span></span>
+          <h3><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span><span lang="zh">系统工作原理</span></h3>
+          <span class="sheet"><span lang="mn">DAFO SV‑K систем</span><span lang="en">DAFO SV-K system</span><span lang="zh">DAFO SV-K 系统</span></span>
         </div>
         <figure class="how-fig">
           <div class="how-img">
-            <img src="photos/dafo-system-layout.jpg" width="1100" height="636" loading="lazy" alt="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-mn="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-en="DAFO system layout: heat-sensing cable, CV-X control unit, alarm devices, display, red SV-K agent tank, separate nitrogen cartridge, piping and nozzles">
+            <img src="photos/dafo-system-layout.jpg" width="1100" height="636" loading="lazy" alt="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-mn="DAFO системийн бүтэц: дулаан мэдрэгч кабель, CV-X удирдлагын блок, дохиоллын төхөөрөмж, дэлгэц, улаан SV-K бодисын танк, тусдаа азотын баллон, хоолой, хошуу" data-alt-en="DAFO system layout: heat-sensing cable, CV-X control unit, alarm devices, display, red SV-K agent tank, separate nitrogen cartridge, piping and nozzles" data-alt-zh="DAFO 系统布置：感温电缆、CV-X 控制单元、报警装置、显示器、红色 SV-K 灭火剂储罐、独立氮气驱动瓶、管路和喷嘴">
             <div aria-hidden="true">
               <span class="mk" style="left:13.6%;top:20.1%">1</span>
               <span class="mk" style="left:65.6%;top:28.8%">2</span>
@@ -570,58 +576,58 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
               <span class="mk" style="left:25.6%;top:35.5%">5</span>
             </div>
           </div>
-          <figcaption class="how-key"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Image: Dafo Vehicle</span></figcaption>
+          <figcaption class="how-key"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Image: Dafo Vehicle</span><span lang="zh">图：Dafo Vehicle</span></figcaption>
         </figure>
         <ol class="how-list">
-            <li><span class="n">1</span><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span></p></div></li>
-            <li><span class="n">2</span><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span></p></div></li>
-            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurises the tank to 20 bar. At rest the tank holds no pressure.</span></p></div></li>
-            <li><span class="n">4</span><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span></p></div></li>
-            <li><span class="n">5</span><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span></p></div></li>
+            <li><span class="n">1</span><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span><span lang="zh">探测</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span><span lang="zh">感温电缆敷设在发动机舱内，在 180 °C 时触发。</span></p></div></li>
+            <li><span class="n">2</span><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span><span lang="zh">报警与控制</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span><span lang="zh">CV-X 控制单元在驾驶室面板上发出声光报警并自动启动系统。操作员也可按下手动按钮启动。</span></p></div></li>
+            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span><span lang="zh">加压</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurises the tank to 20 bar. At rest the tank holds no pressure.</span><span lang="zh">氮气驱动瓶将储罐加压至 20 bar。待命状态下储罐无压力。</span></p></div></li>
+            <li><span class="n">4</span><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span><span lang="zh">管路</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span><span lang="zh">活塞将 Forrex EVO 经不锈钢管路推送至喷嘴。</span></p></div></li>
+            <li><span class="n">5</span><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span><span lang="zh">灭火</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span><span lang="zh">喷嘴将灭火剂喷向风险区域。Forrex EVO 扑灭火焰、冷却高温部件，并在表面留下保护层，防止复燃。</span></p></div></li>
         </ol>
       </div>
 
       <div class="vids sheet-vids">
-        <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span></p>
+        <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span><span lang="zh">视频</span></p>
         <ul class="vid-list">
-          <li><a class="vid" href="https://youtu.be/Crj35qCe9To" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">DAFO систем танилцуулга</span><span lang="en">Introducing the DAFO system</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
-          <li><a class="vid" href="https://youtu.be/xlfrOsjDK2U" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Форрекс цацагдах байдал</span><span lang="en">How the agent discharges</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
-          <li><a class="vid" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Бодис цацсаны дараах цэвэрлэгээ</span><span lang="en">Cleaning up after a discharge</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+          <li><a class="vid" href="https://youtu.be/Crj35qCe9To" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">DAFO систем танилцуулга</span><span lang="en">Introducing the DAFO system</span><span lang="zh">DAFO 系统介绍</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
+          <li><a class="vid" href="https://youtu.be/xlfrOsjDK2U" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Форрекс цацагдах байдал</span><span lang="en">How the agent discharges</span><span lang="zh">灭火剂喷放效果</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
+          <li><a class="vid" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Бодис цацсаны дараах цэвэрлэгээ</span><span lang="en">Cleaning up after a discharge</span><span lang="zh">喷放后的清理</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
         </ul>
       </div>
 
       <div class="sheet-row">
         <div>
-          <p class="sub"><span lang="mn">Үндсэн үзүүлэлт</span><span lang="en">Key data</span></p>
+          <p class="sub"><span lang="mn">Үндсэн үзүүлэлт</span><span lang="en">Key data</span><span lang="zh">主要参数</span></p>
           <table class="spec">
             <tbody>
-              <tr><th scope="row"><span lang="mn">Форрекс</span><span lang="en">Suppression agent</span></th><td><span lang="mn">Forrex EVO: фторгүй (PFAS-гүй), бэлэн холимог шингэн; A, B ангиллын гал. Материал, эд ангид хор нөлөөгүй, байгальд ээлтэй; цацсаны дараа усаар угаана. Хадгалах хугацаа 10 жил хүртэл.</span><span lang="en">Forrex EVO: fluorine-free (PFAS-free), premixed liquid for class A and B fires. Non-aggressive to materials and components, environmentally friendly; rinse with water after a discharge. Shelf life up to 10 years.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Температур</span><span lang="en">Temperature</span></th><td><span lang="mn">Forrex EVO <span class="mono">−40…+60 °C</span></span><span lang="en">Forrex EVO <span class="mono">−40 to +60 °C</span></span></td></tr>
-              <tr><th scope="row"><span lang="mn">Тооцооны үндэс</span><span lang="en">Design basis</span></th><td><span lang="mn">SBF 127:17: хамгаалах эзлэхүүний 1 м³ тутамд <span class="mono">3,0 л</span> Forrex EVO. Хошууны тоо, байрлалыг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">SBF 127:17: <span class="mono">3.0 L</span> of Forrex EVO per m³ of protected volume. Nozzle count and placement are set by the fire risk assessment.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Танк</span><span lang="en">Tank</span></th><td><span lang="mn">SV-K: улаан анодлосон хөнгөн цагаан, бүлүүртэй (поршень), хэвийн үед даралтгүй. <span class="mono">5–25 л</span>, уурхайн техникт ихэвчлэн 25 л. Ажлын даралт 20 бар, задрах даралт 100 бар. Хэвтээ, босоо суурилуулж болно.</span><span lang="en">SV-K: red-anodised aluminium piston tank, unpressurised at rest. <span class="mono">5–25 L</span>; mining machines usually take the 25 L. Working pressure 20 bar, burst pressure 100 bar. Mounts horizontally or vertically.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Шахалт, идэвхжүүлэгч</span><span lang="en">Propellant and actuator</span></th><td><span lang="mn">Азотын баллон N10 / N20 (TPED, DOT зөвшөөрөлтэй); механик, пневматик эсвэл цахилгаан идэвхжүүлэгч.</span><span lang="en">N10 / N20 nitrogen cartridge (TPED and DOT approved); mechanical, pneumatic or electric actuator.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span></th><td><span lang="mn">Шугаман дулаан мэдрэгч кабель, <span class="mono">180 °C</span>-т идэвхжинэ. Хэлхээг бүхэлд нь хянаж, тасралт, богино холболтыг илрүүлнэ (UL/FM). Сонголтоор Arvak оношилгоотой мэдрэгч.</span><span lang="en">Linear heat-sensing cable, activates at <span class="mono">180 °C</span>. Full-circuit supervision detects breaks and shorts (UL/FM listed). Arvak detector with built-in diagnostics as an option.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Удирдлагын блок</span><span lang="en">Control unit</span></th><td><span lang="mn">DAFO CV-X (стандарт) эсвэл CV-Xe: <span class="mono">9–36 В DC</span>, 2 бүс, хэлхээний гэмтлийн хяналт, бодит цагтай 4095 үйл явдлын бүртгэл, батарейгүй суперконденсаторын нөөц тэжээл 72 цаг хүртэл, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe: Ethernet, алсын хяналтын боломж. Кабины самбар: гараар идэвхжүүлэх товч, дохионы гэрэл, дуут дохио.</span><span lang="en">DAFO CV-X (standard) or CV-Xe: <span class="mono">9–36 V DC</span>, 2 zones, circuit fault monitoring, 4095-event log with real-time clock, battery-free supercapacitor backup up to 72 h, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe adds Ethernet and remote-monitoring options. Cab panel: manual release button, alarm lights, sounder.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Идэвхжүүлэлт</span><span lang="en">Release</span></th><td><span lang="mn">Автомат, тохируулж болох саатлын хугацаатай; кабины самбарын товч эсвэл гаднах механик идэвхжүүлэгчээр гараар. Сонголтоор хөдөлгүүр унтраах, түлш таслах, массын унтраалга салгах.</span><span lang="en">Automatic, with a configurable release delay; manual from the cab panel button or the external mechanical release. Options to stop the engine, cut fuel and open the battery master switch.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Хоолой, хошуу</span><span lang="en">Piping and nozzles</span></th><td><span lang="mn">Зэвэрдэггүй ган хоолой эсвэл шланг, JIC холбоос, DW2 хошуу; бага, тогтмол даралтаар цацна.</span><span lang="en">Stainless steel pipe or hose, JIC fittings, DW2 nozzles; discharge at constant low pressure.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Форрекс</span><span lang="en">Suppression agent</span><span lang="zh">灭火剂</span></th><td><span lang="mn">Forrex EVO: фторгүй (PFAS-гүй), бэлэн холимог шингэн; A, B ангиллын гал. Материал, эд ангид хор нөлөөгүй, байгальд ээлтэй; цацсаны дараа усаар угаана. Хадгалах хугацаа 10 жил хүртэл.</span><span lang="en">Forrex EVO: fluorine-free (PFAS-free), premixed liquid for class A and B fires. Non-aggressive to materials and components, environmentally friendly; rinse with water after a discharge. Shelf life up to 10 years.</span><span lang="zh">Forrex EVO：无氟（不含 PFAS）预混液体灭火剂，适用于 A 类和 B 类火灾。对材料和部件无腐蚀，环保；喷放后用水冲洗即可。保质期长达 10 年。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Температур</span><span lang="en">Temperature</span><span lang="zh">工作温度</span></th><td><span lang="mn">Forrex EVO <span class="mono">−40…+60 °C</span></span><span lang="en">Forrex EVO <span class="mono">−40 to +60 °C</span></span><span lang="zh">Forrex EVO <span class="mono">−40…+60 °C</span></span></td></tr>
+              <tr><th scope="row"><span lang="mn">Тооцооны үндэс</span><span lang="en">Design basis</span><span lang="zh">设计依据</span></th><td><span lang="mn">SBF 127:17: хамгаалах эзлэхүүний 1 м³ тутамд <span class="mono">3,0 л</span> Forrex EVO. Хошууны тоо, байрлалыг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">SBF 127:17: <span class="mono">3.0 L</span> of Forrex EVO per m³ of protected volume. Nozzle count and placement are set by the fire risk assessment.</span><span lang="zh">SBF 127:17：每 m³ 保护空间 <span class="mono">3.0 L</span> Forrex EVO。喷嘴数量和位置由火灾风险评估确定。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Танк</span><span lang="en">Tank</span><span lang="zh">储罐</span></th><td><span lang="mn">SV-K: улаан анодлосон хөнгөн цагаан, бүлүүртэй (поршень), хэвийн үед даралтгүй. <span class="mono">5–25 л</span>, уурхайн техникт ихэвчлэн 25 л. Ажлын даралт 20 бар, задрах даралт 100 бар. Хэвтээ, босоо суурилуулж болно.</span><span lang="en">SV-K: red-anodised aluminium piston tank, unpressurised at rest. <span class="mono">5–25 L</span>; mining machines usually take the 25 L. Working pressure 20 bar, burst pressure 100 bar. Mounts horizontally or vertically.</span><span lang="zh">SV-K：红色阳极氧化铝活塞式储罐，待命状态下无压力。<span class="mono">5–25 L</span>；矿山设备通常选用 25 L。工作压力 20 bar，爆破压力 100 bar。可水平或垂直安装。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Шахалт, идэвхжүүлэгч</span><span lang="en">Propellant and actuator</span><span lang="zh">驱动气源与启动器</span></th><td><span lang="mn">Азотын баллон N10 / N20 (TPED, DOT зөвшөөрөлтэй); механик, пневматик эсвэл цахилгаан идэвхжүүлэгч.</span><span lang="en">N10 / N20 nitrogen cartridge (TPED and DOT approved); mechanical, pneumatic or electric actuator.</span><span lang="zh">N10 / N20 氮气驱动瓶（TPED 和 DOT 认证）；机械、气动或电动启动器。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span><span lang="zh">探测</span></th><td><span lang="mn">Шугаман дулаан мэдрэгч кабель, <span class="mono">180 °C</span>-т идэвхжинэ. Хэлхээг бүхэлд нь хянаж, тасралт, богино холболтыг илрүүлнэ (UL/FM). Сонголтоор Arvak оношилгоотой мэдрэгч.</span><span lang="en">Linear heat-sensing cable, activates at <span class="mono">180 °C</span>. Full-circuit supervision detects breaks and shorts (UL/FM listed). Arvak detector with built-in diagnostics as an option.</span><span lang="zh">线型感温电缆，在 <span class="mono">180 °C</span> 时触发。全回路监控可检测断路和短路（UL/FM 列名）。可选配带自诊断功能的 Arvak 探测器。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Удирдлагын блок</span><span lang="en">Control unit</span><span lang="zh">控制单元</span></th><td><span lang="mn">DAFO CV-X (стандарт) эсвэл CV-Xe: <span class="mono">9–36 В DC</span>, 2 бүс, хэлхээний гэмтлийн хяналт, бодит цагтай 4095 үйл явдлын бүртгэл, батарейгүй суперконденсаторын нөөц тэжээл 72 цаг хүртэл, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe: Ethernet, алсын хяналтын боломж. Кабины самбар: гараар идэвхжүүлэх товч, дохионы гэрэл, дуут дохио.</span><span lang="en">DAFO CV-X (standard) or CV-Xe: <span class="mono">9–36 V DC</span>, 2 zones, circuit fault monitoring, 4095-event log with real-time clock, battery-free supercapacitor backup up to 72 h, CAN bus (SAE J1939), IP67 / IP69K. CV-Xe adds Ethernet and remote-monitoring options. Cab panel: manual release button, alarm lights, sounder.</span><span lang="zh">DAFO CV-X（标准型）或 CV-Xe：<span class="mono">9–36 V DC</span>，2 个防护区，回路故障监控，带实时时钟的 4095 条事件记录，无电池超级电容备用电源可达 72 小时，CAN 总线（SAE J1939），IP67 / IP69K。CV-Xe 增加以太网和远程监控选项。驾驶室面板：手动启动按钮、报警灯、蜂鸣器。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Идэвхжүүлэлт</span><span lang="en">Release</span><span lang="zh">启动方式</span></th><td><span lang="mn">Автомат, тохируулж болох саатлын хугацаатай; кабины самбарын товч эсвэл гаднах механик идэвхжүүлэгчээр гараар. Сонголтоор хөдөлгүүр унтраах, түлш таслах, массын унтраалга салгах.</span><span lang="en">Automatic, with a configurable release delay; manual from the cab panel button or the external mechanical release. Options to stop the engine, cut fuel and open the battery master switch.</span><span lang="zh">自动启动，启动延时可设置；也可通过驾驶室面板按钮或外部机械启动器手动启动。可选配发动机停机、切断燃油和断开电源总开关功能。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Хоолой, хошуу</span><span lang="en">Piping and nozzles</span><span lang="zh">管路与喷嘴</span></th><td><span lang="mn">Зэвэрдэггүй ган хоолой эсвэл шланг, JIC холбоос, DW2 хошуу; бага, тогтмол даралтаар цацна.</span><span lang="en">Stainless steel pipe or hose, JIC fittings, DW2 nozzles; discharge at constant low pressure.</span><span lang="zh">不锈钢管或软管，JIC 接头，DW2 喷嘴；以恒定低压喷放。</span></td></tr>
             </tbody>
           </table>
         </div>
         <div>
-          <p class="sub"><span lang="mn">Стандарт, гэрчилгээ</span><span lang="en">Standards and approvals</span></p>
+          <p class="sub"><span lang="mn">Стандарт, гэрчилгээ</span><span lang="en">Standards and approvals</span><span lang="zh">标准与认证</span></p>
           <ul class="std">
-            <li><b>SBF 127:17</b><span><span lang="mn">Шведийн Галын хамгаалалтын холбооны хүнд техникийн гал унтраах системийн дүрэм. Манай зураг төслийн үндэс.</span><span lang="en">Swedish Fire Protection Association rules for fire suppression on heavy vehicles. The basis of our system design.</span></span></li>
-            <li><b>AS 5062:2016</b><span><span lang="mn">Австралийн хөдөлгөөнт техникийн галын хамгаалалтын стандарт. Global-Mark гэрчилгээ.</span><span lang="en">Australian fire protection standard for mobile equipment. Global-Mark certificate.</span></span></li>
-            <li><b>UNECE R107</b><span><span lang="mn">Forrex SV-K системийн НҮБ-ын E5 төрлийн зөвшөөрөл; RISE туршсан.</span><span lang="en">UN E5 type approval of the Forrex SV-K system, tested by RISE.</span></span></li>
-            <li><b>SPCR 183<br>SPCR 199</b><span><span lang="mn">RISE (Швед) хүрээлэнгийн гэрчилгээ: SPCR 183 хөдөлгүүрийн тасалгааны систем; SPCR 199 ба SP 4912 (C3A) Forrex EVO бодис.</span><span lang="en">RISE (Sweden) certification: SPCR 183 for engine-bay systems; SPCR 199 and SP method 4912 (class C3A) for Forrex EVO.</span></span></li>
-            <li><b>UL / FM</b><span><span lang="mn">Мэдрэгч кабелийн UL/FM бүртгэл. CV-X удирдлагын блок FM 5970 хувилбартай.</span><span lang="en">UL/FM listing of the detection cable. The CV-X control unit is available in an FM 5970 version.</span></span></li>
-            <li><b>ISO 9001<br>ISO 14001</b><span><span lang="mn">Dafo Vehicle Fire Protection AB-ийн чанар, байгаль орчны менежментийн систем.</span><span lang="en">Quality and environmental management systems of Dafo Vehicle Fire Protection AB.</span></span></li>
+            <li><b>SBF 127:17</b><span><span lang="mn">Шведийн Галын хамгаалалтын холбооны хүнд техникийн гал унтраах системийн дүрэм. Манай зураг төслийн үндэс.</span><span lang="en">Swedish Fire Protection Association rules for fire suppression on heavy vehicles. The basis of our system design.</span><span lang="zh">瑞典消防协会关于重型车辆灭火系统的规则，是我们系统设计的依据。</span></span></li>
+            <li><b>AS 5062:2016</b><span><span lang="mn">Австралийн хөдөлгөөнт техникийн галын хамгаалалтын стандарт. Global-Mark гэрчилгээ.</span><span lang="en">Australian fire protection standard for mobile equipment. Global-Mark certificate.</span><span lang="zh">澳大利亚移动设备消防标准，Global-Mark 认证证书。</span></span></li>
+            <li><b>UNECE R107</b><span><span lang="mn">Forrex SV-K системийн НҮБ-ын E5 төрлийн зөвшөөрөл; RISE туршсан.</span><span lang="en">UN E5 type approval of the Forrex SV-K system, tested by RISE.</span><span lang="zh">Forrex SV-K 系统的联合国 E5 型式认证，由 RISE 测试。</span></span></li>
+            <li><b>SPCR 183<br>SPCR 199</b><span><span lang="mn">RISE (Швед) хүрээлэнгийн гэрчилгээ: SPCR 183 хөдөлгүүрийн тасалгааны систем; SPCR 199 ба SP 4912 (C3A) Forrex EVO бодис.</span><span lang="en">RISE (Sweden) certification: SPCR 183 for engine-bay systems; SPCR 199 and SP method 4912 (class C3A) for Forrex EVO.</span><span lang="zh">瑞典 RISE 研究院认证：发动机舱灭火系统 SPCR 183；Forrex EVO 灭火剂 SPCR 199 和 SP 4912 方法（C3A 级）。</span></span></li>
+            <li><b>UL / FM</b><span><span lang="mn">Мэдрэгч кабелийн UL/FM бүртгэл. CV-X удирдлагын блок FM 5970 хувилбартай.</span><span lang="en">UL/FM listing of the detection cable. The CV-X control unit is available in an FM 5970 version.</span><span lang="zh">探测电缆通过 UL/FM 列名。CV-X 控制单元提供 FM 5970 版本。</span></span></li>
+            <li><b>ISO 9001<br>ISO 14001</b><span><span lang="mn">Dafo Vehicle Fire Protection AB-ийн чанар, байгаль орчны менежментийн систем.</span><span lang="en">Quality and environmental management systems of Dafo Vehicle Fire Protection AB.</span><span lang="zh">Dafo Vehicle Fire Protection AB 的质量和环境管理体系。</span></span></li>
           </ul>
-          <p class="sub" style="margin-top:14px"><span lang="mn">Үйлчилгээ, баталгаа</span><span lang="en">Service and warranty</span></p>
+          <p class="sub" style="margin-top:14px"><span lang="mn">Үйлчилгээ, баталгаа</span><span lang="en">Service and warranty</span><span lang="zh">保养与质保</span></p>
           <table class="spec">
             <tbody>
-              <tr><th scope="row"><span lang="mn">Үйлчилгээний хуваарь</span><span lang="en">Service schedule</span></th><td><span lang="mn">7 хоног тутам операторын үзлэг. 12 сар тутам DAFO-гийн эрх бүхий техникчийн үйлчилгээ. 10 жилд бүлүүр, бодис солиж, азотын баллонд гидравлик туршилт хийнэ.</span><span lang="en">Weekly operator check. Service by a DAFO-authorised technician every 12 months. At 10 years the piston and agent are replaced and the nitrogen cartridge is hydrostatically tested.</span></td></tr>
-              <tr><th scope="row"><span lang="mn">Баталгаа</span><span lang="en">Warranty</span></th><td><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгаа. DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн үед хүчинтэй.</span><span lang="en">12-month DAFO Vehicle manufacturer’s warranty. Valid when the system is installed to the manual by DAFO-trained technicians, uses genuine DAFO parts and agent, and receives its 12-month service.</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Үйлчилгээний хуваарь</span><span lang="en">Service schedule</span><span lang="zh">保养计划</span></th><td><span lang="mn">7 хоног тутам операторын үзлэг. 12 сар тутам DAFO-гийн эрх бүхий техникчийн үйлчилгээ. 10 жилд бүлүүр, бодис солиж, азотын баллонд гидравлик туршилт хийнэ.</span><span lang="en">Weekly operator check. Service by a DAFO-authorised technician every 12 months. At 10 years the piston and agent are replaced and the nitrogen cartridge is hydrostatically tested.</span><span lang="zh">操作员每周检查。每 12 个月由 DAFO 授权技术人员保养。第 10 年更换活塞和灭火剂，并对氮气驱动瓶进行水压试验。</span></td></tr>
+              <tr><th scope="row"><span lang="mn">Баталгаа</span><span lang="en">Warranty</span><span lang="zh">质保</span></th><td><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгаа. DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн үед хүчинтэй.</span><span lang="en">12-month DAFO Vehicle manufacturer’s warranty. Valid when the system is installed to the manual by DAFO-trained technicians, uses genuine DAFO parts and agent, and receives its 12-month service.</span><span lang="zh">DAFO Vehicle 制造商 12 个月质保。条件：由经 DAFO 培训的技术人员按手册安装，使用 DAFO 原厂配件和灭火剂，并完成 12 个月定期保养。</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -632,18 +638,18 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   <section class="sec" id="process">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span lang="mn">ХАБЭА, худалдан авалтын багт</span><span lang="en">For HSE and procurement teams</span></p>
-        <h2><span lang="mn">Эрсдлийн үнэлгээ, ханган нийлүүлэлт, угсралт суурилуулалт, сургалт, хуваарьт үзлэг: бүх үйлчилгээ нэг дороос</span><span lang="en">Risk assessment, supply, installation, training and scheduled inspection: every service from one team</span></h2>
-        <p><span lang="mn">DAFO-гийн гэрчилгээтэй мэргэжилтэн систем бүрийг үнэлж, суурилуулж, туршиж хүлээлгэн өгч, ашиглалтын бүх үе шатанд хуваарьт үйлчилгээг үзүүлнэ.</span><span lang="en">DAFO-certified specialists assess, install, test and hand over every system, then provide scheduled service at every stage of its working life.</span></p>
+        <p class="eyebrow"><span lang="mn">ХАБЭА, худалдан авалтын багт</span><span lang="en">For HSE and procurement teams</span><span lang="zh">致 HSE 和采购团队</span></p>
+        <h2><span lang="mn">Эрсдлийн үнэлгээ, ханган нийлүүлэлт, угсралт суурилуулалт, сургалт, хуваарьт үзлэг: бүх үйлчилгээ нэг дороос</span><span lang="en">Risk assessment, supply, installation, training and scheduled inspection: every service from one team</span><span lang="zh">风险评估、供货、安装、培训和定期检查：全部服务由同一团队完成</span></h2>
+        <p><span lang="mn">DAFO-гийн гэрчилгээтэй мэргэжилтэн систем бүрийг үнэлж, суурилуулж, туршиж хүлээлгэн өгч, ашиглалтын бүх үе шатанд хуваарьт үйлчилгээг үзүүлнэ.</span><span lang="en">DAFO-certified specialists assess, install, test and hand over every system, then provide scheduled service at every stage of its working life.</span><span lang="zh">DAFO 认证的专业人员对每套系统进行评估、安装、测试和交付，并在其整个使用寿命内提供定期保养。</span></p>
       </div>
       <div class="process">
         <ol class="tl">
-          <li><b><span lang="mn">Галын эрсдэлийн үнэлгээ</span><span lang="en">Fire risk assessment</span></b><p><span lang="mn">Техникийг газар дээр нь үзэж, халуун гадаргуу, түлш ба гидравликийн шугам, цахилгааны эрсдэлийг тогтооно.</span><span lang="en">We inspect the machine on site and map hot surfaces, fuel and hydraulic lines, and electrics.</span></p></li>
-          <li><b><span lang="mn">Системийн зураг төсөл</span><span lang="en">System design</span></b><p><span lang="mn">Мэдрэгч кабель, хошуу, танкийн байрлал, бодисын хэмжээг тухайн техникт SBF 127-ийн дагуу тооцоолно.</span><span lang="en">Detection cable, nozzles, tank position and agent volume are calculated for that machine to SBF 127.</span></p></li>
-          <li><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span></p></li>
-          <li><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span></p></li>
-          <li><b><span lang="mn">Сургалт</span><span lang="en">Training</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span></p></li>
-          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 10-year major service. Recharge from stock in Ulaanbaatar after any discharge.</span></p></li>
+          <li><b><span lang="mn">Галын эрсдэлийн үнэлгээ</span><span lang="en">Fire risk assessment</span><span lang="zh">火灾风险评估</span></b><p><span lang="mn">Техникийг газар дээр нь үзэж, халуун гадаргуу, түлш ба гидравликийн шугам, цахилгааны эрсдэлийг тогтооно.</span><span lang="en">We inspect the machine on site and map hot surfaces, fuel and hydraulic lines, and electrics.</span><span lang="zh">我们在现场检查设备，确定高温表面、燃油和液压管路以及电气系统的风险。</span></p></li>
+          <li><b><span lang="mn">Системийн зураг төсөл</span><span lang="en">System design</span><span lang="zh">系统设计</span></b><p><span lang="mn">Мэдрэгч кабель, хошуу, танкийн байрлал, бодисын хэмжээг тухайн техникт SBF 127-ийн дагуу тооцоолно.</span><span lang="en">Detection cable, nozzles, tank position and agent volume are calculated for that machine to SBF 127.</span><span lang="zh">按 SBF 127 标准为该设备计算探测电缆、喷嘴、储罐位置和灭火剂用量。</span></p></li>
+          <li><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span><span lang="zh">安装</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span><span lang="zh">我们的团队在矿山现场安装，并可拆除和更换原有系统。</span></p></li>
+          <li><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span><span lang="zh">测试与交付</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span><span lang="zh">进行干式测试和实际喷放测试，签署验收报告后交付。</span></p></li>
+          <li><b><span lang="mn">Сургалт</span><span lang="en">Training</span><span lang="zh">培训</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span><span lang="zh">培训操作员和机修人员了解系统工作原理及报警时的处置方法。培训和手册提供蒙古语和英语版本。</span></p></li>
+          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span><span lang="zh">年度保养与再充装</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 10-year major service. Recharge from stock in Ulaanbaatar after any discharge.</span><span lang="zh">按 DAFO 计划每 12 个月保养一次，并执行 10 年大修保养。喷放后使用乌兰巴托库存再充装。</span></p></li>
         </ol>
       </div>
     </div>
@@ -653,44 +659,44 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     <div class="wrap">
       <div class="split rev">
         <figure class="slot tall" data-photo="sennebogen">
-          <img src="photos/sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-mn="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-en="SENNEBOGEN 875 E Hybrid loading coal">
-          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь</span><span lang="en">Photo: SENNEBOGEN 875 E Hybrid loading coal</span></figcaption>
+          <img src="photos/sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-mn="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-en="SENNEBOGEN 875 E Hybrid loading coal" data-alt-zh="SENNEBOGEN 875 E Hybrid 装煤作业">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь</span><span lang="en">Photo: SENNEBOGEN 875 E Hybrid loading coal</span><span lang="zh">图：SENNEBOGEN 875 E Hybrid 装煤作业</span></figcaption>
         </figure>
         <div class="body">
-          <p class="eyebrow"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></p>
-          <h2><span lang="mn">Нүүрс ачигч</span><span lang="en">Coal handlers</span></h2>
-          <p><span lang="mn">SENNEBOGEN-ий албан ёсны дилерийн хувьд бид нүүрс болон задгай ачаа ачих, буулгахад зориулсан 875 E Hybrid загварыг санал болгож, эх үйлдвэрийн сэлбэг, засвар үйлчилгээгээр хангана. Бусад загварыг ажлын онцлогт тань тохируулан сонгоно.</span><span lang="en">As an official SENNEBOGEN dealer we offer the 875 E Hybrid for loading and unloading coal and other bulk material, backed by genuine parts and service. Other models are selected to suit the job.</span></p>
-          <p class="sub"><span lang="mn">SENNEBOGEN 875 E Hybrid, sennebogen.com-ын мэдээллээр</span><span lang="en">SENNEBOGEN 875 E Hybrid, per sennebogen.com</span></p>
+          <p class="eyebrow"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span><span lang="zh">SENNEBOGEN 物料搬运机</span></p>
+          <h2><span lang="mn">Нүүрс ачигч</span><span lang="en">Coal handlers</span><span lang="zh">煤炭装卸机</span></h2>
+          <p><span lang="mn">SENNEBOGEN-ий албан ёсны дилерийн хувьд бид нүүрс болон задгай ачаа ачих, буулгахад зориулсан 875 E Hybrid загварыг санал болгож, эх үйлдвэрийн сэлбэг, засвар үйлчилгээгээр хангана. Бусад загварыг ажлын онцлогт тань тохируулан сонгоно. Монголд SENNEBOGEN 875 загварын машин 2019 оноос нүүрсний уурхайд ажиллаж байна.</span><span lang="en">As an official SENNEBOGEN dealer we offer the 875 E Hybrid for loading and unloading coal and other bulk material, backed by genuine parts and service. Other models are selected to suit the job. A SENNEBOGEN 875 has been working at a Mongolian coal mine since 2019.</span><span lang="zh">作为 SENNEBOGEN 官方经销商，我们提供用于装卸煤炭和其他散货的 875 E Hybrid，并配套原厂备件和服务。其他型号按作业需求选择。一台 SENNEBOGEN 875 自 2019 年起一直在蒙古国的一座煤矿作业。</span></p>
+          <p class="sub"><span lang="mn">SENNEBOGEN 875 E Hybrid, sennebogen.com-ын мэдээллээр</span><span lang="en">SENNEBOGEN 875 E Hybrid, per sennebogen.com</span><span lang="zh">SENNEBOGEN 875 E Hybrid，数据来自 sennebogen.com</span></p>
           <ul class="specs" style="margin-top:0">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Ажлын жин 140–165 т, хүрээ 21–29 м</span><span lang="en">Operating weight 140–165 t, reach 21–29 m</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Дизель 391 кВт (Stage V) эсвэл цахилгаан 390 кВт хөдөлгүүр, Green Hybrid энерги хуримтлуулагчтай</span><span lang="en">391 kW Stage V diesel or 390 kW electric drive, with Green Hybrid energy recovery</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Явах анги: дугуйт пилон, гинжит эсвэл гинжит портал</span><span lang="en">Undercarriage: mobile pylon, crawler or crawler gantry</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Maxcab эсвэл Portcab кабин; нүүрс, үр тариа зэрэг задгай ачаа, хаягдал төмөр, модны ачилтад зориулагдсан</span><span lang="en">Maxcab or Portcab cab; built for bulk cargo such as coal and grain, scrap and timber</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Ажлын жин 140–165 т, хүрээ 21–29 м</span><span lang="en">Operating weight 140–165 t, reach 21–29 m</span><span lang="zh">工作重量 140–165 t，作业半径 21–29 m</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Дизель 391 кВт (Stage V) эсвэл цахилгаан 390 кВт хөдөлгүүр, Green Hybrid энерги хуримтлуулагчтай</span><span lang="en">391 kW Stage V diesel or 390 kW electric drive, with Green Hybrid energy recovery</span><span lang="zh">391 kW Stage V 柴油或 390 kW 电驱动，配 Green Hybrid 能量回收系统</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Явах анги: дугуйт пилон, гинжит эсвэл гинжит портал</span><span lang="en">Undercarriage: mobile pylon, crawler or crawler gantry</span><span lang="zh">底盘：移动式塔架、履带式或履带龙门式</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Maxcab эсвэл Portcab кабин; нүүрс, үр тариа зэрэг задгай ачаа, хаягдал төмөр, модны ачилтад зориулагдсан</span><span lang="en">Maxcab or Portcab cab; built for bulk cargo such as coal and grain, scrap and timber</span><span lang="zh">Maxcab 或 Portcab 驾驶室；适用于煤炭、谷物等散货以及废钢和木材</span></span></li>
           </ul>
           <div class="vids">
-            <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span></p>
+            <p class="sub"><span lang="mn">Видео</span><span lang="en">Videos</span><span lang="zh">视频</span></p>
             <ul class="vid-list">
-              <li><a class="vid" href="https://youtu.be/f8A3k4XT3mI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN 875 E товч танилцуулна</span><span lang="en">SENNEBOGEN 875 E: a short introduction</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
-              <li><a class="vid" href="https://youtu.be/jy6VQ9mh1QM" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN Монголд ирлээ</span><span lang="en">SENNEBOGEN arrives in Mongolia</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span></span></a></li>
+              <li><a class="vid" href="https://youtu.be/f8A3k4XT3mI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN 875 E товч танилцуулна</span><span lang="en">SENNEBOGEN 875 E: a short introduction</span><span lang="zh">SENNEBOGEN 875 E 简介</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
+              <li><a class="vid" href="https://youtu.be/jy6VQ9mh1QM" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">SENNEBOGEN Монголд ирлээ</span><span lang="en">SENNEBOGEN arrives in Mongolia</span><span lang="zh">SENNEBOGEN 抵达蒙古国</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
             </ul>
           </div>
           <div class="duo">
             <div>
-              <h3><span lang="mn">Хэрэглээ</span><span lang="en">Applications</span></h3>
+              <h3><span lang="mn">Хэрэглээ</span><span lang="en">Applications</span><span lang="zh">应用领域</span></h3>
               <ul>
-                <li><span lang="mn">Нүүрс, задгай ачаа ачих, буулгах</span><span lang="en">Coal and bulk material handling</span></li>
-                <li><span lang="mn">Төмөр замын вагон ачих</span><span lang="en">Rail wagon loading</span></li>
-                <li><span lang="mn">Хаягдал төмөр, дахин боловсруулалт</span><span lang="en">Scrap and recycling</span></li>
-                <li><span lang="mn">Ачаа тээврийн терминал</span><span lang="en">Freight terminals</span></li>
+                <li><span lang="mn">Нүүрс, задгай ачаа ачих, буулгах</span><span lang="en">Coal and bulk material handling</span><span lang="zh">煤炭和散货装卸</span></li>
+                <li><span lang="mn">Төмөр замын вагон ачих</span><span lang="en">Rail wagon loading</span><span lang="zh">铁路车皮装载</span></li>
+                <li><span lang="mn">Хаягдал төмөр, дахин боловсруулалт</span><span lang="en">Scrap and recycling</span><span lang="zh">废钢和回收</span></li>
+                <li><span lang="mn">Ачаа тээврийн терминал</span><span lang="en">Freight terminals</span><span lang="zh">货运站场</span></li>
               </ul>
             </div>
             <div>
-              <h3><span lang="mn">Бидний үйлчилгээ</span><span lang="en">What we provide</span></h3>
+              <h3><span lang="mn">Бидний үйлчилгээ</span><span lang="en">What we provide</span><span lang="zh">我们提供</span></h3>
               <ul>
-                <li><span lang="mn">Загвар сонголт, нийлүүлэлт</span><span lang="en">Model selection and supply</span></li>
-                <li><span lang="mn">Үйлдвэрийн SENNEBOGEN сэлбэг</span><span lang="en">Factory SENNEBOGEN parts</span></li>
-                <li><span lang="mn">Төлөвлөгөөт үйлчилгээний иж бүрдэл</span><span lang="en">Planned maintenance kits</span></li>
-                <li><span lang="mn">Оношилгоо, засвар</span><span lang="en">Diagnostics and repair</span></li>
+                <li><span lang="mn">Загвар сонголт, нийлүүлэлт</span><span lang="en">Model selection and supply</span><span lang="zh">型号选型与供货</span></li>
+                <li><span lang="mn">Үйлдвэрийн SENNEBOGEN сэлбэг</span><span lang="en">Factory SENNEBOGEN parts</span><span lang="zh">SENNEBOGEN 原厂备件</span></li>
+                <li><span lang="mn">Төлөвлөгөөт үйлчилгээний иж бүрдэл</span><span lang="en">Planned maintenance kits</span><span lang="zh">计划保养套件</span></li>
+                <li><span lang="mn">Оношилгоо, засвар</span><span lang="en">Diagnostics and repair</span><span lang="zh">诊断与维修</span></li>
               </ul>
             </div>
           </div>
@@ -702,43 +708,43 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   <section class="sec dark" id="service">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span></p>
-        <h2><span lang="mn">Тоног төхөөрөмжийн сэлбэг, засвар үйлчилгээ</span><span lang="en">Equipment parts, repair and maintenance</span></h2>
-        <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, кран, материал зөөвөрлөгчийн сэлбэгийг Европ, Азийн үйлдвэрлэгчдээс татан нийлүүлнэ.</span><span lang="en">We source parts for excavators, haul trucks, dozers, cranes and material handlers from makers in Europe and Asia.</span></p>
+        <p class="eyebrow"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span><span lang="zh">备件与服务</span></p>
+        <h2><span lang="mn">Тоног төхөөрөмжийн сэлбэг, засвар үйлчилгээ</span><span lang="en">Equipment parts, repair and maintenance</span><span lang="zh">设备备件、维修与保养</span></h2>
+        <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, кран, материал зөөвөрлөгчийн сэлбэгийг Европ, Азийн үйлдвэрлэгчдээс татан нийлүүлнэ.</span><span lang="en">We source parts for excavators, haul trucks, dozers, cranes and material handlers from makers in Europe and Asia.</span><span lang="zh">我们从欧洲和亚洲的制造商采购挖掘机、矿用自卸车、推土机、起重机和物料搬运机的备件。</span></p>
       </div>
       <div class="cols">
         <div class="col">
-          <h3><span lang="mn">Сэлбэг</span><span lang="en">Parts</span></h3>
+          <h3><span lang="mn">Сэлбэг</span><span lang="en">Parts</span><span lang="zh">备件</span></h3>
           <ul>
-            <li><span lang="mn">Гидравлик насос, мотор, хавхлага</span><span lang="en">Hydraulic pumps, motors and valves</span></li>
-            <li><span lang="mn">Эргэлтийн механизмын редуктор, мотор, холхивч</span><span lang="en">Slew drives, motors and bearings</span></li>
-            <li><span lang="mn">Шанаганы гол (палец), втулк</span><span lang="en">Bucket pins and bushings</span></li>
-            <li><span lang="mn">Шүүлтүүр, үйлчилгээний иж бүрдэл</span><span lang="en">Filters and service kits</span></li>
-            <li><span lang="mn">Автомат тосолгооны систем, насос</span><span lang="en">Auto-lube systems and pumps</span></li>
-            <li><span lang="mn">Өргөх гинж, шакл, оосор</span><span lang="en">Lifting chains, shackles and slings</span></li>
+            <li><span lang="mn">Гидравлик насос, мотор, хавхлага</span><span lang="en">Hydraulic pumps, motors and valves</span><span lang="zh">液压泵、液压马达和阀</span></li>
+            <li><span lang="mn">Эргэлтийн механизмын редуктор, мотор, холхивч</span><span lang="en">Slew drives, motors and bearings</span><span lang="zh">回转减速机、回转马达和轴承</span></li>
+            <li><span lang="mn">Шанаганы гол (палец), втулк</span><span lang="en">Bucket pins and bushings</span><span lang="zh">铲斗销轴和衬套</span></li>
+            <li><span lang="mn">Шүүлтүүр, үйлчилгээний иж бүрдэл</span><span lang="en">Filters and service kits</span><span lang="zh">滤芯和保养套件</span></li>
+            <li><span lang="mn">Автомат тосолгооны систем, насос</span><span lang="en">Auto-lube systems and pumps</span><span lang="zh">自动润滑系统和润滑泵</span></li>
+            <li><span lang="mn">Өргөх гинж, шакл, оосор</span><span lang="en">Lifting chains, shackles and slings</span><span lang="zh">起重链条、卸扣和吊索</span></li>
           </ul>
         </div>
         <div class="col">
-          <h3><span lang="mn">Аюулгүй ажиллагаа</span><span lang="en">Safety equipment</span></h3>
+          <h3><span lang="mn">Аюулгүй ажиллагаа</span><span lang="en">Safety equipment</span><span lang="zh">安全设备</span></h3>
           <ul>
-            <li><span lang="mn">DAFO гал унтраах систем, сэлбэг</span><span lang="en">DAFO systems and spares</span></li>
-            <li><span lang="mn">Forrex EVO бодис, азотын баллон</span><span lang="en">Forrex EVO agent and nitrogen cartridges</span></li>
-            <li><span lang="mn">Краны өндөр хүчдэлийн ойртолтын дохиолол</span><span lang="en">Crane high-voltage proximity alarms</span></li>
+            <li><span lang="mn">DAFO гал унтраах систем, сэлбэг</span><span lang="en">DAFO systems and spares</span><span lang="zh">DAFO 系统和备件</span></li>
+            <li><span lang="mn">Forrex EVO бодис, азотын баллон</span><span lang="en">Forrex EVO agent and nitrogen cartridges</span><span lang="zh">Forrex EVO 灭火剂和氮气驱动瓶</span></li>
+            <li><span lang="mn">Краны өндөр хүчдэлийн ойртолтын дохиолол</span><span lang="en">Crane high-voltage proximity alarms</span><span lang="zh">起重机高压接近报警器</span></li>
           </ul>
         </div>
         <div class="col">
-          <h3><span lang="mn">Үйлчилгээ</span><span lang="en">Service</span></h3>
+          <h3><span lang="mn">Үйлчилгээ</span><span lang="en">Service</span><span lang="zh">服务</span></h3>
           <ul>
-            <li><span lang="mn">Галын системийн үзлэг, цэнэглэлт</span><span lang="en">Fire-system inspection and recharge</span></li>
-            <li><span lang="mn">Хуучин системийг буулгаж, шинээр солих</span><span lang="en">Removing and replacing old systems</span></li>
-            <li><span lang="mn">Уурхай дээрх оношилгоо, засвар</span><span lang="en">Diagnostics and repairs at the mine</span></li>
-            <li><span lang="mn">Оператор, механикчийн сургалт</span><span lang="en">Operator and mechanic training</span></li>
+            <li><span lang="mn">Галын системийн үзлэг, цэнэглэлт</span><span lang="en">Fire-system inspection and recharge</span><span lang="zh">灭火系统检查和再充装</span></li>
+            <li><span lang="mn">Хуучин системийг буулгаж, шинээр солих</span><span lang="en">Removing and replacing old systems</span><span lang="zh">拆除和更换旧系统</span></li>
+            <li><span lang="mn">Уурхай дээрх оношилгоо, засвар</span><span lang="en">Diagnostics and repairs at the mine</span><span lang="zh">矿山现场诊断和维修</span></li>
+            <li><span lang="mn">Оператор, механикчийн сургалт</span><span lang="en">Operator and mechanic training</span><span lang="zh">操作员和机修人员培训</span></li>
           </ul>
         </div>
       </div>
       <p class="stock">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
-        <span><span lang="mn">Forrex EVO бодис, азотын баллон, чухал сэлбэгийг Улаанбаатар дахь агуулахдаа байнга нөөцөлдөг.</span><span lang="en">Forrex EVO agent, nitrogen cartridges and critical spares are always in stock in Ulaanbaatar.</span></span>
+        <span><span lang="mn">Forrex EVO бодис, азотын баллон, чухал сэлбэгийг Улаанбаатар дахь агуулахдаа байнга нөөцөлдөг.</span><span lang="en">Forrex EVO agent, nitrogen cartridges and critical spares are always in stock in Ulaanbaatar.</span><span lang="zh">Forrex EVO 灭火剂、氮气驱动瓶和关键备件在乌兰巴托常年备有库存。</span></span>
       </p>
     </div>
   </section>
@@ -746,32 +752,32 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   <section class="sec" id="references">
     <div class="wrap">
       <div class="head">
-        <h2><span lang="mn">23 систем, Монголын уул уурхайд</span><span lang="en">23 systems in Mongolian mining</span></h2>
-        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span></p>
+        <h2><span lang="mn">23 систем, Монголын уул уурхайд</span><span lang="en">23 systems in Mongolian mining</span><span lang="zh">蒙古国矿山的 23 套系统</span></h2>
+        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span><span lang="zh">在蒙古国煤矿运行的 DAFO 系统，按设备类型和型号统计。</span></p>
       </div>
       <div class="fleet">
         <div>
-          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span></p>
+          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span><span lang="zh">按设备类型</span></p>
           <ul class="bars">
-            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span></span><i style="--w:100%"></i><b>12</b></li>
-            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span></span><i style="--w:41.67%"></i><b>5</b></li>
-            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span></span><i style="--w:33.33%"></i><b>4</b></li>
-            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span></span><i style="--w:16.67%"></i><b>2</b></li>
+            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span><span lang="zh">液压挖掘机</span></span><i style="--w:100%"></i><b>12</b></li>
+            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span><span lang="zh">矿用自卸车</span></span><i style="--w:41.67%"></i><b>5</b></li>
+            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span><span lang="zh">轮式装载机</span></span><i style="--w:33.33%"></i><b>4</b></li>
+            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span><span lang="zh">正面吊</span></span><i style="--w:16.67%"></i><b>2</b></li>
           </ul>
-          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 10-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Hyundai, Hitachi, BelAZ and XCMG. Figures as of October 2026.</span></p>
+          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 10-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Hyundai, Hitachi, BelAZ and XCMG. Figures as of October 2026.</span><span lang="zh">品牌：CAT、Bucyrus、Hyundai、Hitachi、BelAZ 和 XCMG。数据截至 2026 年 10 月。</span></p>
         </div>
         <div>
-          <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span></p>
+          <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span><span lang="zh">按型号</span></p>
           <ul class="models">
             <li><span class="model">CAT 395</span><b>5</b></li>
             <li><span class="model">Bucyrus RH170</span><b>4</b></li>
             <li><span class="model">CAT 793D</span><b>4</b></li>
             <li><span class="model">Hyundai 780</span><b>4</b></li>
             <li><span class="model">Bucyrus RH120</span><b>2</b></li>
-            <li><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span></span><b>2</b></li>
+            <li><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span><span lang="zh">XCMG 正面吊</span></span><b>2</b></li>
             <li><span class="model">BelAZ 75306</span><b>1</b></li>
             <li><span class="model">Hitachi EX1200</span><b>1</b></li>
-            <li class="total"><span class="model"><span lang="mn">Нийт</span><span lang="en">Total</span></span><b>23</b></li>
+            <li class="total"><span class="model"><span lang="mn">Нийт</span><span lang="en">Total</span><span lang="zh">合计</span></span><b>23</b></li>
           </ul>
         </div>
       </div>
@@ -782,19 +788,20 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     <div class="wrap">
       <div class="split">
         <div class="body">
-          <p class="eyebrow"><span lang="mn">Бидний тухай</span><span lang="en">About MHS</span></p>
-          <h2><span lang="mn">Үндэсний компани</span><span lang="en">A national company</span></h2>
-          <p><span lang="mn">Материал Хандлинг Системс ХХК 2014 онд байгуулагдсан. Бид Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN нүүрс ачигч техникийг Монголын зах зээлд амжилттай нэвтрүүлэн ажиллаж байна.</span><span lang="en">Material Handling Systems LLC was founded in 2014. We have successfully introduced Swedish DAFO automatic fire suppression systems and German SENNEBOGEN coal handling machines to the Mongolian market.</span></p>
+          <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span><span lang="zh">Material Handling Systems LLC</span></p>
+          <h2><span lang="mn">Бидний тухай</span><span lang="en">About MHS</span><span lang="zh">关于我们</span></h2>
+          <p><span lang="mn">Материал Хандлинг Системс ХХК 2014 онд байгуулагдсан. Бид Шведийн DAFO автомат гал унтраах систем, Германы SENNEBOGEN нүүрс ачигч техникийг Монголын зах зээлд амжилттай нэвтрүүлэн ажиллаж байна.</span><span lang="en">Material Handling Systems LLC was founded in 2014. We have successfully introduced Swedish DAFO automatic fire suppression systems and German SENNEBOGEN coal handling machines to the Mongolian market.</span><span lang="zh">Material Handling Systems LLC 成立于 2014 年。我们已成功将瑞典 DAFO 自动灭火系统和德国 SENNEBOGEN 煤炭装卸设备引入蒙古国市场。</span></p>
           <ul class="specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">DAFO-гийн сертификаттай мэргэжилтнүүд</span><span lang="en">DAFO-certified specialists</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Улаанбаатарт Форрекс, сэлбэгийн байнгын нөөц</span><span lang="en">Fire suppression agent and spare parts always in stock in Ulaanbaatar</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Гадны мэргэжилтнүүдтэй хамтран ажилласан туршлага</span><span lang="en">Experience working alongside international specialists</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Засварын бааз: O&amp;OCH засварын төв, Сонгинохайрхан дүүрэг</span><span lang="en">Workshop base: O&amp;OCH repair shop, Songinokhairkhan district</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">DAFO-гийн сертификаттай мэргэжилтнүүд</span><span lang="en">DAFO-certified specialists</span><span lang="zh">DAFO 认证的专业技术人员</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Улаанбаатарт Форрекс, сэлбэгийн байнгын нөөц</span><span lang="en">Fire suppression agent and spare parts always in stock in Ulaanbaatar</span><span lang="zh">灭火剂和备件在乌兰巴托常年备有库存</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Гадны мэргэжилтнүүдтэй хамтран ажилласан туршлага</span><span lang="en">Experience working alongside international specialists</span><span lang="zh">与国际专家合作的经验</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Засварын бааз: O&amp;OCH засварын төв, Сонгинохайрхан дүүрэг</span><span lang="en">Workshop base: O&amp;OCH repair shop, Songinokhairkhan district</span><span lang="zh">维修基地：O&amp;OCH 维修中心，松金海尔汗区</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Мэргэжлийн хариуцлагын даатгалтай (МИГ даатгал)</span><span lang="en">Professional-indemnity insured with MIG Insurance</span><span lang="zh">已投保职业责任保险（MIG 保险）</span></span></li>
           </ul>
         </div>
         <figure class="slot tall" data-photo="crew">
-          <img src="photos/crew-20261013125314.jpg" width="1920" height="1440" loading="lazy" alt="MHS-ийн баг" data-alt-mn="MHS-ийн баг" data-alt-en="the MHS crew">
-          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: MHS-ийн баг</span><span lang="en">Photo: the MHS crew</span></figcaption>
+          <img src="photos/crew-20261013125314.jpg" width="1920" height="1440" loading="lazy" alt="MHS-ийн баг" data-alt-mn="MHS-ийн баг" data-alt-en="the MHS crew" data-alt-zh="MHS 团队">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: MHS-ийн баг</span><span lang="en">Photo: the MHS crew</span><span lang="zh">图：MHS 团队</span></figcaption>
         </figure>
       </div>
     </div>
@@ -803,46 +810,46 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   <section class="sec" id="faq">
     <div class="wrap faq">
       <div class="head">
-        <p class="eyebrow"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span></p>
-        <h2><span lang="mn">Худалдан авагчид юу асуудаг вэ</span><span lang="en">What buyers ask us</span></h2>
-        <p><span lang="mn">Өөр асуулт байвал залгаарай, эсвэл и-мэйл бичээрэй.</span><span lang="en">For anything else, call or email us.</span></p>
+        <p class="eyebrow"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span><span lang="zh">常见问题</span></p>
+        <h2><span lang="mn">Худалдан авагчид юу асуудаг вэ</span><span lang="en">What buyers ask us</span><span lang="zh">客户常问的问题</span></h2>
+        <p><span lang="mn">Өөр асуулт байвал залгаарай, эсвэл и-мэйл бичээрэй.</span><span lang="en">For anything else, call or email us.</span><span lang="zh">如有其他问题，请致电或发送电子邮件。</span></p>
       </div>
       <div class="qa">
         <details open>
-          <summary><span lang="mn">Ямар техникт DAFO систем суурилуулж болох вэ?</span><span lang="en">Which machines can you fit with DAFO?</span></summary>
-          <p><span lang="mn">Экскаватор, автосамосвал, бульдозер, грейдер, ачигч, ричстакер зэрэг бүх хүнд техникт, маркаас үл хамааран. Бид CAT, Bucyrus, Hyundai, BelAZ, Hitachi, XCMG техникт суурилуулсан.</span><span lang="en">Any heavy machine, whatever the brand: excavators, haul trucks, dozers, graders, loaders and reach stackers. We have fitted CAT, Bucyrus, Hyundai, BelAZ, Hitachi and XCMG machines.</span></p>
+          <summary><span lang="mn">Ямар техникт DAFO систем суурилуулж болох вэ?</span><span lang="en">Which machines can you fit with DAFO?</span><span lang="zh">DAFO 系统可以安装在哪些设备上？</span></summary>
+          <p><span lang="mn">Маркаас үл хамааран бүх хүнд техникт: экскаватор, автосамосвал, бульдозер, грейдер, дугуйт ачигч, өрмийн машин, түлш, тос, усны машин, автокран, ричстакер, материал зөөвөрлөгч, далд уурхайн ачигч (LHD), далд уурхайн автосамосвал, ажилчдын автобус. Бид CAT, Bucyrus, Hyundai, BelAZ, Hitachi, XCMG техникт суурилуулсан.</span><span lang="en">Any heavy machine, whatever the brand: excavators, haul trucks, dozers, graders, wheel loaders, drill rigs, fuel, lube and water trucks, mobile cranes, reach stackers, material handlers, underground loaders (LHDs) and underground trucks, and crew buses. We have fitted CAT, Bucyrus, Hyundai, BelAZ, Hitachi and XCMG machines.</span><span lang="zh">任何品牌的重型设备均可安装：挖掘机、矿用自卸车、推土机、平地机、轮式装载机、钻机、油料车、润滑车和洒水车、汽车起重机、正面吊、物料搬运机、井下铲运机（LHD）和井下卡车，以及人员运输车。我们已为 CAT、Bucyrus、Hyundai、BelAZ、Hitachi 和 XCMG 设备安装过系统。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Ажиллаж байгаа техникт суурилуулж болох уу?</span><span lang="en">Can you fit machines that are already working?</span></summary>
-          <p><span lang="mn">Тийм. Уурхайд ажиллаж буй техникт газар дээр нь суурилуулна. Хуучин системтэй бол солино. Монгол Улсын аль ч нутагт очиж ажиллана.</span><span lang="en">Yes. We fit systems on site to machines already working at the mine, and replace an existing system where there is one. We travel to mines anywhere in Mongolia.</span></p>
+          <summary><span lang="mn">Ажиллаж байгаа техникт суурилуулж болох уу?</span><span lang="en">Can you fit machines that are already working?</span><span lang="zh">可以为正在使用的设备安装吗？</span></summary>
+          <p><span lang="mn">Тийм. Уурхайд ажиллаж буй техникт газар дээр нь суурилуулна. Хуучин системтэй бол солино. Монгол Улсын аль ч нутагт очиж ажиллана.</span><span lang="en">Yes. We fit systems on site to machines already working at the mine, and replace an existing system where there is one. We travel to mines anywhere in Mongolia.</span><span lang="zh">可以。我们在矿山现场为在用设备安装系统，如已有旧系统则予以更换。我们可前往蒙古国境内任何矿山。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Монголын өвлийн хүйтэнд ажиллах уу?</span><span lang="en">Does it work in a Mongolian winter?</span></summary>
-          <p><span lang="mn">Тийм. DAFO-гийн техникийн үзүүлэлтээр Forrex EVO бодис, танк, азотын баллон, CV-X удирдлагын блок бүгд −40…+60 °C-д ажиллана.</span><span lang="en">Yes. Per DAFO’s datasheets, the Forrex EVO agent, tank, nitrogen cartridge and CV-X control unit all work from −40 to +60 °C.</span></p>
+          <summary><span lang="mn">Монголын өвлийн хүйтэнд ажиллах уу?</span><span lang="en">Does it work in a Mongolian winter?</span><span lang="zh">在蒙古国的冬季能正常工作吗？</span></summary>
+          <p><span lang="mn">Тийм. DAFO-гийн техникийн үзүүлэлтээр Forrex EVO бодис, танк, азотын баллон, CV-X удирдлагын блок бүгд −40…+60 °C-д ажиллана.</span><span lang="en">Yes. Per DAFO’s datasheets, the Forrex EVO agent, tank, nitrogen cartridge and CV-X control unit all work from −40 to +60 °C.</span><span lang="zh">可以。根据 DAFO 技术资料，Forrex EVO 灭火剂、储罐、氮气驱动瓶和 CV-X 控制单元均可在 −40 至 +60 °C 范围内工作。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Гал гарсныг систем яаж мэдэх вэ?</span><span lang="en">How does the system detect a fire?</span></summary>
-          <p><span lang="mn">Хөдөлгүүрийн тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ. CV-X удирдлагын блок кабинд дуут, гэрлэн дохио өгч, бодисыг автоматаар цацна. Оператор товч дарж гараар ч идэвхжүүлж болно. Блок кабелийн тасралт, богино холболтыг байнга хянаж, үйл явдал бүрийг бүртгэнэ.</span><span lang="en">A linear heat-sensing cable runs through the engine bay and activates at 180 °C. The CV-X control unit sounds and lights the alarm in the cab and releases the agent automatically. The operator can also release it with the manual button. The unit supervises the cable for breaks and shorts and logs every event.</span></p>
+          <summary><span lang="mn">Гал гарсныг систем яаж мэдэх вэ?</span><span lang="en">How does the system detect a fire?</span><span lang="zh">系统如何探测火灾？</span></summary>
+          <p><span lang="mn">Хөдөлгүүрийн тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ. CV-X удирдлагын блок кабинд дуут, гэрлэн дохио өгч, бодисыг автоматаар цацна. Оператор товч дарж гараар ч идэвхжүүлж болно. Блок кабелийн тасралт, богино холболтыг байнга хянаж, үйл явдал бүрийг бүртгэнэ.</span><span lang="en">A linear heat-sensing cable runs through the engine bay and activates at 180 °C. The CV-X control unit sounds and lights the alarm in the cab and releases the agent automatically. The operator can also release it with the manual button. The unit supervises the cable for breaks and shorts and logs every event.</span><span lang="zh">线型感温电缆敷设在发动机舱内，在 180 °C 时触发。CV-X 控制单元在驾驶室发出声光报警并自动喷放灭火剂。操作员也可按下手动按钮启动。控制单元持续监控电缆的断路和短路，并记录每一次事件。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Forrex EVO бодис техникийг гэмтээх үү?</span><span lang="en">Will Forrex EVO damage the machine?</span></summary>
-          <p><span lang="mn">DAFO-гийн техникийн үзүүлэлтээр Forrex EVO фторгүй, материал болон эд ангид хор нөлөөгүй, байгальд ээлтэй. Цацсаны дараа хөдөлгүүрийн тасалгааг усаар угаахад хангалттай. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Видео: Бодис цацсаны дараах цэвэрлэгээ<span class="vh"> (YouTube, шинэ цонхонд нээгдэнэ)</span></a></span><span lang="en">Per DAFO’s datasheet, Forrex EVO is fluorine-free, non-aggressive to materials and components, and environmentally friendly. After a discharge the engine bay only needs rinsing with water. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Video: cleaning up after a discharge<span class="vh"> (YouTube, opens in a new tab)</span></a></span></p>
+          <summary><span lang="mn">Forrex EVO бодис техникийг гэмтээх үү?</span><span lang="en">Will Forrex EVO damage the machine?</span><span lang="zh">Forrex EVO 会损坏设备吗？</span></summary>
+          <p><span lang="mn">DAFO-гийн техникийн үзүүлэлтээр Forrex EVO фторгүй, материал болон эд ангид хор нөлөөгүй, байгальд ээлтэй. Цацсаны дараа хөдөлгүүрийн тасалгааг усаар угаахад хангалттай. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Видео: Бодис цацсаны дараах цэвэрлэгээ<span class="vh"> (YouTube, шинэ цонхонд нээгдэнэ)</span></a></span><span lang="en">Per DAFO’s datasheet, Forrex EVO is fluorine-free, non-aggressive to materials and components, and environmentally friendly. After a discharge the engine bay only needs rinsing with water. <a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">Video: cleaning up after a discharge<span class="vh"> (YouTube, opens in a new tab)</span></a></span><span lang="zh">根据 DAFO 技术资料，Forrex EVO 不含氟，对材料和部件无腐蚀，并且环保。喷放后发动机舱只需用水冲洗。<a class="vlink" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener">视频：喷放后的清理<span class="vh">（YouTube，在新标签页中打开）</span></a></span></p>
         </details>
         <details>
-          <summary><span lang="mn">Систем цацагдсаны дараа юу хийх вэ?</span><span lang="en">What happens after the system discharges?</span></summary>
-          <p><span lang="mn">Бидэнд мэдэгдээрэй. Улаанбаатар дахь нөөцөөс бодис, азотын баллоныг сольж цэнэглээд, ажиллагааг шалгаж техникийг ажилд гаргана.</span><span lang="en">Tell us. We recharge the agent and replace the nitrogen cartridge from stock in Ulaanbaatar, test the system and return the machine to work.</span></p>
+          <summary><span lang="mn">Систем цацагдсаны дараа юу хийх вэ?</span><span lang="en">What happens after the system discharges?</span><span lang="zh">系统喷放后怎么办？</span></summary>
+          <p><span lang="mn">Бидэнд мэдэгдээрэй. Улаанбаатар дахь нөөцөөс бодис, азотын баллоныг сольж цэнэглээд, ажиллагааг шалгаж техникийг ажилд гаргана.</span><span lang="en">Tell us. We recharge the agent and replace the nitrogen cartridge from stock in Ulaanbaatar, test the system and return the machine to work.</span><span lang="zh">请通知我们。我们使用乌兰巴托库存重新充装灭火剂并更换氮气驱动瓶，测试系统后让设备恢复作业。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Хэр олон удаа үйлчилгээ хэрэгтэй вэ?</span><span lang="en">How often does the system need service?</span></summary>
-          <p><span lang="mn">DAFO нь бусад системтэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span></p>
+          <summary><span lang="mn">Хэр олон удаа үйлчилгээ хэрэгтэй вэ?</span><span lang="en">How often does the system need service?</span><span lang="zh">系统多久需要保养一次？</span></summary>
+          <p><span lang="mn">DAFO нь бусад системтэй харьцуулахад ашиглалтын зардал хамгийн бага байдаг. Үзлэг хийгээд зөвхөн гэмтсэн эд ангийг солидог. Хуваарь: 7 хоног тутам оператор хамгаалах хэсгийг цэвэр, гоожилтгүй эсэхийг шалгана; 12 сар тутам эрх бүхий техникч үзлэг хийнэ; 10 жилд бүлүүр, бодисыг сольж, азотын баллонд гидравлик туршилт хийнэ. Цацагдсан бол дахин цэнэглэнэ.</span><span lang="en">Compared with other systems, DAFO has the lowest running cost: we inspect and replace only damaged parts. Schedule: a weekly operator check that the protected area is clean and leak-free; inspection by an authorised technician every 12 months; at 10 years the piston and agent replaced and the nitrogen cartridge hydrostatically tested. After a discharge the system is recharged.</span><span lang="zh">与其他系统相比，DAFO 的使用成本最低：我们只检查并更换损坏的部件。保养计划：操作员每周检查保护区域是否清洁、无泄漏；每 12 个月由授权技术人员检查；第 10 年更换活塞和灭火剂，并对氮气驱动瓶进行水压试验。喷放后对系统再充装。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Баталгаа ямар вэ?</span><span lang="en">What warranty do you give?</span></summary>
-          <p><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгааг нөхцөлийнх нь дагуу бүрэн олгоно: DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн байх. Нөхцөлийг саналд тодорхой тусгана.</span><span lang="en">We pass on the 12-month DAFO Vehicle manufacturer’s warranty in full, on its terms: installation to the manual by DAFO-trained technicians, genuine DAFO parts and agent, and the 12-month service. The conditions are stated in our proposal.</span></p>
+          <summary><span lang="mn">Баталгаа ямар вэ?</span><span lang="en">What warranty do you give?</span><span lang="zh">提供什么样的质保？</span></summary>
+          <p><span lang="mn">DAFO Vehicle-ийн үйлдвэрлэгчийн 12 сарын баталгааг нөхцөлийнх нь дагуу бүрэн олгоно: DAFO-гийн сургалттай техникч гарын авлагын дагуу суурилуулж, эх үйлдвэрийн сэлбэг, бодис хэрэглэж, 12 сар тутмын үйлчилгээг хийлгэсэн байх. Нөхцөлийг саналд тодорхой тусгана.</span><span lang="en">We pass on the 12-month DAFO Vehicle manufacturer’s warranty in full, on its terms: installation to the manual by DAFO-trained technicians, genuine DAFO parts and agent, and the 12-month service. The conditions are stated in our proposal.</span><span lang="zh">我们完整提供 DAFO Vehicle 制造商的 12 个月质保，条件为：由经 DAFO 培训的技术人员按手册安装，使用 DAFO 原厂配件和灭火剂，并完成 12 个月定期保养。具体条款在我们的报价中列明。</span></p>
         </details>
         <details>
-          <summary><span lang="mn">Монголд DAFO (Дафо) системийг хэн нийлүүлж, суурилуулдаг вэ?</span><span lang="en">Who supplies and installs DAFO in Mongolia?</span></summary>
-          <p><span lang="mn">Материал Хандлинг Системс ХХК нь Dafo Vehicle Fire Protection AB-ийн Монгол дахь албан ёсны дилер. DAFO-гийн албан ёсны вэбсайтын дистрибьютерийн жагсаалтад Монгол Улсаас бүртгэлтэй. Утас: +976 9697 0276, +976 9907 8171. И-мэйл: tuguldur@mhs.mn.</span><span lang="en">Material Handling Systems LLC is the official dealer in Mongolia for Dafo Vehicle Fire Protection AB, and is listed for Mongolia on DAFO’s own distributor finder. Phone +976 9697 0276 or +976 9907 8171; email tuguldur@mhs.mn.</span></p>
+          <summary><span lang="mn">Монголд DAFO (Дафо) системийг хэн нийлүүлж, суурилуулдаг вэ?</span><span lang="en">Who supplies and installs DAFO in Mongolia?</span><span lang="zh">在蒙古国由谁供应和安装 DAFO 系统？</span></summary>
+          <p><span lang="mn">Материал Хандлинг Системс ХХК нь Dafo Vehicle Fire Protection AB-ийн Монгол дахь албан ёсны дилер. DAFO-гийн албан ёсны вэбсайтын дистрибьютерийн жагсаалтад Монгол Улсаас бүртгэлтэй. Утас: +976 9697 0276, +976 9907 8171. И-мэйл: tuguldur@mhs.mn.</span><span lang="en">Material Handling Systems LLC is the official dealer in Mongolia for Dafo Vehicle Fire Protection AB, and is listed for Mongolia on DAFO’s own distributor finder. Phone +976 9697 0276 or +976 9907 8171; email tuguldur@mhs.mn.</span><span lang="zh">Material Handling Systems LLC 是 Dafo Vehicle Fire Protection AB 在蒙古国的官方经销商，并在 DAFO 官方网站的经销商名录中登记为蒙古国经销商。电话 +976 9697 0276 或 +976 9907 8171；电子邮件 tuguldur@mhs.mn。</span></p>
         </details>
       </div>
     </div>
@@ -851,88 +858,88 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   <section class="sec paper" id="contact">
     <div class="wrap contact">
       <div class="body">
-        <p class="eyebrow"><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></p>
-        <h2><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span></h2>
-        <p><span lang="mn">Техникийнхээ марк, загвар, тоог илгээнэ үү. Бид техникийн болон үнийн санал боловсруулж хариу өгнө.</span><span lang="en">Send us the make, model and number of your machines, and we will prepare a technical and price proposal.</span></p>
+        <p class="eyebrow"><span lang="mn">Холбоо барих</span><span lang="en">Contact</span><span lang="zh">联系我们</span></p>
+        <h2><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span><span lang="zh">索取报价</span></h2>
+        <p><span lang="mn">Техникийнхээ марк, загвар, тоог илгээнэ үү. Бид техникийн болон үнийн санал боловсруулж хариу өгнө.</span><span lang="en">Send us the make, model and number of your machines, and we will prepare a technical and price proposal.</span><span lang="zh">请告知设备的品牌、型号和数量，我们将编制技术和价格方案。</span></p>
         <form class="quote" id="quote" novalidate>
           <fieldset>
-            <legend><span lang="mn">Юу хэрэгтэй вэ?</span><span lang="en">What do you need?</span></legend>
+            <legend><span lang="mn">Юу хэрэгтэй вэ?</span><span lang="en">What do you need?</span><span lang="zh">您需要什么？</span></legend>
             <div class="opts">
-              <label class="opt"><input type="checkbox" name="need" id="need-dafo" data-mn="Шинэ DAFO систем" data-en="New DAFO system"><span class="o"><span lang="mn">Шинэ DAFO систем</span><span lang="en">New DAFO system</span></span></label>
-              <label class="opt"><input type="checkbox" name="need" id="need-replace" data-mn="Хуучин системийг солих" data-en="Replace an existing system"><span class="o"><span lang="mn">Хуучин системийг солих</span><span lang="en">Replace an existing system</span></span></label>
-              <label class="opt"><input type="checkbox" name="need" id="need-service" data-mn="Үзлэг, цэнэглэлт" data-en="Inspection or recharge"><span class="o"><span lang="mn">Үзлэг, цэнэглэлт</span><span lang="en">Inspection or recharge</span></span></label>
-              <label class="opt"><input type="checkbox" name="need" id="need-senn" data-mn="SENNEBOGEN машин" data-en="SENNEBOGEN machine"><span class="o"><span lang="mn">SENNEBOGEN машин</span><span lang="en">SENNEBOGEN machine</span></span></label>
-              <label class="opt"><input type="checkbox" name="need" id="need-parts" data-mn="Сэлбэг" data-en="Parts"><span class="o"><span lang="mn">Сэлбэг</span><span lang="en">Parts</span></span></label>
-              <label class="opt"><input type="checkbox" name="need" id="need-other" data-mn="Бусад" data-en="Other"><span class="o"><span lang="mn">Бусад</span><span lang="en">Other</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-dafo" data-mn="Шинэ DAFO систем" data-en="New DAFO system" data-zh="新装 DAFO 系统"><span class="o"><span lang="mn">Шинэ DAFO систем</span><span lang="en">New DAFO system</span><span lang="zh">新装 DAFO 系统</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-replace" data-mn="Хуучин системийг солих" data-en="Replace an existing system" data-zh="更换现有系统"><span class="o"><span lang="mn">Хуучин системийг солих</span><span lang="en">Replace an existing system</span><span lang="zh">更换现有系统</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-service" data-mn="Үзлэг, цэнэглэлт" data-en="Inspection or recharge" data-zh="检查或再充装"><span class="o"><span lang="mn">Үзлэг, цэнэглэлт</span><span lang="en">Inspection or recharge</span><span lang="zh">检查或再充装</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-senn" data-mn="SENNEBOGEN машин" data-en="SENNEBOGEN machine" data-zh="SENNEBOGEN 设备"><span class="o"><span lang="mn">SENNEBOGEN машин</span><span lang="en">SENNEBOGEN machine</span><span lang="zh">SENNEBOGEN 设备</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-parts" data-mn="Сэлбэг" data-en="Parts" data-zh="备件"><span class="o"><span lang="mn">Сэлбэг</span><span lang="en">Parts</span><span lang="zh">备件</span></span></label>
+              <label class="opt"><input type="checkbox" name="need" id="need-other" data-mn="Бусад" data-en="Other" data-zh="其他"><span class="o"><span lang="mn">Бусад</span><span lang="en">Other</span><span lang="zh">其他</span></span></label>
             </div>
           </fieldset>
           <div class="fld">
-            <label class="lbl" for="q-models"><span lang="mn">Техникийн марк, загвар, тоо</span><span lang="en">Machine models and quantities</span></label>
-            <textarea id="q-models" rows="3" aria-describedby="q-models-err" placeholder="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-mn="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-en="For example: CAT 793D — 4, Hitachi EX1200 — 1"></textarea>
-            <p class="err" id="q-models-err" hidden><span lang="mn">Техникийн марк, загвар, тоог бичнэ үү.</span><span lang="en">Add the machine models and quantities.</span></p>
+            <label class="lbl" for="q-models"><span lang="mn">Техникийн марк, загвар, тоо</span><span lang="en">Machine models and quantities</span><span lang="zh">设备型号和数量</span></label>
+            <textarea id="q-models" rows="3" aria-describedby="q-models-err" placeholder="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-mn="Жишээ: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-en="For example: CAT 793D — 4, Hitachi EX1200 — 1" data-ph-zh="例如：CAT 793D — 4，Hitachi EX1200 — 1"></textarea>
+            <p class="err" id="q-models-err" hidden><span lang="mn">Техникийн марк, загвар, тоог бичнэ үү.</span><span lang="en">Add the machine models and quantities.</span><span lang="zh">请填写设备型号和数量。</span></p>
           </div>
           <div class="grid2">
             <div class="fld">
-              <label class="lbl" for="q-name"><span lang="mn">Нэр</span><span lang="en">Name</span></label>
+              <label class="lbl" for="q-name"><span lang="mn">Нэр</span><span lang="en">Name</span><span lang="zh">姓名</span></label>
               <input id="q-name" type="text" autocomplete="name">
             </div>
             <div class="fld">
-              <label class="lbl" for="q-company"><span lang="mn">Байгууллага</span><span lang="en">Company</span></label>
+              <label class="lbl" for="q-company"><span lang="mn">Байгууллага</span><span lang="en">Company</span><span lang="zh">公司</span></label>
               <input id="q-company" type="text" autocomplete="organization">
             </div>
             <div class="fld">
-              <label class="lbl" for="q-phone"><span lang="mn">Утас</span><span lang="en">Phone</span></label>
+              <label class="lbl" for="q-phone"><span lang="mn">Утас</span><span lang="en">Phone</span><span lang="zh">电话</span></label>
               <input id="q-phone" type="tel" autocomplete="tel">
             </div>
             <div class="fld">
-              <label class="lbl" for="q-email"><span lang="mn">И-мэйл</span><span lang="en">Email</span></label>
+              <label class="lbl" for="q-email"><span lang="mn">И-мэйл</span><span lang="en">Email</span><span lang="zh">电子邮件</span></label>
               <input id="q-email" type="email" autocomplete="email">
             </div>
             <div class="fld">
-              <label class="lbl" for="q-site"><span lang="mn">Байршил</span><span lang="en">Location</span></label>
-              <input id="q-site" type="text" placeholder="Уурхай, аймаг" data-ph-mn="Уурхай, аймаг" data-ph-en="Mine or aimag">
+              <label class="lbl" for="q-site"><span lang="mn">Байршил</span><span lang="en">Location</span><span lang="zh">所在地</span></label>
+              <input id="q-site" type="text" placeholder="Уурхай, аймаг" data-ph-mn="Уурхай, аймаг" data-ph-en="Mine or aimag" data-ph-zh="矿山或省份">
             </div>
           </div>
           <div class="q-actions">
             <a class="btn" id="q-mail" href="mailto:tuguldur@mhs.mn">
-              <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл бэлтгэх</span><span lang="en">Prepare email</span></a>
-            <button class="btn outline" type="button" id="q-copy"><span lang="mn">Хүсэлтийг хуулах</span><span lang="en">Copy request</span></button>
+              <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл бэлтгэх</span><span lang="en">Prepare email</span><span lang="zh">生成邮件</span></a>
+            <button class="btn outline" type="button" id="q-copy"><span lang="mn">Хүсэлтийг хуулах</span><span lang="en">Copy request</span><span lang="zh">复制请求内容</span></button>
           </div>
           <p class="q-status" id="q-status" aria-live="polite">
-            <span data-st="idle"><span lang="mn">Таны и-мэйл программ хүсэлтийг бөглөсөн байдлаар нээнэ. Илгээх товчийг та өөрөө дарна.</span><span lang="en">Your email app opens with the request filled in, and you press send.</span></span>
-            <span data-st="mail" hidden><span lang="mn">И-мэйл программ нээгдэх ёстой. Нээгдээгүй бол «Хүсэлтийг хуулах»-ыг дараад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Your email app should open now. If it didn’t, use Copy request and send the text to <span>tuguldur@mhs.mn</span>.</span></span>
-            <span data-st="copied" hidden><span lang="mn">Хуулсан. И-мэйл эсвэл мессеждээ буулгаад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Copied. Paste it into an email or message to <span>tuguldur@mhs.mn</span>.</span></span>
-            <span data-st="manual" hidden><span lang="mn">Доорх текстийг сонгоод хуулна уу.</span><span lang="en">Select and copy the text below.</span></span>
+            <span data-st="idle"><span lang="mn">Таны и-мэйл программ хүсэлтийг бөглөсөн байдлаар нээнэ. Илгээх товчийг та өөрөө дарна.</span><span lang="en">Your email app opens with the request filled in, and you press send.</span><span lang="zh">您的邮件程序将打开并自动填入请求内容，由您点击发送。</span></span>
+            <span data-st="mail" hidden><span lang="mn">И-мэйл программ нээгдэх ёстой. Нээгдээгүй бол «Хүсэлтийг хуулах»-ыг дараад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Your email app should open now. If it didn’t, use Copy request and send the text to <span>tuguldur@mhs.mn</span>.</span><span lang="zh">您的邮件程序应已打开。如未打开，请点击“复制请求内容”，将文本发送至 <span>tuguldur@mhs.mn</span>。</span></span>
+            <span data-st="copied" hidden><span lang="mn">Хуулсан. И-мэйл эсвэл мессеждээ буулгаад <span>tuguldur@mhs.mn</span> хаяг руу илгээнэ үү.</span><span lang="en">Copied. Paste it into an email or message to <span>tuguldur@mhs.mn</span>.</span><span lang="zh">已复制。请粘贴到邮件或消息中发送至 <span>tuguldur@mhs.mn</span>。</span></span>
+            <span data-st="manual" hidden><span lang="mn">Доорх текстийг сонгоод хуулна уу.</span><span lang="en">Select and copy the text below.</span><span lang="zh">请选中并复制下方文本。</span></span>
           </p>
-          <textarea class="q-text" id="q-text" readonly hidden aria-label="Хүсэлтийн текст" data-aria-mn="Хүсэлтийн текст" data-aria-en="Request text"></textarea>
+          <textarea class="q-text" id="q-text" readonly hidden aria-label="Хүсэлтийн текст" data-aria-mn="Хүсэлтийн текст" data-aria-en="Request text" data-aria-zh="请求文本"></textarea>
         </form>
       </div>
       <div class="side-c">
         <div class="plate">
-          <p class="plate-title">MHS <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></p>
+          <p class="plate-title">MHS <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span><span lang="zh">Material Handling Systems LLC</span></p>
           <dl>
-            <dt><span lang="mn">Хаяг</span><span lang="en">Address</span></dt>
-            <dd><span lang="mn">O&amp;OCH засварын төв, Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">O&amp;OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270, Mongolia</span></dd>
-            <dt><span lang="mn">Утас</span><span lang="en">Phone</span></dt>
+            <dt><span lang="mn">Хаяг</span><span lang="en">Address</span><span lang="zh">地址</span></dt>
+            <dd><span lang="mn">O&amp;OCH засварын төв, Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">O&amp;OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270, Mongolia</span><span lang="zh">蒙古国乌兰巴托市松金海尔汗区第 32 区 Tuul 10-21，O&amp;OCH 维修中心，邮编 18270</span></dd>
+            <dt><span lang="mn">Утас</span><span lang="en">Phone</span><span lang="zh">电话</span></dt>
             <dd class="multi">
               <div class="line"><a id="phone" href="tel:+97696970276">+976&nbsp;9697&nbsp;0276</a>
-                <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div>
+                <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span><span lang="zh">复制</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span><span lang="zh">已复制</span></span></button></div>
               <div class="line"><a id="phone-2" href="tel:+97699078171">+976&nbsp;9907&nbsp;8171</a>
-                <button type="button" class="copy" id="copy-phone-2" data-copy="+97699078171" aria-controls="phone-2"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div></dd>
-            <dt><span lang="mn">И-мэйл</span><span lang="en">Email</span></dt>
+                <button type="button" class="copy" id="copy-phone-2" data-copy="+97699078171" aria-controls="phone-2"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span><span lang="zh">复制</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span><span lang="zh">已复制</span></span></button></div></dd>
+            <dt><span lang="mn">И-мэйл</span><span lang="en">Email</span><span lang="zh">电子邮件</span></dt>
             <dd><span id="email">tuguldur@mhs.mn</span>
-              <button type="button" class="copy" id="copy-email" data-copy="tuguldur@mhs.mn" aria-controls="email"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></dd>
-            <dt><span lang="mn">Ажлын цаг</span><span lang="en">Hours</span></dt>
-            <dd><span lang="mn">Даваа–Баасан, 09:00–17:00</span><span lang="en">Monday–Friday, 9:00–17:00</span></dd>
-            <dt><span lang="mn">Ажиллах хүрээ</span><span lang="en">Where we work</span></dt>
-            <dd><span lang="mn">Монгол Улсын бүх нутагт, уурхай дээр нь очиж ажиллана</span><span lang="en">Anywhere in Mongolia, on site at the mine</span></dd>
+              <button type="button" class="copy" id="copy-email" data-copy="tuguldur@mhs.mn" aria-controls="email"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span><span lang="zh">复制</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span><span lang="zh">已复制</span></span></button></dd>
+            <dt><span lang="mn">Ажлын цаг</span><span lang="en">Hours</span><span lang="zh">工作时间</span></dt>
+            <dd><span lang="mn">Даваа–Баасан, 09:00–17:00</span><span lang="en">Monday–Friday, 9:00–17:00</span><span lang="zh">周一至周五，9:00–17:00</span></dd>
+            <dt><span lang="mn">Ажиллах хүрээ</span><span lang="en">Where we work</span><span lang="zh">服务范围</span></dt>
+            <dd><span lang="mn">Монгол Улсын бүх нутагт, уурхай дээр нь очиж ажиллана</span><span lang="en">Anywhere in Mongolia, on site at the mine</span><span lang="zh">蒙古国全境，矿山现场服务</span></dd>
           </dl>
         </div>
         <div class="actions">
-          <a class="btn" href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request">
-            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл илгээх</span><span lang="en">Send an email</span></a>
+          <a class="btn" href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request" data-subject-zh="报价请求">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл илгээх</span><span lang="en">Send an email</span><span lang="zh">发送电子邮件</span></a>
           <a class="btn outline" href="tel:+97696970276">
-            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span></a>
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span><span lang="zh">致电</span></a>
         </div>
       </div>
     </div>
@@ -945,47 +952,47 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     <div class="foot-grid">
       <div>
         <p class="fb">MHS</p>
-        <p><b><span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></b></p>
-        <p><span lang="mn">Уул уурхайн техникийн галын хамгаалалт, материал зөөвөрлөх машин, сэлбэг, засвар үйлчилгээ. 2014 оноос, Улаанбаатар.</span><span lang="en">Fire protection for mining machines, material handlers, parts and field service. Since 2014, Ulaanbaatar.</span></p>
+        <p><b><span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span><span lang="zh">Material Handling Systems LLC</span></b></p>
+        <p><span lang="mn">Уул уурхайн техникийн галын хамгаалалт, материал зөөвөрлөх машин, сэлбэг, засвар үйлчилгээ. 2014 оноос, Улаанбаатар.</span><span lang="en">Fire protection for mining machines, material handlers, parts and field service. Since 2014, Ulaanbaatar.</span><span lang="zh">矿山设备消防、物料搬运机、备件和现场服务。2014 年起，乌兰巴托。</span></p>
       </div>
       <div>
-        <h3><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">Products and services</span></h3>
+        <h3><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">Products and services</span><span lang="zh">产品与服务</span></h3>
         <ul>
-          <li><a href="#dafo"><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span></a></li>
-          <li><a href="#process"><span lang="mn">Суурилуулалт, жил бүрийн үзлэг</span><span lang="en">Installation and annual inspection</span></a></li>
-          <li><a href="#sennebogen"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span></a></li>
-          <li><a href="#service"><span lang="mn">Сэлбэг, засвар үйлчилгээ</span><span lang="en">Parts and field service</span></a></li>
-          <li><a href="#faq"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span></a></li>
+          <li><a href="#dafo"><span lang="mn">DAFO гал унтраах систем</span><span lang="en">DAFO fire suppression</span><span lang="zh">DAFO 灭火系统</span></a></li>
+          <li><a href="#process"><span lang="mn">Суурилуулалт, жил бүрийн үзлэг</span><span lang="en">Installation and annual inspection</span><span lang="zh">安装与年度检查</span></a></li>
+          <li><a href="#sennebogen"><span lang="mn">SENNEBOGEN материал зөөвөрлөгч</span><span lang="en">SENNEBOGEN material handlers</span><span lang="zh">SENNEBOGEN 物料搬运机</span></a></li>
+          <li><a href="#service"><span lang="mn">Сэлбэг, засвар үйлчилгээ</span><span lang="en">Parts and field service</span><span lang="zh">备件与现场服务</span></a></li>
+          <li><a href="#faq"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span><span lang="zh">常见问题</span></a></li>
         </ul>
       </div>
       <div>
-        <h3><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></h3>
+        <h3><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span><span lang="zh">官方经销商</span></h3>
         <ul>
-          <li><b>DAFO</b><br><span lang="mn">Dafo Vehicle Fire Protection AB, Швед</span><span lang="en">Dafo Vehicle Fire Protection AB, Sweden</span></li>
-          <li><b>SENNEBOGEN</b><br><span lang="mn">SENNEBOGEN Maschinenfabrik GmbH, Герман</span><span lang="en">SENNEBOGEN Maschinenfabrik GmbH, Germany</span></li>
+          <li><b>DAFO</b><br><span lang="mn">Dafo Vehicle Fire Protection AB, Швед</span><span lang="en">Dafo Vehicle Fire Protection AB, Sweden</span><span lang="zh">Dafo Vehicle Fire Protection AB，瑞典</span></li>
+          <li><b>SENNEBOGEN</b><br><span lang="mn">SENNEBOGEN Maschinenfabrik GmbH, Герман</span><span lang="en">SENNEBOGEN Maschinenfabrik GmbH, Germany</span><span lang="zh">SENNEBOGEN Maschinenfabrik GmbH，德国</span></li>
         </ul>
       </div>
       <div>
-        <h3><span lang="mn">Холбоо барих</span><span lang="en">Contact</span></h3>
+        <h3><span lang="mn">Холбоо барих</span><span lang="en">Contact</span><span lang="zh">联系我们</span></h3>
         <ul>
           <li><a href="tel:+97696970276">+976&nbsp;9697&nbsp;0276</a></li>
           <li><a href="tel:+97699078171">+976&nbsp;9907&nbsp;8171</a></li>
           <li><a href="mailto:tuguldur@mhs.mn">tuguldur@mhs.mn</a></li>
-          <li><span lang="mn">Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270</span></li>
+          <li><span lang="mn">Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270</span><span lang="zh">乌兰巴托市松金海尔汗区第 32 区 Tuul 10-21，邮编 18270</span></li>
         </ul>
       </div>
     </div>
     <div class="legal">
-      <span>© 2026 <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span></span>
+      <span>© 2026 <span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span><span lang="zh">Material Handling Systems LLC</span></span>
       <span>mhs.mn</span>
     </div>
   </div>
 </footer>
 
-<nav class="mbar" id="mbar" aria-label="Шуурхай холбоо барих" data-aria-mn="Шуурхай холбоо барих" data-aria-en="Quick contact">
-  <a href="tel:+97696970276"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span></a>
-  <a href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл</span><span lang="en">Email</span></a>
-  <a class="primary" href="#contact"><span lang="mn">Үнийн санал</span><span lang="en">Get a quote</span></a>
+<nav class="mbar" id="mbar" aria-label="Шуурхай холбоо барих" data-aria-mn="Шуурхай холбоо барих" data-aria-en="Quick contact" data-aria-zh="快速联系">
+  <a href="tel:+97696970276"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span><span lang="zh">致电</span></a>
+  <a href="mailto:tuguldur@mhs.mn" data-subject-mn="Үнийн санал" data-subject-en="Quote request" data-subject-zh="报价请求"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg><span lang="mn">И-мэйл</span><span lang="en">Email</span><span lang="zh">电子邮件</span></a>
+  <a class="primary" href="#contact"><span lang="mn">Үнийн санал</span><span lang="en">Get a quote</span><span lang="zh">获取报价</span></a>
 </nav>
 </div>
 
@@ -1009,9 +1016,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   var errEl = document.getElementById('q-models-err');
   var LABELS = {
     mn: { title: 'Үнийн санал хүсэх', subject: 'Үнийн санал', need: 'Хэрэгцээ', models: 'Техник, тоо ширхэг', site: 'Байршил', name: 'Нэр', company: 'Байгууллага', phone: 'Утас', email: 'И-мэйл' },
-    en: { title: 'Quote request', subject: 'Quote request', need: 'Needs', models: 'Machines and quantities', site: 'Location', name: 'Name', company: 'Company', phone: 'Phone', email: 'Email' }
+    en: { title: 'Quote request', subject: 'Quote request', need: 'Needs', models: 'Machines and quantities', site: 'Location', name: 'Name', company: 'Company', phone: 'Phone', email: 'Email' },
+    zh: { title: '报价请求', subject: '报价请求', need: '需求', models: '设备型号和数量', site: '所在地', name: '姓名', company: '公司', phone: '电话', email: '电子邮件' }
   };
-  function currentLang() { return site.getAttribute('data-lang') === 'en' ? 'en' : 'mn'; }
+  function currentLang() { var l = site.getAttribute('data-lang'); return LABELS[l] ? l : 'mn'; }
   function field(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
   function composeQuote() {
     var lang = currentLang();
@@ -1066,9 +1074,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     });
   }
 
-  /* Language: MN by default; ?lang=en or #en opens the English version.
-     On the published site each language has its own address (https://mhs.mn/ and /en/): the build gives
-     the switch buttons data-href and sends ?lang=en, #en and a saved choice to the right address before
+  /* Language: MN by default; ?lang=en / #en and ?lang=zh / #zh open the English and Chinese versions.
+     On the published site each language has its own address (https://mhs.mn/, /en/ and /zh/): the build gives
+     the switch buttons data-href and sends ?lang=xx, #xx and a saved choice to the right address before
      the page draws. Opened straight from the repository, the switch changes the language in place. */
   function setLang(lang) {
     site.setAttribute('data-lang', lang);
@@ -1088,17 +1096,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   var saved = null, asked = null;
   try { saved = localStorage.getItem('mhs-lang'); } catch (e) {}
   try { asked = new URLSearchParams(location.search).get('lang'); } catch (e) {}
-  if (!asked && /^#(en|mn)$/.test(location.hash)) asked = location.hash.slice(1);
+  if (!asked && /^#(mn|en|zh)$/.test(location.hash)) asked = location.hash.slice(1);
   var ownAddress = document.querySelector('[data-set-lang][data-href]');
   if (ownAddress) setLang(currentLang());
-  else setLang(asked === 'en' || asked === 'mn' ? asked : (saved === 'en' ? 'en' : 'mn'));
+  else setLang(asked && LABELS[asked] ? asked : (saved && LABELS[saved] ? saved : 'mn'));
   buttons.forEach(function (b) {
     b.addEventListener('click', function () {
       var lang = b.getAttribute('data-set-lang');
       var href = b.getAttribute('data-href');
       if (!href || lang === currentLang()) { setLang(lang); return; }
       try { localStorage.setItem('mhs-lang', lang); } catch (e) {}
-      location.href = href + (/^#(en|mn)?$/.test(location.hash) ? '' : location.hash);
+      location.href = href + (/^#(mn|en|zh)?$/.test(location.hash) ? '' : location.hash);
     });
   });
   window.MHS = { refresh: function () { setLang(currentLang()); } };
