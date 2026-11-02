@@ -3,10 +3,10 @@
 > Official dealer in Mongolia for DAFO automatic fire suppression systems (Dafo Vehicle Fire Protection AB, Sweden) and SENNEBOGEN material handlers (SENNEBOGEN Maschinenfabrik GmbH, Germany). Also supplies parts, repair and field service for mining equipment. Founded in 2014. Based in Ulaanbaatar, Mongolia.
 
 Names used for the company: Material Handling Systems LLC; MHS; MHS LLC; Материал Хандлинг Системс ХХК.
-Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English).
+Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English), https://mhs.mn/zh/ (Chinese).
 
 ## DAFO fire suppression for mining machines
-- Automatic fire detection and suppression for excavators, haul trucks, dozers, graders, wheel loaders and reach stackers, any brand. Fitted so far on CAT, Bucyrus, Hyundai, BelAZ, Hitachi and XCMG machines.
+- Automatic fire detection and suppression for any brand of heavy machine: excavators, haul trucks, dozers, graders, wheel loaders, drill rigs, fuel, lube and water trucks, mobile cranes, reach stackers, material handlers, underground loaders (LHDs) and underground trucks, and crew buses. Fitted so far on CAT, Bucyrus, Hyundai, BelAZ, Hitachi and XCMG machines.
 - Fitted on site to machines already working at the mine, anywhere in Mongolia. An existing system can be removed and replaced.
 - Work covered: on-site fire risk assessment; system design to SBF 127:17; installation; dry test and wet discharge test; handover with a signed acceptance report; operator and mechanic training in Mongolian and English; service every 12 months; the 10-year major service; recharge after a discharge.
 - Forrex EVO agent, nitrogen cartridges and critical DAFO spares are kept in stock in Ulaanbaatar.
@@ -20,7 +20,7 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English).
 - By model: CAT 395 (5), Bucyrus RH170 (4), CAT 793D (4), Hyundai 780 (4), Bucyrus RH120 (2), XCMG reach stacker (2), BelAZ 75306 (1), Hitachi EX1200 (1).
 
 ## SENNEBOGEN material handlers
-- Official SENNEBOGEN dealer in Mongolia. Main model offered: the 875 E Hybrid for loading and unloading coal and other bulk material. Other models are selected to suit the job.
+- Official SENNEBOGEN dealer in Mongolia. Main model offered: the 875 E Hybrid for loading and unloading coal and other bulk material. Other models are selected to suit the job. A SENNEBOGEN 875 has been working at a Mongolian coal mine since 2019.
 - Uses: coal and bulk handling, rail wagon loading, scrap and recycling, freight terminals.
 - Model selection and supply, factory SENNEBOGEN parts, planned maintenance kits, diagnostics and repair.
 
@@ -28,6 +28,10 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English).
 - Parts for excavators, haul trucks, dozers, cranes and material handlers, sourced from makers in Europe and Asia: hydraulic pumps, motors and valves; slew drives and bearings; bucket pins and bushings; filters and service kits; auto-lube systems; lifting chains, shackles and slings.
 - Crane high-voltage proximity alarms.
 - Diagnostics and repairs at the mine.
+
+## Company
+- DAFO-certified specialists; Forrex EVO agent and spares in stock in Ulaanbaatar; workshop at the O&OCH repair shop, Songinokhairkhan district.
+- Professional-indemnity insured with MIG Insurance.
 
 ## Contact
 - Phone: +976 9697 0276, +976 9907 8171
@@ -40,6 +44,7 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English).
 ## Pages
 - Mongolian home page: https://mhs.mn/
 - English home page: https://mhs.mn/en/
+- Chinese home page: https://mhs.mn/zh/
 - DAFO fire suppression: https://mhs.mn/en/#dafo
 - How the system works: https://mhs.mn/en/#how
 - Installation and service process: https://mhs.mn/en/#process

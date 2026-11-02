@@ -11,10 +11,11 @@ Needs Python 3.9+ and Pillow, nothing else. docs/ stays the only thing anyone ed
     srcset and sizes, so phones download a file that fits their screen. The hero also gets a centre crop
     for portrait phones (photos/NAME-phone.jpg) through <picture>; it shows the same part of the photo at
     the same scale, from a smaller file.
-  * en/index.html is the same page with English as the default language and its own address.
-  * Both pages get hreflang links, and the MN/EN buttons switch between the two addresses.
-  * Each published page keeps only its own language: the other language's <span lang="..."> text is
-    removed, so search engines and AI tools read one language per address. docs/index.html keeps both.
+  * en/index.html and zh/index.html are the same page with English or Chinese as the default language
+    and their own addresses (LANGS below).
+  * Every page gets hreflang links, and the МН/EN/CN buttons switch between the addresses.
+  * Each published page keeps only its own language: the other languages' <span lang="..."> text is
+    removed, so search engines and AI tools read one language per address. docs/index.html keeps all.
 
 The build never fails because the page changed: anything it does not recognise (a missing photo, a new
 kind of slot, a missing tag) is published unchanged with a WARNING line in the log.
@@ -31,7 +32,10 @@ from html.parser import HTMLParser
 from PIL import Image, ImageOps, JpegImagePlugin
 
 SITE = "https://mhs.mn/"
-EN_DIR = "en"
+# The site's languages: (code, folder, og:locale). The first is the default page at /; each other
+# language is published in its folder. The page carries <span lang="CODE"> text and data-*-CODE attributes.
+LANGS = [("mn", "", "mn_MN"), ("en", "en", "en_US"), ("zh", "zh", "zh_CN")]
+CODES = [code for code, _, _ in LANGS]
 
 # Widths (px) of the smaller copies. Close steps matter: Chrome may pick a copy up to
 # sqrt(step) below what a high-density screen needs, so steps stay at 1.2-1.33x.
@@ -305,11 +309,14 @@ def resize_one(page, img, kind, src, path, out_dir, src_dir):
 
 # ---------------------------------------------------------------- language pages
 
-def lang_links(text, own_url):
-    """hreflang alternates for both pages, placed after the canonical link."""
-    links = ('<link rel="alternate" hreflang="mn" href="%s">\n'
-             '<link rel="alternate" hreflang="en" href="%s%s/">\n'
-             '<link rel="alternate" hreflang="x-default" href="%s">' % (SITE, SITE, EN_DIR, SITE))
+def page_url(folder):
+    return SITE + (folder + "/" if folder else "")
+
+
+def lang_links(text):
+    """hreflang alternates for every language page, placed after the canonical link."""
+    links = "\n".join('<link rel="alternate" hreflang="%s" href="%s">' % (code, page_url(folder)) for code, folder, _ in LANGS)
+    links += '\n<link rel="alternate" hreflang="x-default" href="%s">' % SITE
     m = re.search(r'<link\s[^>]*rel="canonical"[^>]*>', text)
     if m:
         return text[:m.end()] + "\n" + links + text[m.end():]
@@ -317,19 +324,35 @@ def lang_links(text, own_url):
     return text.replace("</head>", links + "\n</head>", 1)
 
 
-# Runs in <head> before anything is drawn: old ?lang=xx / #xx links and a saved MN/EN choice go to the
-# right address. The English page only follows explicit ?lang=mn / #mn links (its address is a choice).
-REDIRECT = ("<script>(function(){try{var p=new URLSearchParams(location.search),q=p.get('lang'),h=location.hash,s=null;"
-            "if(!q&&/^#(en|mn)$/.test(h))q=h.slice(1);%s"
-            "if(q===%s){p.delete('lang');p=p.toString();"
-            "location.replace(%s+(p?'?'+p:'')+(/^#(en|mn)$/.test(h)?'':h));}}catch(e){}})();</script>")
-# A saved English choice applies to visits from outside the site, not to Back/Forward (a page reloaded from
-# history would bounce straight back to /en/) or to the Mongolian page opened from our own link.
-REDIRECT_MN = REDIRECT % ("try{s=localStorage.getItem('mhs-lang')}catch(e){}"
-                          "var n=performance.getEntriesByType('navigation')[0];"
-                          "if(!q&&s==='en'&&!(n&&n.type==='back_forward')&&document.referrer.indexOf(location.origin+'/')!==0)q='en';",
-                          "'en'", "'%s/'" % EN_DIR)
-REDIRECT_EN = REDIRECT % ("", "'mn'", "'../'")
+def other_pages(own):
+    """Relative addresses of the other language pages, seen from the page of language `own`."""
+    out = {}
+    for code, folder, _ in LANGS:
+        if code == own:
+            continue
+        if own == CODES[0]:
+            out[code] = folder + "/"
+        else:
+            out[code] = "../" + (folder + "/" if folder else "")
+    return out
+
+
+def redirect_script(own):
+    """Runs in <head> before anything is drawn: old ?lang=xx / #xx links go to the right address. The default
+    page also follows a saved choice; the other pages only follow explicit links (their address is a choice)."""
+    codes = "|".join(CODES)
+    targets = "{" + ",".join("%s:'%s'" % (code, href) for code, href in other_pages(own).items()) + "}"
+    saved = ""
+    if own == CODES[0]:
+        # A saved choice applies to visits from outside the site, not to Back/Forward (a page reloaded from
+        # history would bounce straight back) or to the default page opened from our own link.
+        saved = ("try{s=localStorage.getItem('mhs-lang')}catch(e){}"
+                 "var n=performance.getEntriesByType('navigation')[0];"
+                 "if(!q&&s&&T.hasOwnProperty(s)&&!(n&&n.type==='back_forward')&&document.referrer.indexOf(location.origin+'/')!==0)q=s;")
+    return ("<script>(function(){try{var p=new URLSearchParams(location.search),q=p.get('lang'),h=location.hash,s=null,T=%s;"
+            "if(!q&&/^#(%s)$/.test(h))q=h.slice(1);%s"
+            "if(q&&T.hasOwnProperty(q)){p.delete('lang');p=p.toString();"
+            "location.replace(T[q]+(p?'?'+p:'')+(/^#(%s)$/.test(h)?'':h));}}catch(e){}})();</script>") % (targets, codes, saved, codes)
 
 
 def add_head_script(text, script):
@@ -340,32 +363,47 @@ def add_head_script(text, script):
     return text[:m.end()] + "\n" + script + text[m.end():]
 
 
-def lang_buttons(text, hrefs, pressed):
+def lang_buttons(text, own):
+    hrefs = dict(other_pages(own), **{own: "./"})
     edits = []
     for tag in Scanner(text).tags:
         lang = tag.attrs.get("data-set-lang")
         if lang in hrefs:
             t = set_attr(text[tag.start:tag.end], "data-href", hrefs[lang])
-            t = set_attr(t, "aria-pressed", "true" if lang == pressed else "false")
+            t = set_attr(t, "aria-pressed", "true" if lang == own else "false")
             edits.append((tag.start, tag.end, t))
-    if len(edits) != 2:
-        warn("expected two language buttons, found %d" % len(edits))
+    if len(edits) != len(CODES):
+        warn("expected %d language buttons, found %d" % (len(CODES), len(edits)))
     return apply_edits(text, edits)
 
 
-def set_meta(text, attr, key, value, label):
+def set_meta(text, attr, key, value, label, code):
     pattern = re.compile(r'<meta\s[^>]*%s="%s"[^>]*>' % (attr, re.escape(key)))
     m = pattern.search(text)
     if not m:
-        warn("%s not found; not set on the English page" % label)
+        warn("%s not found; not set on the %s page" % (label, code))
         return text
     return text[:m.start()] + set_attr(m.group(0), "content", value) + text[m.end():]
 
 
-def set_link_href(text, rel, value, label):
+def set_locale_alternates(text, locales, code):
+    """Replace the og:locale:alternate tags (one per line) with one per other language."""
+    pattern = re.compile(r'[ \t]*<meta\s[^>]*property="og:locale:alternate"[^>]*>[ \t]*\n?')
+    matches = list(pattern.finditer(text))
+    if not matches:
+        warn("og:locale:alternate not found; not set on the %s page" % code)
+        return text
+    for m in reversed(matches[1:]):
+        text = text[:m.start()] + text[m.end():]
+    m = matches[0]
+    new = "".join('<meta property="og:locale:alternate" content="%s">\n' % loc for loc in locales)
+    return text[:m.start()] + new + text[m.end():]
+
+
+def set_link_href(text, rel, value, label, code):
     m = re.search(r'<link\s[^>]*rel="%s"[^>]*>' % rel, text)
     if not m:
-        warn("%s not found; not set on the English page" % label)
+        warn("%s not found; not set on the %s page" % (label, code))
         return text
     return text[:m.start()] + set_attr(m.group(0), "href", value) + text[m.end():]
 
@@ -374,25 +412,27 @@ def up_one(url):
     return "../" + url if is_relative(url) else url
 
 
-def make_english(page, src_dir):
-    """The English page: same HTML with English as the default language, served from /en/."""
+def make_language(page, src_dir, code, folder, locale):
+    """The page of one more language: same HTML with that language as the default, served from its folder."""
+    if not folder or "/" in folder:
+        raise ValueError("language folder must be one level deep: %r" % folder)
     tags = Scanner(page).tags
     site = next((t for t in tags if "site" in t.cls() and "data-lang" in t.attrs), None)
     if site is None:
         raise ValueError("no .site element with data-lang")
     edits = []
-    title_en = site.attrs.get("data-title-en")
+    title = site.attrs.get("data-title-" + code)
 
     for t in tags:
         raw = page[t.start:t.end]
         new = raw
         if t.name == "html":
-            new = set_attr(new, "lang", "en")
+            new = set_attr(new, "lang", code)
         if t is site:
-            new = set_attr(new, "data-lang", "en")
-        for data, attr in (("data-alt-en", "alt"), ("data-ph-en", "placeholder"), ("data-aria-en", "aria-label")):
-            if data in t.attrs:
-                new = set_attr(new, attr, t.attrs[data])
+            new = set_attr(new, "data-lang", code)
+        for data, attr in (("data-alt-", "alt"), ("data-ph-", "placeholder"), ("data-aria-", "aria-label")):
+            if data + code in t.attrs:
+                new = set_attr(new, attr, t.attrs[data + code])
         # relative addresses move one folder up
         for attr in ("src", "href"):
             value = t.attrs.get(attr)
@@ -410,7 +450,7 @@ def make_english(page, src_dir):
     # url(...) inside <style>
     page = re.sub(r"(<style[^>]*>)(.*?)(</style>)", lambda m: m.group(1) + css_up(m.group(2)) + m.group(3), page, flags=re.S)
 
-    # preload the latin fonts instead of the cyrillic ones
+    # preload the latin fonts instead of the cyrillic ones (CJK glyphs come from the reader's system fonts)
     def latin_preload(m):
         tag = m.group(0)
         href = re.search(r'href="([^"]*)"', tag).group(1)
@@ -422,25 +462,25 @@ def make_english(page, src_dir):
     page = re.sub(r'<link\s[^>]*rel="preload"[^>]*as="font"[^>]*>', latin_preload, page)
 
     # title and link preview
-    if title_en:
-        page, n = re.subn(r"<title>.*?</title>", "<title>%s</title>" % html.escape(title_en, quote=False), page, count=1, flags=re.S)
+    if title:
+        page, n = re.subn(r"<title>.*?</title>", "<title>%s</title>" % html.escape(title, quote=False), page, count=1, flags=re.S)
         if not n:
             warn("no <title> found")
-        page = set_meta(page, "property", "og:title", title_en, "og:title")
+        page = set_meta(page, "property", "og:title", title, "og:title", code)
     else:
-        warn("no data-title-en on .site; the English page keeps the Mongolian title")
+        warn("no data-title-%s on .site; the %s page keeps the Mongolian title" % (code, code))
 
-    description = english_description(page)
+    description = page_description(page, code)
     if description:
-        page = set_meta(page, "name", "description", description, "meta description")
-        page = set_meta(page, "property", "og:description", description, "og:description")
-    page = set_meta(page, "property", "og:locale", "en_US", "og:locale")
-    page = set_meta(page, "property", "og:locale:alternate", "mn_MN", "og:locale:alternate")
-    page = set_meta(page, "property", "og:url", SITE + EN_DIR + "/", "og:url")
-    page = set_link_href(page, "canonical", SITE + EN_DIR + "/", "canonical link")
-    hero_alt = english_hero_alt(page)
-    if hero_alt:
-        page = set_meta(page, "property", "og:image:alt", hero_alt, "og:image:alt")
+        page = set_meta(page, "name", "description", description, "meta description", code)
+        page = set_meta(page, "property", "og:description", description, "og:description", code)
+    page = set_meta(page, "property", "og:locale", locale, "og:locale", code)
+    page = set_locale_alternates(page, [loc for c, _, loc in LANGS if c != code], code)
+    page = set_meta(page, "property", "og:url", page_url(folder), "og:url", code)
+    page = set_link_href(page, "canonical", page_url(folder), "canonical link", code)
+    alt = hero_alt(page, code)
+    if alt:
+        page = set_meta(page, "property", "og:image:alt", alt, "og:image:alt", code)
     return page
 
 
@@ -448,42 +488,42 @@ def css_up(css):
     return re.sub(r"url\(\s*(['\"]?)([^'\")]+)\1\s*\)", lambda m: "url(%s%s%s)" % (m.group(1), up_one(m.group(2)), m.group(1)), css)
 
 
-def english_description(page):
-    """data-desc-en on .site if it is set, otherwise the English text of the hero's lead paragraph."""
+def page_description(page, code):
+    """data-desc-CODE on .site if it is set, otherwise that language's text of the hero's lead paragraph."""
     tags = Scanner(page).tags
-    site = next((t for t in tags if "site" in t.cls() and (t.attrs.get("data-desc-en") or "").strip()), None)
+    site = next((t for t in tags if "site" in t.cls() and (t.attrs.get("data-desc-" + code) or "").strip()), None)
     if site is not None:
-        return site.attrs["data-desc-en"].strip()
+        return site.attrs["data-desc-" + code].strip()
     for t in tags:
-        if t.name == "span" and t.attrs.get("lang") == "en" and any(a.name == "p" and "lead" in a.cls() for a in t.ancestors):
+        if t.name == "span" and t.attrs.get("lang") == code and any(a.name == "p" and "lead" in a.cls() for a in t.ancestors):
             text = inner_text(page, t)
             if text:
                 return text
-    warn("no English lead paragraph (.lead span[lang=en]) found; the English page keeps the Mongolian description")
+    warn("no %s lead paragraph (.lead span[lang=%s]) found; the %s page keeps the Mongolian description" % (code, code, code))
     return None
 
 
-def english_hero_alt(page):
+def hero_alt(page, code):
     for t in Scanner(page).tags:
-        if t.name == "img" and t.attrs.get("data-alt-en") and any(a.attrs.get("data-photo") == "hero" for a in t.ancestors):
-            alt = t.attrs["data-alt-en"]
+        if t.name == "img" and t.attrs.get("data-alt-" + code) and any(a.attrs.get("data-photo") == "hero" for a in t.ancestors):
+            alt = t.attrs["data-alt-" + code]
             return alt[:1].upper() + alt[1:]
     return None
 
 
-LANG_SPAN = re.compile(r'<span lang="(mn|en)">')
+LANG_SPAN = re.compile(r'<span lang="(%s)">' % "|".join(re.escape(c) for c in CODES))
 SPAN_TAG = re.compile(r"<(/?)span\b[^>]*>", re.I)
 
 
-def one_language(page, drop):
-    """Remove every <span lang="DROP">...</span> in <body>, nested markup included.
+def one_language(page, keep):
+    """Remove every <span lang="..."> of the other languages in <body>, nested markup included.
 
-    The page carries each text twice and CSS hides one language; people never see the hidden one, but
-    crawlers that ignore CSS read both. If a span is not closed, the page is published unchanged."""
+    The page carries each text once per language and CSS hides all but one; people never see the hidden
+    ones, but crawlers that ignore CSS read them all. If a span is not closed, the page is published unchanged."""
     body = page.find("<body")
     parts, pos, removed = [], 0, 0
     for m in LANG_SPAN.finditer(page, max(body, 0)):
-        if m.group(1) != drop or m.start() < pos:
+        if m.group(1) == keep or m.start() < pos:
             continue
         depth, end = 1, None
         for t in SPAN_TAG.finditer(page, m.end()):
@@ -492,13 +532,13 @@ def one_language(page, drop):
                 end = t.end()
                 break
         if end is None:
-            warn('a <span lang="%s"> is not closed; this page keeps both languages' % drop)
+            warn('a <span lang="%s"> is not closed; the %s page keeps every language' % (m.group(1), keep))
             return page
         parts.append(page[pos:m.start()])
         pos = end
         removed += 1
     parts.append(page[pos:])
-    print("  removed %d %s texts" % (removed, drop))
+    print("  %s page: removed %d texts of the other languages" % (keep, removed))
     return "".join(parts)
 
 
@@ -530,28 +570,29 @@ def build(src_dir, out_dir):
         warn("photo step failed (%s: %s); photos published without smaller copies" % (type(e).__name__, e))
         page = source
 
+    default = CODES[0]
     try:
-        english = make_english(page, src_dir)
-        english = lang_links(english, SITE + EN_DIR + "/")
-        english = add_head_script(english, REDIRECT_EN)
-        english = lang_buttons(english, {"mn": "../", "en": "./"}, "en")
-        mongolian = lang_links(page, SITE)
-        mongolian = add_head_script(mongolian, REDIRECT_MN)
-        mongolian = lang_buttons(mongolian, {"mn": "./", "en": EN_DIR + "/"}, "mn")
+        outputs = {}
+        for code, folder, locale in LANGS:
+            p = page if code == default else make_language(page, src_dir, code, folder, locale)
+            p = lang_links(p)
+            p = add_head_script(p, redirect_script(code))
+            p = lang_buttons(p, code)
+            outputs[code] = (folder, p)
         print("One language per page:")
-        mongolian = one_language(mongolian, "en")
-        english = one_language(english, "mn")
+        for code, (folder, p) in list(outputs.items()):
+            outputs[code] = (folder, one_language(p, code))
     except Exception as e:
-        warn("English page not built (%s: %s); the site is published with the in-page language switch only" % (type(e).__name__, e))
-        english, mongolian = None, page
+        warn("language pages not built (%s: %s); the site is published with the in-page language switch only" % (type(e).__name__, e))
+        outputs = {default: ("", page)}
 
-    with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(mongolian)
-    if english is not None:
-        os.makedirs(os.path.join(out_dir, EN_DIR), exist_ok=True)
-        with open(os.path.join(out_dir, EN_DIR, "index.html"), "w", encoding="utf-8") as f:
-            f.write(english)
-        print("English page: %s/index.html" % EN_DIR)
+    for code, (folder, p) in outputs.items():
+        target = os.path.join(out_dir, folder) if folder else out_dir
+        os.makedirs(target, exist_ok=True)
+        with open(os.path.join(target, "index.html"), "w", encoding="utf-8") as f:
+            f.write(p)
+        if folder:
+            print("%s page: %s/index.html" % (code, folder))
 
 
 def main():

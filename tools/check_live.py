@@ -3,12 +3,12 @@
 
   python3 tools/check_live.py [--built _site] [--site https://mhs.mn] [--wait 240] [--no-youtube]
 
-- /, /en/, /robots.txt and /sitemap.xml answer 200, and /en redirects to /en/.
-- With --built DIR: the live / and /en/ are byte for byte the pages in DIR (the build of the same commit).
+- /, /en/, /zh/, /robots.txt and /sitemap.xml answer 200, and /en and /zh redirect to /en/ and /zh/.
+- With --built DIR: the live /, /en/ and /zh/ are byte for byte the pages in DIR (the build of the same commit).
   Right after a deploy the CDN may still serve the old pages, so this retries for up to --wait seconds.
   If main has moved on since (a newer commit was published), a mismatch is only a warning: the Live check
   of that newer commit covers the site.
-- Every photo, font and other file the two pages use (og-image.jpg too) answers 200.
+- Every photo, font and other file the pages use (og-image.jpg too) answers 200.
 - Every linked YouTube video is still there: YouTube's oEmbed answers 200 (and gives its title).
   404 means the video was removed or the link is wrong (a problem). 401/403 means private or embedding
   turned off (a warning: the link may still open on youtube.com). A YouTube link in a form this script
@@ -108,8 +108,8 @@ def main():
     stamp = os.environ.get('LIVE_CHECK_STAMP') or os.environ.get('GITHUB_SHA') or str(int(time.time()))
 
     pages = {}
-    deadline = time.time() + args.wait  # one budget for both pages: they are deployed together
-    for path in ('/', '/en/'):
+    deadline = time.time() + args.wait  # one budget for all pages: they are deployed together
+    for path in ('/', '/en/', '/zh/'):
         url = site + path
         want = None
         if args.built:
@@ -140,12 +140,13 @@ def main():
     for path in ('/robots.txt', '/sitemap.xml'):
         status, _, _ = get(site + path)
         (notes if status == 200 else problems).append('%s%s: %s' % (site, path, status))
-    status, headers, _ = get(site + '/en', follow=False)
-    location = headers.get('Location', '') if headers else ''
-    if status in (301, 302, 308) and location.rstrip('/').endswith('/en'):
-        notes.append('%s/en redirects to /en/ (%s)' % (site, status))
-    else:
-        problems.append('%s/en should redirect to /en/, got %s %s' % (site, status, location))
+    for folder in ('en', 'zh'):
+        status, headers, _ = get(site + '/' + folder, follow=False)
+        location = headers.get('Location', '') if headers else ''
+        if status in (301, 302, 308) and location.rstrip('/').endswith('/' + folder):
+            notes.append('%s/%s redirects to /%s/ (%s)' % (site, folder, folder, status))
+        else:
+            problems.append('%s/%s should redirect to /%s/, got %s %s' % (site, folder, folder, status, location))
 
     files = set()
     for path, body in pages.items():
