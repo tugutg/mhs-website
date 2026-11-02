@@ -51,7 +51,8 @@
   --slot-c:#2b4357;
   --heat:#c4561d;         /* heat-sensing cable in the schematic */
   --alert:#b3261e;        /* form errors */
-  --hint:#7a8794;         /* placeholders */
+  --hint:#687582;         /* placeholders (4.7:1 on white) */
+  --field:#8492a0;        /* form field and chip borders (3.2:1 on white) */
   --display:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",sans-serif;
   --body:"IBM Plex Sans","Segoe UI",Roboto,Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -65,6 +66,7 @@ body{margin:0;background:var(--white);color:var(--ink);font-family:var(--body);f
 img{max-width:100%;display:block}
 a{color:var(--steel-ink)}
 :focus-visible{outline:3px solid var(--steel);outline-offset:2px}
+.hero :focus-visible,.dark :focus-visible,.plate :focus-visible,.foot :focus-visible{outline-color:var(--sky)}
 h1,h2,h3{text-wrap:balance}
 .site[data-lang="mn"] [lang="en"],.site[data-lang="en"] [lang="mn"]{display:none!important}
 [hidden]{display:none!important}
@@ -107,6 +109,8 @@ svg.i{width:18px;height:18px;flex:none}
 .slot figcaption{position:absolute;z-index:2;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:8px;font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark-muted)}
 .slot.has-photo figcaption{display:none}
 .slot .credit{position:absolute;z-index:2;right:10px;bottom:8px;padding:5px 7px;font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark);background:rgba(18,26,33,.6)}
+/* Mongolian captions in Plex Sans: in uppercase Plex Mono the Cyrillic «З» reads as the digit 3 */
+.slot .credit:lang(mn),.slot figcaption:lang(mn),.how-key:lang(mn),.sheet:lang(mn){font-family:var(--body);letter-spacing:.03em}
 
 /* Hero */
 .hero{position:relative;isolation:isolate;background:var(--graphite);color:var(--on-dark);scroll-margin-top:68px}
@@ -120,7 +124,8 @@ h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .lead{margin:0;max-width:58ch;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--on-dark-muted)}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
 .badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
-.badge{display:grid;gap:5px;min-width:210px;padding:12px 16px 13px;border:1px solid rgba(169,184,197,.4);background:rgba(18,26,33,.55)}
+.badge{display:grid;gap:5px;min-width:210px;padding:12px 16px 13px;border:1px solid rgba(169,184,197,.4);background:rgba(18,26,33,.55);color:inherit;text-decoration:none;transition:border-color .15s,background-color .15s}
+.badge:hover,.badge:focus-visible{border-color:var(--sky);background:rgba(18,26,33,.75)}
 .badge small{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted)}
 .badge b{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-family:var(--display);font-weight:800;font-size:24px;line-height:1;letter-spacing:.02em;color:var(--white)}
 .badge b span{font:400 14px/1 var(--body);letter-spacing:0;color:var(--on-dark-muted)}
@@ -131,7 +136,6 @@ h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .fig{display:grid;gap:8px;align-content:start;padding:30px 24px 28px;border-left:1px solid var(--line)}
 .fig:first-child{border-left:0;padding-left:0}
 .fig b{font-family:var(--display);font-weight:800;font-size:clamp(36px,4.2vw,56px);line-height:1;color:var(--steel);font-variant-numeric:tabular-nums;white-space:nowrap}
-.fig b .deg{letter-spacing:-.09em}
 .fig > span{font-size:14px;line-height:1.4;color:var(--muted)}
 
 /* Sections */
@@ -141,8 +145,8 @@ h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .head{display:grid;gap:14px;max-width:780px;margin-bottom:clamp(32px,4vw,48px)}
 h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(32px,3.8vw,54px);line-height:1;letter-spacing:.004em}
 .dark h2{color:var(--white)}
-.head > p:not(.eyebrow),.body > p:not(.eyebrow){margin:0;max-width:62ch;font-size:17px;color:var(--muted)}
-.dark .head > p:not(.eyebrow){color:var(--on-dark-muted)}
+.head > p:not(.eyebrow):not(.sub),.body > p:not(.eyebrow):not(.sub){margin:0;max-width:62ch;font-size:17px;color:var(--muted)}
+.dark .head > p:not(.eyebrow):not(.sub){color:var(--on-dark-muted)}
 .sub{margin:0;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
 .dark .sub{color:var(--sky)}
 
@@ -261,6 +265,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .plate dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:16px;line-height:1.5;color:var(--white)}
 .plate dd.multi{flex-direction:column;align-items:flex-start}
 .plate dd .line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.plate dd a{color:var(--white);text-decoration:none}
+.plate dd a:hover{text-decoration:underline}
 .copy{padding:7px 9px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted);background:transparent;border:1px solid var(--graphite-line);cursor:pointer}
 .copy:hover{color:var(--white);border-color:var(--on-dark-muted)}
 .copy .done{display:none}
@@ -274,13 +280,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .opts{display:flex;flex-wrap:wrap;gap:8px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
-.opt .o{display:inline-flex;padding:9px 12px;font:500 14.5px/1.2 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--line);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.opt .o{display:inline-flex;padding:9px 12px;font:500 14.5px/1.2 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--field);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
 .opt .o:hover{border-color:var(--steel)}
 .opt input:checked + .o{background:var(--steel);border-color:var(--steel);color:var(--white)}
 .opt input:focus-visible + .o{outline:3px solid var(--steel);outline-offset:2px}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .fld{display:grid;min-width:0}
-.fld input,.fld textarea,.q-text{width:100%;font:400 16px/1.45 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:0;padding:11px 12px}
+.fld input,.fld textarea,.q-text{width:100%;font:400 16px/1.45 var(--body);color:var(--ink);background:var(--white);border:1px solid var(--field);border-radius:0;padding:11px 12px}
 .fld textarea{min-height:88px;resize:vertical}
 .fld input:focus,.fld textarea:focus,.q-text:focus{outline:2px solid var(--steel);outline-offset:0;border-color:var(--steel)}
 .fld input::placeholder,.fld textarea::placeholder{color:var(--hint)}
@@ -338,6 +344,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .how-list{grid-template-columns:1fr}
   .how-list li{grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 22px;border-left:0;border-top:1px solid var(--line)}
   .how-list li:first-child{border-top:0}
+  /* single-column hero: the text runs over the bright right side of the photo, so darken top to bottom */
+  .hero .slot::after{background:linear-gradient(180deg,rgba(18,26,33,.88) 0%,rgba(18,26,33,.8) 55%,rgba(18,26,33,.6) 100%)}
 }
 @media (max-width:780px){
   .fig{padding:24px 16px 22px}
@@ -345,10 +353,22 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 @media (max-width:720px){
   .mbar{position:fixed;z-index:45;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--white);border-top:1px solid var(--line);box-shadow:0 -12px 24px -20px rgba(18,26,33,.5);transition:transform .2s}
   .mbar.away{transform:translateY(110%)}
-  .mbar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 10px;font:600 14.5px/1.2 var(--body);text-decoration:none;color:var(--steel);background:var(--white);border:2px solid var(--steel)}
+  .mbar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 2px;white-space:nowrap;font:600 14.5px/1.2 var(--body);text-decoration:none;color:var(--steel);background:var(--white);border:2px solid var(--steel)}
   .mbar a.primary{background:var(--steel);color:var(--white)}
   .mbar svg{width:18px;height:18px;flex:none}
   .legal{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  html{scroll-padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  /* touch targets at least 44 px */
+  .lang button,.copy{min-width:44px;min-height:44px}
+  .plate dd a{display:inline-flex;align-items:center;min-height:44px}
+  .opt .o{align-items:center;min-height:44px}
+  .foot ul:has(a){gap:0}
+  .foot li > a{display:inline-flex;align-items:center;min-height:44px}
+  .menu-btn{height:46px}
+}
+@media (max-width:340px){
+  .mbar a{gap:6px}
+  .mbar svg{width:16px;height:16px}
 }
 @media (max-width:560px){
   .tools .btn{display:none}
@@ -450,8 +470,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <a class="btn line" href="#how"><span lang="mn">Систем хэрхэн ажилладаг вэ</span><span lang="en">How the system works</span></a>
         </div>
         <div class="badges">
-          <div class="badge"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span></span></b></div>
-          <div class="badge"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span></span></b></div>
+          <a class="badge" href="#dafo"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span></span></b></a>
+          <a class="badge" href="#sennebogen"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span></span></b></a>
         </div>
       </div>
     </div>
@@ -895,9 +915,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <dd><span lang="mn">O&amp;OCH засварын төв, Туул 10-21, 32-р хороо, Сонгинохайрхан дүүрэг, Улаанбаатар 18270</span><span lang="en">O&amp;OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district, Ulaanbaatar 18270, Mongolia</span></dd>
             <dt><span lang="mn">Утас</span><span lang="en">Phone</span></dt>
             <dd class="multi">
-              <div class="line"><span id="phone">+976&nbsp;9697&nbsp;0276</span>
+              <div class="line"><a id="phone" href="tel:+97696970276">+976&nbsp;9697&nbsp;0276</a>
                 <button type="button" class="copy" id="copy-phone" data-copy="+97696970276" aria-controls="phone"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div>
-              <div class="line"><span id="phone-2">+976&nbsp;9907&nbsp;8171</span>
+              <div class="line"><a id="phone-2" href="tel:+97699078171">+976&nbsp;9907&nbsp;8171</a>
                 <button type="button" class="copy" id="copy-phone-2" data-copy="+97699078171" aria-controls="phone-2"><span class="idle"><span lang="mn">Хуулах</span><span lang="en">Copy</span></span><span class="done"><span lang="mn">Хуулсан</span><span lang="en">Copied</span></span></button></div></dd>
             <dt><span lang="mn">И-мэйл</span><span lang="en">Email</span></dt>
             <dd><span id="email">tuguldur@mhs.mn</span>
