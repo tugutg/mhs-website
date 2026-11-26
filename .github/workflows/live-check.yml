@@ -4,12 +4,9 @@
 # See tools/check_live.py.
 name: Live check
 
+# Since 7 Nov 2026 mhs.mn is hosted on Cloudflare Pages (see CLAUDE.md) and the owner keeps automation off
+# GitHub, so this workflow runs only by hand. Don't add push or schedule triggers back without asking him.
 on:
-  workflow_run:
-    workflows: ["Publish site"]
-    types: [completed]
-  schedule:
-    - cron: "17 1 1 * *"   # the 1st of each month, 01:17 UTC (09:17 in Ulaanbaatar)
   workflow_dispatch:
 
 permissions:

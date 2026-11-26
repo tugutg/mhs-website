@@ -1,15 +1,11 @@
-# Publishes https://mhs.mn: builds the site from docs/ with tools/build_site.py and deploys it to GitHub Pages.
+# OLD (GitHub Pages era, until 7 Nov 2026): published https://mhs.mn. Today it would only update GitHub Pages,
+# which mhs.mn no longer points at. Builds the site from docs/ with tools/build_site.py and deploys it to GitHub Pages.
 # Needs Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
 name: Publish site
 
+# Since 7 Nov 2026 mhs.mn is hosted on Cloudflare Pages (see CLAUDE.md) and the owner keeps automation off
+# GitHub, so this workflow runs only by hand. Don't add push or schedule triggers back without asking him.
 on:
-  push:
-    branches: [main]
-    # only when the site itself can change; edits to CLAUDE.md, README or the skill publish nothing
-    paths:
-      - "docs/**"
-      - "tools/build_site.py"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
