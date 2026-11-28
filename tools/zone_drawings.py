@@ -381,12 +381,12 @@ def stacker():
     d.lines([(9.5, 0.5, 9.5, 2.67), (9.8, 0.5, 9.8, 2.67)] + [(9.5, 0.68 + i * 0.32, 9.8, 0.68 + i * 0.32) for i in range(7)], 'mt')   # ladder to the cab
     # wheels (twin drive tyres at the front, steer axle at the rear)
     d.wheel(fa, R, rim=0.56); d.wheel(ra, R, rim=0.56)
-    # protected zones: 3, 2, 1 in line in the engine room under the cab (owner, 28 Nov 2026)
-    d.zone(3, 6.42, 1.05, 1.08, 1.45)     # transmission / torque converter
-    d.zone(2, 7.66, 1.05, 0.78, 1.45)     # hydraulic pumps
+    # protected zones: 2, 3 (with 4 below it), 1 in line in the engine room under the cab (owner, 28 Nov 2026)
+    d.zone(2, 6.42, 1.05, 1.08, 1.45)     # hydraulic pumps
+    d.zone(3, 7.66, 1.55, 0.78, 0.95)     # transmission / torque converter
+    d.zone(4, 7.66, 1.05, 0.78, 0.4)      # battery box, under the transmission (owner, 28 Nov 2026)
     d.zone(1, 8.58, 1.05, 1.72, 1.45)     # engine
     d.zone(5, 12.08, 1.0, 0.8, 0.85)      # fuel tank, filters, pumps
-    d.zone(4, 13.08, 1.0, 0.72, 0.5)      # battery box
     return d
 
 ORDER = [('excavator', excavator, 'Экскаваторын'), ('truck', truck, 'Автосамосвалын'), ('loader', loader, 'Дугуйт ачигчийн'),
