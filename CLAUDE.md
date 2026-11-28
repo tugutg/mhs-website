@@ -41,7 +41,7 @@ Static one-page site in three languages (Mongolian, English, Chinese) for Materi
 ## Working on this repo
 
 - Other Claude sessions push to `main` in parallel. Before starting, `git fetch` and read `git log origin/main` and the open PRs for overlapping work. Do it again before pushing, and re-read this file after fetching.
-- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section) and `check.cjs` (browser checks), and `cf_deploy.md` (publishing to Cloudflare Pages). `deploy_wait.sh` belongs to the old GitHub Pages setup; don't use it. Merging follows the owner's rule below.
+- For any change (scope question, edit, build, browser check, PR, merge, deploy check), follow `.claude/skills/mhs-site-change/SKILL.md`. It also has the scripts `site_text.py` (find/replace with language and section) and `check.cjs` (browser checks), `cf_deploy.md` (publishing to Cloudflare Pages), and `photos.md` with `photo_prep.py` (preparing the owner's photos). `deploy_wait.sh` belongs to the old GitHub Pages setup; don't use it. Merging follows the owner's rule below.
 
 ## Owner's decisions (don't reopen)
 
