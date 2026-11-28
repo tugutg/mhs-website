@@ -55,8 +55,8 @@ MAX_QUALITY = 80  # the hero is saved at q80, the other photos at q75; copies ne
 #   detail: 4:3 photos of installed parts: 2 columns up to 900px, 4 above (45vw, 23vw / 268px).
 #   pair:   4:3 photos two to a row (parts section): 1 column up to 560px, 2 above (92vw, 46vw / 552px).
 #   feature: the lead photo of the installed-parts strip: full width (4:3) up to 900px (92vw); above that two
-#           columns and both rows beside the four close-ups (46vw / 552px), a box of 1.07-1.22:1 (it follows the
-#           caption lengths; Mongolian is the tallest), so those steps use 1.06 and 1.12.
+#           columns and both rows beside four close-ups (46vw / 552px), a box of 1.03-1.22:1 (it follows the
+#           caption lengths of the rows beside it), so those steps use 1.02 and 1.12. Two such photos: rows 1-2 and 3-4.
 BOXES = {
     "card": (1.6, [(900, 0.92), (1200, 0.30), (None, "356px")]),
     "hero": (4 / 3, [(900, 0.92), (1200, 0.50), (None, "591px")]),
@@ -65,7 +65,7 @@ BOXES = {
     "tile": (4 / 3, [(700, 0.45), (1000, 0.30), (1200, 0.23), (None, "266px")]),
     "detail": (4 / 3, [(900, 0.45), (1200, 0.23), (None, "268px")]),
     "pair": (4 / 3, [(560, 0.92), (1200, 0.46), (None, "552px")]),
-    "feature": (4 / 3, [(900, 0.92), (1200, 0.46, 1.06), (None, "552px", 1.12)]),
+    "feature": (4 / 3, [(900, 0.92), (1200, 0.46, 1.02), (None, "552px", 1.12)]),
 }
 KINDS = ("wide", "step", "tile", "detail", "pair", "feature")  # figure classes that name a slot kind
 # The hero used to fill the viewport and got a centre crop for portrait phones; since it became a 4:3 box
