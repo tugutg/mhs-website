@@ -69,6 +69,7 @@ Static one-page site in three languages (Mongolian, English, Chinese) for Materi
 
     When unsure, ask.
 - Search Console is verified for mhs.mn as a Domain property (DNS), so no verification tag is needed.
+- Cloudflare Web Analytics is off since 28 Nov 2026 (the owner left the choice to Claude; the no-trackers rule decided it). Until then Cloudflare injected its RUM script (static.cloudflareinsights.com) into every mhs.mn page at the edge. It is switched off in the account's Web analytics → mhs.mn → Manage site → Disable; the site entry and its history stay. Visitor numbers come from the zone analytics, which need no script (Domains → mhs.mn → Analytics; crawlers included), and from Search Console. Don't switch it back on without asking.
 - «Дафо Монголиа» listings (huree.mn, Facebook) have nothing to do with MHS or DAFO. Ignore them on the site.
 - Hours: Monday–Friday, 09:00–17:00. MHS works at mines anywhere in Mongolia (owner, 14 Oct 2026). Shown in the contact plate, the second FAQ answer, the JSON-LD and llms.txt.
 - The state-register spelling of the company name and the register number are not shown on the site, in the JSON-LD or in llms.txt (owner, 14 Oct 2026).
