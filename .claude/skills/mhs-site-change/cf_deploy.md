@@ -5,8 +5,10 @@ Since 7 Nov 2026, mhs.mn is served by Cloudflare Pages: project `mhs-mn`, accoun
 ## What can reach what
 
 - **The cloud shell** can't open mhs.mn and can't reach the Cloudflare API with the owner's sign-in.
-- **The owner's browser** (built-in browser or Claude in Chrome) can fetch from mhs.mn and work in the Cloudflare dashboard once the owner has signed in. He signs in himself; never type credentials. Cloudflare is often signed out, so ask him to sign in first.
-- **Claude in Chrome's `file_upload`** only accepts files the owner has shared with the session. Container paths (`/mnt/user-data/outputs/…`) are refused, and a request for device folder access may also be refused.
+- **The owner's browser** (built-in browser or Claude in Chrome) can fetch from mhs.mn and work in the Cloudflare dashboard once the owner has signed in. He signs in himself; never type credentials. In his Chrome (Claude in Chrome) Cloudflare is usually signed in; in the built-in browser it is often signed out. Check first, and ask him to sign in only if needed.
+- **Claude in Chrome's `file_upload`** only accepts files staged into this session (`/mnt/user-data/uploads/…`, for example by `device_stage_files`), at most 3.8 MB per call. It refuses container output paths (`/mnt/user-data/outputs/…`) and device paths, even in connected folders.
+  - So a zip with new photos (about 24 MB) can't go in through it. Send the zip with SendUserFile and ask the owner to drag it into the upload box (step 4); the checks and Save and deploy then work from Claude in Chrome.
+  - On 28 Nov 2026 a request for access to his Downloads folder was blocked, and the folders connected to his sessions are on OneDrive, where nothing is written.
 - **The Pages API from the dashboard page:** `fetch('/api/v4/accounts/<acc>/pages/projects/mhs-mn/upload-token', {headers: {'x-atok': window.bootstrap.atok, 'x-cross-site-security': 'dash'}})` works, as do `/api/v4/pages/assets/check-missing`, `/upload` and `/upsert-hashes` with `Authorization: Bearer <jwt>`. But **a multipart POST to `.../deployments` is blocked** by Cloudflare's WAF ("Attention Required", 403). **Don't create deployments through the API.** Use the dashboard's own upload box (step 4).
 
 ## 1. Before you start: is the repo the same as the live site?
@@ -87,9 +89,15 @@ Then:
 ## 5. Check the live site
 
 1. From an mhs.mn tab, run step 1's snippet against your new build's checksums. Every one must match.
-2. Check that `/nope` returns 404 with «Хуудас олдсонгүй».
-3. Check that `fetch('/')` on mhs-mn.pages.dev has `x-robots-tag: noindex` and mhs.mn has none.
-4. Ping IndexNow from a bing.com tab: `fetch('/indexnow?url='+encodeURIComponent(u)+'&key=ef8d0dd29fefc4380d8930910c1606e7')` for `/`, `/en/`, `/zh/` and `/llms.txt`.
+2. Check that nothing is added at the edge. Step 1's `fetch` doesn't send `Accept: text/html`, so a script Cloudflare injects into pages (its Web Analytics did until 28 Nov 2026) doesn't show in the checksums. In a freshly loaded mhs.mn tab, both lists must be empty:
+
+   ```js
+   JSON.stringify({scripts:[...document.scripts].filter(s=>s.src&&new URL(s.src).host!==location.host).map(s=>s.src), hosts:[...new Set(performance.getEntriesByType('resource').map(e=>new URL(e.name).host))].filter(h=>h!==location.host)})
+   ```
+
+3. Check that `/nope` returns 404 with «Хуудас олдсонгүй».
+4. Check that `fetch('/')` on mhs-mn.pages.dev has `x-robots-tag: noindex` and mhs.mn has none.
+5. Ping IndexNow from a bing.com tab: `fetch('/indexnow?url='+encodeURIComponent(u)+'&key=ef8d0dd29fefc4380d8930910c1606e7')` for `/`, `/en/`, `/zh/` and `/llms.txt`.
 
 ## 6. Merge
 
