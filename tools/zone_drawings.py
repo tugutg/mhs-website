@@ -346,17 +346,19 @@ def stacker():
     d.poly([(3.92, 0.95), (12.95, 0.95), (12.95, 1.9), (4.22, 1.9), (3.92, 1.6)], 'ml')
     d.rect(3.74, 1.0, 0.3, 0.55, 'ml', r=0.05)                                      # front buffer
     d.rect(4.3, 1.62, 0.22, 0.14, 'mdot')                                             # work light
-    d.path([('M', 11.55, 1.9), ('L', 11.55, 2.9), ('L', 13.05, 2.96), ('L', 13.05, 1.9)], 'ml')   # engine bay
+    # one rear compartment: transmission, hydraulic pumps and engine in line (owner, 28 Nov 2026)
+    d.path([('M', 9.2, 1.9), ('L', 9.2, 2.76), ('Q', 9.2, 2.88, 9.34, 2.88), ('L', 13.05, 2.96), ('L', 13.05, 1.9), ('Z',)], 'ml')
+    d.lines([(10.44, 1.9, 10.44, 2.9), (11.44, 1.9, 11.44, 2.92)], 'mt')
     d.path([('M', 12.95, 0.82), ('L', 13.6, 0.82), ('Q', 13.98, 0.82, 13.98, 1.2), ('L', 13.98, 2.55), ('Q', 13.98, 3.02, 13.55, 3.02),
             ('L', 12.95, 3.02), ('Z',)], 'ml')                                        # counterweight
-    d.lines([(11.75, 2.1 + i * 0.16, 12.85, 2.1 + i * 0.16) for i in range(5)], 'mx')
+    d.lines([(a, 2.1 + i * 0.16, b, 2.1 + i * 0.16) for i in range(5) for a, b in ((9.42, 10.26), (10.62, 11.26), (11.62, 12.85))], 'mx')
     d.lines([(4.4, 1.42, 12.6, 1.42)], 'mx')
     d.rect(12.1, 2.92, 0.13, 0.6, 'ml'); d.poly([(12.08, 3.52), (12.25, 3.52), (12.27, 3.59), (12.06, 3.56)], 'ml')   # exhaust
     d.rect(13.85, 1.7, 0.08, 0.26, 'mdot')
     # boom foot support on the chassis
-    d.poly([(10.35, 1.9), (11.65, 1.9), (11.32, 3.25), (10.72, 3.25)], 'ml')
+    d.poly([(10.48, 2.9), (11.56, 2.92), (11.32, 3.48), (10.72, 3.48)], 'ml')
     # boom: outer section from the pivot, inner section to the head
-    P, H = (11.02, 3.05), (3.05, 4.86)
+    P, H = (11.02, 3.3), (3.05, 4.86)
     ux, uh = H[0] - P[0], H[1] - P[1]; L = math.hypot(ux, uh); ux, uh = ux / L, uh / L; nx, nh = -uh, ux
     J = (P[0] + ux * L * 0.62, P[1] + uh * L * 0.62)
     def q(p, k): return (p[0] + nx * k, p[1] + nh * k)
@@ -376,15 +378,15 @@ def stacker():
     d.poly([(7.64, 2.44), (7.72, 3.7), (8.36, 3.7), (8.36, 2.44)], 'mw')
     d.poly([(8.46, 2.44), (8.46, 3.7), (8.88, 3.7), (8.88, 2.44)], 'mw')
     d.line(8.28, 2.3, 8.28, 2.16, 'mt')
-    d.lines([(9.12, 0.5, 9.12, 1.9), (9.42, 0.5, 9.42, 1.9)] + [(9.12, 0.66 + i * 0.3, 9.42, 0.66 + i * 0.3) for i in range(5)], 'mt')   # ladder
+    d.lines([(8.6, 0.5, 8.6, 1.9), (8.9, 0.5, 8.9, 1.9)] + [(8.6, 0.66 + i * 0.3, 8.9, 0.66 + i * 0.3) for i in range(5)], 'mt')   # ladder
     # wheels (twin drive tyres at the front, steer axle at the rear)
     d.wheel(fa, R, rim=0.56); d.wheel(ra, R, rim=0.56)
     # protected zones
-    d.zone(1, 11.68, 1.98, 1.25, 0.88)    # engine bay
-    d.zone(2, 9.55, 1.96, 0.95, 0.66)     # hydraulic pumps / valves
-    d.zone(3, 6.6, 1.0, 1.9, 0.78)        # transmission / torque converter
+    d.zone(1, 11.55, 2.0, 1.38, 0.8)      # engine
+    d.zone(2, 10.55, 2.0, 0.78, 0.8)      # hydraulic pumps on the transmission
+    d.zone(3, 9.32, 2.0, 1.02, 0.8)       # transmission / torque converter
     d.zone(4, 13.08, 1.0, 0.72, 0.5)      # battery box
-    d.zone(5, 9.55, 1.0, 0.95, 0.78)      # fuel filters / pumps
+    d.zone(5, 6.6, 1.0, 1.85, 0.76)       # fuel tank, filters, pumps
     return d
 
 
