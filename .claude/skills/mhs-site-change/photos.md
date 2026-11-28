@@ -4,8 +4,8 @@ CLAUDE.md says what a published photo may not show. This page explains how a pho
 
 ## 1. Find and fetch
 
-- **Where they are:** his photos are in his OneDrive camera rolls, which are connected to sessions as folders (for example `C:\Users\tugut\OneDrive\Pictures\Camera Roll` and `D:\MHS OneDrive\OneDrive - mhs.mn\Pictures folder BAKCUP 20251113\Camera Roll`). Sometimes he attaches them in the chat. He refers to them by file number (N206, W0864) or by machine.
-- **Fetching:** list the folder with `device_list_dir`, then stage only the photos the task needs with `device_stage_files`. Most are cloud-only (`cloudOnly`), and he can't make all photos available on his PC. Don't write anything into those folders.
+- **Where they are:** his photos are in his OneDrive camera rolls, which are connected to sessions as folders (`get_device_info` lists them). Sometimes he attaches them in the chat. He refers to them by file number (N206, W0864) or by machine.
+- **Fetching:** list the folder with `device_list_dir`, then stage only the photos the task needs with `device_stage_files`. Most are cloud-only (`cloudOnly`), and he can't make all photos available on his PC. Write into those folders only with his permission (owner, 28 Nov 2026).
 - **Choosing:** look at each candidate (Read the staged file) before choosing. When he names a photo, use that one.
 
 ## 2. Check what it shows
