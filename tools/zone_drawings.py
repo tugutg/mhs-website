@@ -340,53 +340,57 @@ def dozer():
 
 
 def stacker():
-    d = D(40, 42)           # x=0 at the front end of the spreader, facing left
-    fa, ra, R = 5.2, 11.2, 0.82
-    # chassis, front buffer, counterweight
-    d.poly([(3.92, 0.95), (12.95, 0.95), (12.95, 1.9), (4.22, 1.9), (3.92, 1.6)], 'ml')
-    d.rect(3.74, 1.0, 0.3, 0.55, 'ml', r=0.05)                                      # front buffer
-    d.rect(4.3, 1.62, 0.22, 0.14, 'mdot')                                           # work light
-    d.lines([(4.4, 1.42, 12.6, 1.42)], 'mx')
-    d.path([('M', 12.95, 0.82), ('L', 13.6, 0.82), ('Q', 13.98, 0.82, 13.98, 1.2), ('L', 13.98, 2.55), ('Q', 13.98, 3.02, 13.55, 3.02),
-            ('L', 12.95, 3.02), ('Z',)], 'ml')                                        # counterweight
-    d.rect(13.85, 1.7, 0.08, 0.26, 'mdot')
-    # engine room between the axles: transmission, hydraulic pumps and engine in line; the cab sits on top
-    d.rect(6.3, 0.95, 4.1, 1.72, 'ml', r=0.06)
-    d.lines([(7.6, 0.95, 7.6, 2.67), (8.5, 0.95, 8.5, 2.67)], 'mt')
-    d.lines([(a, 1.2 + i * 0.17, b, 1.2 + i * 0.17) for i in range(8) for a, b in ((6.45, 7.45), (8.65, 10.25))], 'mx')   # grilles
-    d.rect(9.95, 2.67, 0.13, 0.62, 'ml'); d.poly([(9.93, 3.29), (10.1, 3.29), (10.12, 3.36), (9.91, 3.33)], 'ml')   # exhaust
-    # boom foot pillar at the rear
-    d.poly([(10.62, 1.9), (11.95, 1.9), (11.62, 3.88), (10.98, 3.88)], 'ml')
+    """45 t reach stacker (XCMG-type): 6.0 m wheelbase, 18.00-25 tyres, engine room between the axles with the cab on top,
+    boom foot on a pedestal over the rear axle, counterweight at the rear, spreader turned across (seen end-on)."""
+    d = D(40, 68)           # x=0 at the front end of the spreader, facing left
+    fa, ra, R = 4.3, 10.3, 0.81
+    # chassis with the front nose, counterweight at the rear
+    d.poly([(3.05, 0.9), (11.05, 0.9), (11.05, 1.85), (3.35, 1.85), (3.05, 1.55)], 'ml')
+    d.rect(2.9, 0.98, 0.26, 0.5, 'ml', r=0.05)                                      # front buffer
+    d.rect(3.42, 1.58, 0.22, 0.14, 'mdot')                                          # work light
+    d.lines([(3.6, 1.38, 10.9, 1.38)], 'mx')
+    d.path([('M', 11.0, 0.72), ('L', 11.8, 0.72), ('Q', 12.18, 0.72, 12.18, 1.1), ('L', 12.18, 2.35), ('Q', 12.18, 2.78, 11.75, 2.78),
+            ('L', 11.0, 2.78), ('Z',)], 'ml')                                        # counterweight
+    d.lines([(11.15, 1.25, 12.0, 1.25), (11.15, 2.3, 12.0, 2.3)], 'mx')
+    d.rect(12.06, 1.62, 0.08, 0.26, 'mdot')                                         # tail light
+    # engine room between the axles (the cab sits on it)
+    d.rect(5.3, 0.9, 4.0, 1.5, 'ml', r=0.06)
+    d.lines([(6.38, 0.9, 6.38, 2.4), (7.42, 0.9, 7.42, 2.4)], 'mt')
+    d.lines([(a, 1.12 + i * 0.16, b, 1.12 + i * 0.16) for i in range(8) for a, b in ((5.45, 6.25), (7.6, 9.15))], 'mx')   # grilles
+    d.rect(8.95, 2.4, 0.13, 0.6, 'ml'); d.poly([(8.93, 3.0), (9.1, 3.0), (9.12, 3.07), (8.91, 3.04)], 'ml')   # exhaust
+    # boom foot pedestal over the rear axle
+    d.poly([(9.42, 1.85), (10.72, 1.85), (10.24, 3.4), (9.76, 3.4)], 'ml')
     # boom: outer section from the pivot, inner section to the head
-    P, H = (11.3, 3.78), (3.05, 5.82)
+    P, H = (10.0, 3.3), (1.7, 6.0)
     ux, uh = H[0] - P[0], H[1] - P[1]; L = math.hypot(ux, uh); ux, uh = ux / L, uh / L; nx, nh = -uh, ux
-    J = (P[0] + ux * L * 0.62, P[1] + uh * L * 0.62)
+    J = (P[0] + ux * L * 0.6, P[1] + uh * L * 0.6)
     def q(p, k): return (p[0] + nx * k, p[1] + nh * k)
-    d.cyl(6.0, 1.95, 7.38, 4.26, frac=0.6, w=0.34, rod=0.15)                       # lift cylinder (leans back to the boom)
-    d.path([('M',) + q(H, 0.3), ('L',) + q(J, 0.3), ('L',) + q(J, -0.3), ('L',) + q(H, -0.3), ('Z',)], 'ml')   # inner boom
-    d.path([('M',) + q(P, 0.44), ('L',) + q(J, 0.44), ('L',) + q(J, -0.44), ('L',) + q(P, -0.44), ('A', 0.44, 0.44, 0, 0) + q(P, 0.44), ('Z',)], 'ml')
-    d.line(*q((P[0] + ux * 0.6, P[1] + uh * 0.6), 0.26), *q((J[0] - ux * 0.2, J[1] - uh * 0.2), 0.26), cls='mx')
+    d.cyl(5.25, 1.9, 5.92, 4.18, frac=0.6, w=0.34, rod=0.15)                       # lift cylinder (leans back to the boom)
+    d.path([('M',) + q(H, 0.34), ('L',) + q(J, 0.34), ('L',) + q(J, -0.34), ('L',) + q(H, -0.34), ('Z',)], 'ml')   # inner boom
+    d.path([('M',) + q(P, 0.46), ('L',) + q(J, 0.46), ('L',) + q(J, -0.46), ('L',) + q(P, -0.46), ('A', 0.46, 0.46, 0, 0) + q(P, 0.46), ('Z',)], 'ml')
+    d.line(*q((P[0] + ux * 0.6, P[1] + uh * 0.6), 0.28), *q((J[0] - ux * 0.2, J[1] - uh * 0.2), 0.28), cls='mx')
     d.pin(*P, r=0.17)
-    # head block, rotator and spreader (shown turned along the machine, 20 ft)
-    d.poly([(2.62, 4.74), (3.48, 4.74), (3.3, 5.58), (2.8, 5.58)], 'ml')
+    # head block, rotator and spreader turned across the machine (seen end-on)
+    d.poly([(1.22, 5.2), (2.18, 5.2), (2.0, 5.86), (1.4, 5.86)], 'ml')
     d.circle(H[0], H[1], 0.22, 'ml'); d.circle(H[0], H[1], 0.08, 'mdot')
-    d.poly([(0.0, 4.28), (6.1, 4.28), (6.1, 4.74), (0.0, 4.74)], 'ml')
-    d.lines([(0.55, 4.28, 0.55, 4.74), (5.55, 4.28, 5.55, 4.74), (2.2, 4.51, 3.9, 4.51)], 'mt')
-    d.poly([(0.0, 4.0), (0.42, 4.0), (0.42, 4.28), (0.0, 4.28)], 'ml'); d.poly([(5.68, 4.0), (6.1, 4.0), (6.1, 4.28), (5.68, 4.28)], 'ml')
+    d.rect(0.45, 4.6, 2.5, 0.6, 'ml')
+    d.lines([(0.75, 4.6, 0.75, 5.2), (2.65, 4.6, 2.65, 5.2), (0.75, 4.9, 2.65, 4.9)], 'mt')
+    d.rect(0.45, 4.36, 0.3, 0.24, 'ml'); d.rect(2.65, 4.36, 0.3, 0.24, 'ml')          # twistlock housings
     # cab on the engine room (beside the boom, nearer the viewer)
-    d.path([('M', 7.62, 2.67), ('L', 7.76, 4.38), ('L', 7.66, 4.42), ('L', 7.69, 4.52), ('L', 9.2, 4.52), ('L', 9.2, 2.67), ('Z',)], 'ml')
-    d.poly([(7.84, 3.18), (7.92, 4.32), (8.54, 4.32), (8.54, 3.18)], 'mw')
-    d.poly([(8.64, 3.18), (8.64, 4.32), (9.06, 4.32), (9.06, 3.18)], 'mw')
-    d.line(8.46, 3.04, 8.46, 2.9, 'mt')
-    d.lines([(9.5, 0.5, 9.5, 2.67), (9.8, 0.5, 9.8, 2.67)] + [(9.5, 0.68 + i * 0.32, 9.8, 0.68 + i * 0.32) for i in range(7)], 'mt')   # ladder to the cab
-    # wheels (twin drive tyres at the front, steer axle at the rear)
+    d.path([('M', 6.6, 2.4), ('L', 6.74, 4.18), ('L', 6.64, 4.22), ('L', 6.67, 4.32), ('L', 8.2, 4.32), ('L', 8.2, 2.4), ('Z',)], 'ml')
+    d.poly([(6.82, 2.92), (6.9, 4.12), (7.52, 4.12), (7.52, 2.92)], 'mw')
+    d.poly([(7.62, 2.92), (7.62, 4.12), (8.06, 4.12), (8.06, 2.92)], 'mw')
+    d.line(7.44, 2.78, 7.44, 2.64, 'mt')
+    d.lines([(8.36, 0.5, 8.36, 2.4), (8.66, 0.5, 8.66, 2.4)] + [(8.36, 0.68 + i * 0.3, 8.66, 0.68 + i * 0.3) for i in range(6)], 'mt')   # ladder to the cab
+    # wheels (twin drive tyres at the front, steer axle at the rear) with the front fender
     d.wheel(fa, R, rim=0.56); d.wheel(ra, R, rim=0.56)
-    # protected zones: 2, 3 (with 4 below it), 1 in line in the engine room under the cab (owner, 28 Nov 2026)
-    d.zone(2, 6.42, 1.05, 1.08, 1.45)     # hydraulic pumps
-    d.zone(3, 7.66, 1.55, 0.78, 0.95)     # transmission / torque converter
-    d.zone(4, 7.66, 1.05, 0.78, 0.4)      # battery box, under the transmission (owner, 28 Nov 2026)
-    d.zone(1, 8.58, 1.05, 1.72, 1.45)     # engine
-    d.zone(5, 12.08, 1.0, 0.8, 0.85)      # fuel tank, filters, pumps
+    d.path([('M', fa - 0.98, 1.4), ('Q', fa - 0.92, 1.92, fa, 1.92), ('Q', fa + 0.92, 1.92, fa + 0.98, 1.4)], 'mt')
+    # protected zones in the engine room: 2, then 3 over 4, then 1 over 5 (owner, 28 Nov 2026)
+    d.zone(2, 5.42, 1.0, 0.86, 1.3)       # hydraulic pumps
+    d.zone(3, 6.48, 1.58, 0.84, 0.72)     # transmission / torque converter
+    d.zone(4, 6.48, 1.0, 0.84, 0.46)      # battery box
+    d.zone(1, 7.52, 1.58, 1.66, 0.72)     # engine
+    d.zone(5, 7.52, 1.0, 1.12, 0.46)      # fuel filters / pumps
     return d
 
 ORDER = [('excavator', excavator, 'Экскаваторын'), ('truck', truck, 'Автосамосвалын'), ('loader', loader, 'Дугуйт ачигчийн'),
