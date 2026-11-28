@@ -10,7 +10,7 @@ Static one-page site in three languages (Mongolian, English, Chinese) for Materi
 - **To publish:** build `_site`, then upload all of it as a new **Production** deployment of `mhs-mn` (Cloudflare dashboard → Workers & Pages → mhs-mn → Create deployment). The owner signs in to Cloudflare himself. Steps, checks and the browser method that works are in `.claude/skills/mhs-site-change/cf_deploy.md`. `docs/404.html` and `docs/_headers` are part of every upload (the build copies them).
 - **Keep the repo and the live site the same:** every change that goes live is committed and merged here in the same session, and every merge to `main` that changes `docs/` is deployed. If they ever differ, the live site wins — compare before editing (see cf_deploy.md, "Before you start").
 - History: 26 Nov 2026 — track record updated to 27 systems (November installs); deployed to Cloudflare, then merged here.
-- History: 28 Nov 2026 — redesign stage of direction C with the owner's own photos (see "Redesign direction" below).
+- History: 28 Nov 2026 — redesign stage of direction C with the owner's own photos (see "Redesign direction" below); deployed to Cloudflare, then merged here.
 
 ## Rules
 
