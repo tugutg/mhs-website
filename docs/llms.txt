@@ -16,9 +16,8 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English), https://mhs.m
 - Warranty: the 12-month DAFO Vehicle manufacturer's warranty, on its terms.
 
 ## Track record
-27 DAFO systems in service at Mongolian coal mines (November 2026), for 5 coal mining companies:
-- By type: 16 hydraulic excavators, 5 haul trucks, 4 wheel loaders, 2 reach stackers.
-- By model: CAT 390F / 395 (5), Bucyrus RH170 (5), CAT 793D (4), Hyundai 780 (4), Bucyrus RH120 (2), XCMG reach stacker (2), BelAZ 75306 (1), Hitachi EX1200 (1), CAT 6060 (1), Hitachi EX2600 (1), Komatsu PC7000 (1).
+DAFO systems in service at Mongolian coal mines, on these machine models:
+- CAT 390F / 395, Bucyrus RH170, CAT 793D, Hyundai 780, Bucyrus RH120, XCMG reach stacker, BelAZ 75306, Hitachi EX1200, CAT 6060, Hitachi EX2600, Komatsu PC7000.
 
 ## SENNEBOGEN material handlers
 - Official SENNEBOGEN dealer in Mongolia. Main model offered: the 875 E Hybrid for loading and unloading coal and other bulk material. Other models are selected to suit the job. A SENNEBOGEN 875 has been working at a Mongolian coal mine since 2019.
@@ -60,7 +59,7 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English), https://mhs.m
 - Material Handling Systems LLC（MHS）成立于 2014 年，位于蒙古国乌兰巴托，是瑞典 DAFO（达弗）车载自动灭火系统和德国 SENNEBOGEN（森尼伯根）物料搬运机的蒙古国官方经销商，并提供矿山设备备件、维修和现场服务。
 - DAFO（达弗）系统适用于任何品牌的矿山和重型设备：液压挖掘机、矿用自卸车、推土机、平地机、轮式装载机、钻机、油罐车、润滑车、洒水车、汽车起重机、正面吊、物料搬运机、井下铲运机和井下卡车、人员运输车。已安装在 CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Hyundai（现代）、BelAZ（别拉斯）、Hitachi（日立）和 XCMG（徐工）设备上。
 - 服务内容：现场火灾风险评估、按 SBF 127:17 标准设计、在蒙古国任何矿山现场安装、干式和湿式喷放测试、签字验收、操作和维修人员培训、每 12 个月保养、10 年大修、喷放后再充装。Forrex EVO 灭火剂、氮气瓶和关键备件在乌兰巴托有库存。
-- 业绩：截至 2026 年 11 月，蒙古国煤矿共有 27 套 DAFO 系统在运行（16 台液压挖掘机、5 台矿用自卸车、4 台轮式装载机、2 台正面吊），服务 5 家煤矿企业。
+- 业绩：在蒙古国煤矿为 CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Komatsu（小松）、Hyundai（现代）、Hitachi（日立）、BelAZ（别拉斯）和 XCMG（徐工）等品牌的设备安装了 DAFO 系统。
 - SENNEBOGEN（森尼伯根）：主推用于煤炭和散货装卸的 875 E Hybrid，提供选型、供货、原厂备件、保养和维修。一台 SENNEBOGEN 875 自 2019 年起在蒙古国一座煤矿作业。
 - 联系方式：电话 +976 9697 0276、+976 9907 8171；电子邮件 tuguldur@mhs.mn；地址：蒙古国乌兰巴托 Songinokhairkhan 区 32 号 khoroo，Tuul 10-21，O&OCH 维修厂，邮编 18270；工作时间：周一至周五 9:00–17:00（乌兰巴托时间）。欢迎用中文咨询。
 - 中文网页：https://mhs.mn/zh/

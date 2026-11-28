@@ -137,12 +137,6 @@ h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .badge b span{font:400 14px/1 var(--body);letter-spacing:0;color:var(--on-dark-muted)}
 
 /* Key figures */
-.figures{background:var(--white);border-bottom:1px solid var(--line)}
-.figures .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.fig{display:grid;gap:8px;align-content:start;padding:30px 24px 28px;border-left:1px solid var(--line)}
-.fig:first-child{border-left:0;padding-left:0}
-.fig b{font-family:var(--display);font-weight:800;font-size:clamp(36px,4.2vw,56px);line-height:1;color:var(--steel);font-variant-numeric:tabular-nums;white-space:nowrap}
-.fig > span{font-size:14px;line-height:1.4;color:var(--muted)}
 
 /* Sections */
 .sec{padding-block:clamp(64px,8vw,112px);scroll-margin-top:68px}
@@ -203,9 +197,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .how-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line)}
 .how-list li{display:grid;align-content:start;gap:10px;padding:18px 18px 22px;border-left:1px solid var(--line);min-width:0}
 .how-list li:first-child{border-left:0}
-.how-list .n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--steel);color:var(--white);font:600 13px/1 var(--mono)}
-.how-list b{display:block;font-weight:600;color:var(--ink)}
-.how-list p{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
+.how-list .n,.how-alt .n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--steel);color:var(--white);font:600 13px/1 var(--mono)}
+.how-list b,.how-alt b{display:block;font-weight:600;color:var(--ink)}
+.how-list p,.how-alt p{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
 
 /* Delivery process and tender documents */
 .tl{list-style:none;margin:0;padding:0;counter-reset:t;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 24px}
@@ -248,12 +242,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 /* Installed base: by machine type (bars to scale), then by model */
 .fleet{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
 .fleet > div{display:grid;gap:14px;min-width:0}
-.bars{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 32px;border-top:2px solid var(--ink);padding-top:18px}
-.bar{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px 16px;align-items:end}
-.bar span{font-weight:500;line-height:1.3}
-.bar i{display:block;grid-column:1;height:14px;position:relative}
-.bar i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--n) * 14px - 4px);max-width:100%;background:repeating-linear-gradient(90deg,var(--dafo) 0 10px,transparent 10px 14px)}
-.bar b{grid-column:2;grid-row:1 / span 2;align-self:end;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--steel);text-align:right;font-variant-numeric:tabular-nums}
 
 /* Contact nameplate */
 .contact{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:start}
@@ -349,7 +337,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .hero-tb:lang(mn),.hero-tb span:lang(mn){font-family:var(--body);letter-spacing:.03em}
 /* Release sequence: the five steps read left to right, each with its part drawn in red */
 .how-list li{position:relative}
-.how-list .ico{width:30px;height:30px;color:var(--dafo)}
+.how-list .ico,.how-alt .ico{width:30px;height:30px;color:var(--dafo)}
+.how-alt{display:grid;grid-template-columns:26px 30px minmax(0,1fr);gap:12px;align-items:start;padding:16px 18px 18px;border-top:1px dashed var(--dafo)}
+.how-img .mk6{left:95.5%;top:61%}
 .how-list li:not(:last-child)::after{content:"";position:absolute;z-index:1;top:22px;right:-8px;width:13px;height:13px;border-top:2px solid var(--dafo);border-right:2px solid var(--dafo);background:var(--white);transform:rotate(45deg)}
 .how-opts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0;padding:14px 22px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}
 .how-opts b{font:600 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dafo)}
@@ -406,11 +396,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .mtile .slot{aspect-ratio:4/3}
 .mcap{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
 .mcap .model{min-width:0;font:500 15px/1.35 var(--mono);color:var(--ink)}
-.mcap b{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums}
-.mtile.total{align-content:center;justify-items:start;gap:6px;padding:20px;border:2px solid var(--ink);background:var(--white)}
-.mtile.total span{font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.mtile.total span:lang(mn){font-family:var(--body);letter-spacing:.03em}
-.mtile.total b{font-family:var(--display);font-weight:800;font-size:64px;line-height:1;color:var(--dafo)}
 /* Photos in the parts section and About */
 .slot.wide{aspect-ratio:4/3}
 @media (max-width:1000px){
@@ -425,17 +410,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .inst-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .inst-grid .big{grid-row:auto}
   .inst-grid .big .slot{flex:none;aspect-ratio:4/3}
-  .bars{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:700px){
   .mtiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
   .mcap{flex-direction:column;gap:4px}
   .mcap .model{font-size:14px}
-  .mtile.total b{font-size:48px}
 }
 @media (max-width:560px){
   .tl{grid-template-columns:1fr}
-  .bars{grid-template-columns:1fr}
   .tb > :last-child{display:none}
   .ztabs,.zpanel,.zones-head,.how-opts{padding-inline:16px}
   .ztab{min-height:44px}
@@ -460,10 +442,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .slot.tall{aspect-ratio:16/11}
   .how-list{grid-template-columns:1fr}
   .how-list li{grid-template-columns:28px 32px minmax(0,1fr);gap:12px;padding:14px 22px;border-left:0;border-top:1px solid var(--line)}
+  .how-alt{grid-template-columns:28px 32px minmax(0,1fr);padding:14px 22px}
   .how-list li:first-child{border-top:0}
-}
-@media (max-width:780px){
-  .fig{padding:24px 16px 22px}
 }
 @media (max-width:720px){
   .mbar{position:fixed;z-index:45;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--white);border-top:1px solid var(--line);box-shadow:0 -12px 24px -20px rgba(18,26,33,.5);transition:transform .2s}
@@ -498,11 +478,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .how-head{padding:12px 16px}
   .how-fig{padding:14px 10px 12px}
   .how-img .mk{width:22px;height:22px;margin:-11px 0 0 -11px;border-width:2px;font-size:11px}
-  .how-list li{padding:14px 16px}
-  .fig b{font-size:clamp(26px,8vw,36px)}
-  .figures .wrap{grid-template-columns:1fr}
-  .fig{grid-template-columns:96px minmax(0,1fr);align-items:center;column-gap:16px;padding:16px 0;border-left:0;border-top:1px solid var(--line)}
-  .fig:first-child{border-top:0}
+  .how-list li,.how-alt{padding:14px 16px}
   .tl{grid-template-columns:1fr}
   .tl li{grid-template-columns:44px minmax(0,1fr);gap:4px 12px}
   .tl li::before{font-size:26px}
@@ -593,13 +569,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     </div>
   </section>
 
-  <section class="figures" aria-label="MHS тоогоор" data-aria-mn="MHS тоогоор" data-aria-en="MHS in numbers" data-aria-zh="MHS 数据">
-    <div class="wrap">
-      <div class="fig"><b>27</b><span><span lang="mn">Монголд суурилуулсан DAFO систем</span><span lang="en">DAFO systems installed in Mongolia</span><span lang="zh">套 DAFO 系统已在蒙古国安装</span></span></div>
-      <div class="fig"><b>5</b><span><span lang="mn">нүүрсний уурхайн компанитай ажилласан</span><span lang="en">coal mining companies served</span><span lang="zh">家煤矿企业客户</span></span></div>
-      <div class="fig"><b>2014</b><span><span lang="mn">онд байгуулагдсан</span><span lang="en">year founded</span><span lang="zh">年成立</span></span></div>
-    </div>
-  </section>
 
   <section class="sec" id="solutions">
     <div class="wrap">
@@ -685,6 +654,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
               <span class="mk" style="left:53.8%;top:88.1%">3</span>
               <span class="mk" style="left:54.7%;top:27.0%">4</span>
               <span class="mk" style="left:25.6%;top:35.5%">5</span>
+              <span class="mk mk6">6</span>
             </div>
           </div>
           <figcaption class="how-key"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Image: Dafo Vehicle</span><span lang="zh">图：Dafo Vehicle</span></figcaption>
@@ -696,6 +666,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <li><span class="n">4</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9h9v6h11"/><path d="M2 7v4M22 13v4"/><path d="M7 9v6M16 15V9"/></svg><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span><span lang="zh">管路</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span><span lang="zh">活塞将 Forrex EVO 经不锈钢管路推送至喷嘴。</span></p></div></li>
             <li><span class="n">5</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h7v5H3z"/><path d="M10 7.5h3"/><path d="M15 4l5-2M15 7.5h6M15 11l5 2M15 14.5l4 3"/></svg><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span><span lang="zh">灭火</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span><span lang="zh">喷嘴将灭火剂喷向风险区域。Forrex EVO 扑灭火焰、冷却高温部件，并在表面留下保护层，防止复燃。</span></p></div></li>
         </ol>
+        <div class="how-alt"><span class="n">6</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10a6 4 0 0 1 12 0z"/><path d="M10 10v4M14 10v4"/><rect x="7" y="14" width="10" height="6" rx="1"/></svg><div><b><span lang="mn">Механик гар идэвхжүүлэлт</span><span lang="en">Mechanical manual release</span><span lang="zh">机械式手动启动</span></b><p><span lang="mn">100% механик идэвхжүүлэлт: удирдлагын блокоос хамааралгүй, ямар ч нөхцөлд ажиллана.</span><span lang="en">100% mechanical release: independent of the control unit, it works in any situation.</span><span lang="zh">100% 机械式启动：不依赖控制单元，在任何情况下都能工作。</span></p></div></div>
         <p class="how-opts"><b><span lang="mn">Сонголтоор</span><span lang="en">Options</span><span lang="zh">可选</span></b><span><span lang="mn">идэвхжих үед хөдөлгүүрийг зогсоох, түлш таслах, массын унтраалга салгах</span><span lang="en">at release: stop the engine, cut the fuel, open the battery master switch</span><span lang="zh">启动时：发动机停机、切断燃油、断开电源总开关</span></span></p>
       </div>
 
@@ -812,38 +783,28 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="sec paper" id="references">
     <div class="wrap">
-      <div class="tb" aria-hidden="true"><b>MHS·04</b><span class="tb-rule"></span><span>27 × DAFO</span><span>04 / 09</span></div>
+      <div class="tb" aria-hidden="true"><b>MHS·04</b><span class="tb-rule"></span><span>DAFO · MINING</span><span>04 / 09</span></div>
       <div class="head">
-        <h2><span lang="mn">27 систем, Монголын уул уурхайд</span><span lang="en">27 systems in Mongolian mining</span><span lang="zh">蒙古国矿山的 27 套系统</span></h2>
-        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span><span lang="zh">在蒙古国煤矿运行的 DAFO 系统，按设备类型和型号统计。</span></p>
+        <h2><span lang="mn">DAFO систем, Монголын уул уурхайд</span><span lang="en">DAFO systems in Mongolian mining</span><span lang="zh">蒙古国矿山的 DAFO 系统</span></h2>
+        <p><span lang="mn">Монголын нүүрсний уурхайнуудад DAFO систем суурилуулсан техникийн маркууд.</span><span lang="en">Machine models we have fitted with DAFO systems at Mongolian coal mines.</span><span lang="zh">我们在蒙古国煤矿为以下设备型号安装了 DAFO 系统。</span></p>
       </div>
       <div class="fleet">
-        <div>
-          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span><span lang="zh">按设备类型</span></p>
-          <ul class="bars">
-            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span><span lang="zh">液压挖掘机</span></span><i style="--n:16"></i><b>16</b></li>
-            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span><span lang="zh">矿用自卸车</span></span><i style="--n:5"></i><b>5</b></li>
-            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span><span lang="zh">轮式装载机</span></span><i style="--n:4"></i><b>4</b></li>
-            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span><span lang="zh">正面吊</span></span><i style="--n:2"></i><b>2</b></li>
-          </ul>
-          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 11-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ and XCMG. Figures as of November 2026.</span><span lang="zh">品牌：CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Komatsu（小松）、Hyundai（现代）、Hitachi（日立）、BelAZ（别拉斯）和 XCMG（徐工）。数据截至 2026 年 11 月。</span></p>
-        </div>
         <div class="mtiles-wrap">
           <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span><span lang="zh">按型号</span></p>
           <ul class="mtiles">
-            <li class="mtile"><figure class="slot tile" data-photo="model-cat-390f-395"><img src="photos/model-cat-390f-395.jpg" width="1200" height="900" loading="lazy" alt="CAT 390F гидравлик экскаватор" data-alt-mn="CAT 390F гидравлик экскаватор" data-alt-en="CAT 390F hydraulic excavator" data-alt-zh="CAT 390F 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 390F / 395</span><b>5</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh170"><img src="photos/model-bucyrus-rh170.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH170 гидравлик экскаватор" data-alt-mn="Bucyrus RH170 гидравлик экскаватор" data-alt-en="Bucyrus RH170 hydraulic excavator" data-alt-zh="Bucyrus RH170 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH170</span><b>5</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-cat-793d"><img src="photos/model-cat-793d.jpg" width="1200" height="900" loading="lazy" alt="CAT 793D автосамосвал" data-alt-mn="CAT 793D автосамосвал" data-alt-en="CAT 793D haul truck" data-alt-zh="CAT 793D 矿用自卸车"></figure><div class="mcap"><span class="model">CAT 793D</span><b>4</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-hyundai-780"><img src="photos/model-hyundai-780.jpg" width="1200" height="900" loading="lazy" alt="Hyundai HL780 дугуйт ачигч" data-alt-mn="Hyundai HL780 дугуйт ачигч" data-alt-en="Hyundai HL780 wheel loader" data-alt-zh="Hyundai HL780 轮式装载机"></figure><div class="mcap"><span class="model">Hyundai 780</span><b>4</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh120"><img src="photos/model-bucyrus-rh120.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH120 гидравлик экскаватор" data-alt-mn="Bucyrus RH120 гидравлик экскаватор" data-alt-en="Bucyrus RH120 hydraulic excavator" data-alt-zh="Bucyrus RH120 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH120</span><b>2</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-xcmg-reach-stacker"><img src="photos/model-xcmg-reach-stacker.jpg" width="1200" height="900" loading="lazy" alt="XCMG ричстакер" data-alt-mn="XCMG ричстакер" data-alt-en="XCMG reach stacker" data-alt-zh="XCMG 正面吊"></figure><div class="mcap"><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span><span lang="zh">XCMG（徐工）正面吊</span></span><b>2</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-belaz-75306"><img src="photos/model-belaz-75306.jpg" width="1200" height="900" loading="lazy" alt="BelAZ 75306 автосамосвалын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="BelAZ 75306 автосамосвалын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K tanks on the deck of a BelAZ 75306 haul truck" data-alt-zh="BelAZ 75306 矿用自卸车平台上的 DAFO SV-K 储罐"></figure><div class="mcap"><span class="model">BelAZ 75306</span><b>1</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-hitachi-ex1200"><img src="photos/model-hitachi-ex1200.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX1200 экскаваторын тавцан дээрх DAFO SV-K танкууд, азотын баллон" data-alt-mn="Hitachi EX1200 экскаваторын тавцан дээрх DAFO SV-K танкууд, азотын баллон" data-alt-en="DAFO SV-K tanks and nitrogen cylinder on the deck of a Hitachi EX1200 excavator" data-alt-zh="Hitachi EX1200 挖掘机平台上的 DAFO SV-K 储罐和氮气瓶"></figure><div class="mcap"><span class="model">Hitachi EX1200</span><b>1</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-cat-6060"><img src="photos/model-cat-6060.jpg" width="1200" height="900" loading="lazy" alt="CAT 6060 гидравлик экскаватор" data-alt-mn="CAT 6060 гидравлик экскаватор" data-alt-en="CAT 6060 hydraulic excavator" data-alt-zh="CAT 6060 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 6060</span><b>1</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-hitachi-ex2600"><img src="photos/model-hitachi-ex2600.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX2600 гидравлик экскаватор" data-alt-mn="Hitachi EX2600 гидравлик экскаватор" data-alt-en="Hitachi EX2600 hydraulic excavator" data-alt-zh="Hitachi EX2600 液压挖掘机"></figure><div class="mcap"><span class="model">Hitachi EX2600</span><b>1</b></div></li>
-            <li class="mtile"><figure class="slot tile" data-photo="model-komatsu-pc7000"><img src="photos/model-komatsu-pc7000.jpg" width="1200" height="900" loading="lazy" alt="Komatsu PC7000 гидравлик экскаватор" data-alt-mn="Komatsu PC7000 гидравлик экскаватор" data-alt-en="Komatsu PC7000 hydraulic excavator" data-alt-zh="Komatsu PC7000 液压挖掘机"></figure><div class="mcap"><span class="model">Komatsu PC7000</span><b>1</b></div></li>
-            <li class="mtile total"><span><span lang="mn">Нийт</span><span lang="en">Total</span><span lang="zh">合计</span></span><b>27</b></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-390f-395"><img src="photos/model-cat-390f-395.jpg" width="1200" height="900" loading="lazy" alt="CAT 390F гидравлик экскаватор" data-alt-mn="CAT 390F гидравлик экскаватор" data-alt-en="CAT 390F hydraulic excavator" data-alt-zh="CAT 390F 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 390F / 395</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh170"><img src="photos/model-bucyrus-rh170.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH170 гидравлик экскаватор" data-alt-mn="Bucyrus RH170 гидравлик экскаватор" data-alt-en="Bucyrus RH170 hydraulic excavator" data-alt-zh="Bucyrus RH170 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH170</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-793d"><img src="photos/model-cat-793d.jpg" width="1200" height="900" loading="lazy" alt="CAT 793D автосамосвал" data-alt-mn="CAT 793D автосамосвал" data-alt-en="CAT 793D haul truck" data-alt-zh="CAT 793D 矿用自卸车"></figure><div class="mcap"><span class="model">CAT 793D</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-hyundai-780"><img src="photos/model-hyundai-780.jpg" width="1200" height="900" loading="lazy" alt="Hyundai HL780 дугуйт ачигч" data-alt-mn="Hyundai HL780 дугуйт ачигч" data-alt-en="Hyundai HL780 wheel loader" data-alt-zh="Hyundai HL780 轮式装载机"></figure><div class="mcap"><span class="model">Hyundai 780</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh120"><img src="photos/model-bucyrus-rh120.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH120 гидравлик экскаватор" data-alt-mn="Bucyrus RH120 гидравлик экскаватор" data-alt-en="Bucyrus RH120 hydraulic excavator" data-alt-zh="Bucyrus RH120 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH120</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-xcmg-reach-stacker"><img src="photos/model-xcmg-reach-stacker.jpg" width="1200" height="900" loading="lazy" alt="XCMG ричстакер" data-alt-mn="XCMG ричстакер" data-alt-en="XCMG reach stacker" data-alt-zh="XCMG 正面吊"></figure><div class="mcap"><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span><span lang="zh">XCMG（徐工）正面吊</span></span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-belaz-75306"><img src="photos/model-belaz-75306.jpg" width="1200" height="900" loading="lazy" alt="BelAZ 75306 автосамосвалын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="BelAZ 75306 автосамосвалын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K tanks on the deck of a BelAZ 75306 haul truck" data-alt-zh="BelAZ 75306 矿用自卸车平台上的 DAFO SV-K 储罐"></figure><div class="mcap"><span class="model">BelAZ 75306</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-hitachi-ex1200"><img src="photos/model-hitachi-ex1200.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX1200 экскаваторын тавцан дээрх DAFO SV-K танкууд, азотын баллон" data-alt-mn="Hitachi EX1200 экскаваторын тавцан дээрх DAFO SV-K танкууд, азотын баллон" data-alt-en="DAFO SV-K tanks and nitrogen cylinder on the deck of a Hitachi EX1200 excavator" data-alt-zh="Hitachi EX1200 挖掘机平台上的 DAFO SV-K 储罐和氮气瓶"></figure><div class="mcap"><span class="model">Hitachi EX1200</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-6060"><img src="photos/model-cat-6060.jpg" width="1200" height="900" loading="lazy" alt="CAT 6060 гидравлик экскаватор" data-alt-mn="CAT 6060 гидравлик экскаватор" data-alt-en="CAT 6060 hydraulic excavator" data-alt-zh="CAT 6060 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 6060</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-hitachi-ex2600"><img src="photos/model-hitachi-ex2600.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX2600 гидравлик экскаватор" data-alt-mn="Hitachi EX2600 гидравлик экскаватор" data-alt-en="Hitachi EX2600 hydraulic excavator" data-alt-zh="Hitachi EX2600 液压挖掘机"></figure><div class="mcap"><span class="model">Hitachi EX2600</span></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-komatsu-pc7000"><img src="photos/model-komatsu-pc7000.jpg" width="1200" height="900" loading="lazy" alt="Komatsu PC7000 гидравлик экскаватор" data-alt-mn="Komatsu PC7000 гидравлик экскаватор" data-alt-en="Komatsu PC7000 hydraulic excavator" data-alt-zh="Komatsu PC7000 液压挖掘机"></figure><div class="mcap"><span class="model">Komatsu PC7000</span></div></li>
           </ul>
+          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ, XCMG.</span><span lang="en">Brands: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ and XCMG.</span><span lang="zh">品牌：CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Komatsu（小松）、Hyundai（现代）、Hitachi（日立）、BelAZ（别拉斯）和 XCMG（徐工）。</span></p>
         </div>
       </div>
     </div>
