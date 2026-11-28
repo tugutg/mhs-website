@@ -189,10 +189,10 @@ def excavator():
     d.line(-1.06, 2.2, -1.06, 2.05, 'mt')
     d.lines([(-2.28, 1.35, -2.28, 1.74), (-2.02, 1.35, -2.02, 1.74), (-2.28, 1.48, -2.02, 1.48), (-2.28, 1.61, -2.02, 1.61)], 'mt')   # step
     # protected zones
-    d.zone(1, 1.12, 1.56, 1.7, 1.36)      # engine
-    d.zone(2, -0.2, 1.9, 0.72, 0.8)       # hydraulic pumps
-    d.zone(5, -0.2, 1.5, 0.72, 0.34)      # fuel filters / pumps
-    d.zone(4, 0.6, 1.5, 0.44, 0.4)        # battery box, between 5 and 1 (owner, 28 Nov 2026)
+    d.zone(1, 1.12, 1.98, 1.7, 0.94)      # engine
+    d.zone(5, 1.12, 1.52, 1.18, 0.38)     # fuel filters / pumps, below the engine (owner, 28 Nov 2026)
+    d.zone(2, -0.22, 1.5, 0.76, 1.24)     # hydraulic pumps: the whole pump bay
+    d.zone(4, 0.6, 1.5, 0.44, 0.4)        # battery box
     return d
 
 
