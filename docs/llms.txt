@@ -18,7 +18,7 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English), https://mhs.m
 ## Track record
 27 DAFO systems in service at Mongolian coal mines (November 2026), for 5 coal mining companies:
 - By type: 16 hydraulic excavators, 5 haul trucks, 4 wheel loaders, 2 reach stackers.
-- By model: CAT 395 (5), Bucyrus RH170 (5), CAT 793D (4), Hyundai 780 (4), Bucyrus RH120 (2), XCMG reach stacker (2), BelAZ 75306 (1), Hitachi EX1200 (1), CAT 6060 (1), Hitachi EX2600 (1), Komatsu PC7000 (1).
+- By model: CAT 390F / 395 (5), Bucyrus RH170 (5), CAT 793D (4), Hyundai 780 (4), Bucyrus RH120 (2), XCMG reach stacker (2), BelAZ 75306 (1), Hitachi EX1200 (1), CAT 6060 (1), Hitachi EX2600 (1), Komatsu PC7000 (1).
 
 ## SENNEBOGEN material handlers
 - Official SENNEBOGEN dealer in Mongolia. Main model offered: the 875 E Hybrid for loading and unloading coal and other bulk material. Other models are selected to suit the job. A SENNEBOGEN 875 has been working at a Mongolian coal mine since 2019.
@@ -49,6 +49,7 @@ Website: https://mhs.mn (Mongolian), https://mhs.mn/en/ (English), https://mhs.m
 - Chinese home page: https://mhs.mn/zh/
 - DAFO fire suppression: https://mhs.mn/en/#dafo
 - How the system works: https://mhs.mn/en/#how
+- Protected zones by machine type: https://mhs.mn/en/#zones
 - Installation and service process: https://mhs.mn/en/#process
 - SENNEBOGEN: https://mhs.mn/en/#sennebogen
 - Parts and service: https://mhs.mn/en/#service

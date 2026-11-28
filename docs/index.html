@@ -53,6 +53,8 @@
   --slot-b:#19242e;
   --slot-c:#2b4357;
   --heat:#c4561d;         /* heat-sensing cable in the schematic */
+  --dafo:#c8102e;         /* DAFO red: parts and protected zones in the drawings */
+  --grid:rgba(41,99,145,.065); /* drawing-paper grid */
   --alert:#b3261e;        /* form errors */
   --hint:#687582;         /* placeholders (4.7:1 on white) */
   --field:#8492a0;        /* form field and chip borders (3.2:1 on white) */
@@ -121,13 +123,10 @@ svg.i{width:18px;height:18px;flex:none}
 
 /* Hero */
 .hero{position:relative;isolation:isolate;background:var(--graphite);color:var(--on-dark);scroll-margin-top:68px}
-.hero .slot{position:absolute;inset:0;z-index:-1}
-.hero .slot::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(18,26,33,.96) 0%,rgba(18,26,33,.8) 46%,rgba(18,26,33,.22) 100%)}
-.hero .slot figcaption{left:auto;right:var(--gutter);bottom:16px;justify-content:flex-end;max-width:440px;text-align:right}
-.hero-inner{display:grid;gap:24px;max-width:900px;padding-block:clamp(72px,10vw,128px) clamp(56px,7vw,96px)}
+.hero-inner{display:grid;gap:22px;align-content:center;min-width:0}
 .eyebrow{margin:0;font:500 12px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
 .hero .eyebrow,.dark .eyebrow{color:var(--sky)}
-h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(40px,6vw,84px);line-height:.96;letter-spacing:.004em;color:var(--white)}
+h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(38px,4.7vw,68px);line-height:.96;letter-spacing:.004em;color:var(--white)}
 .lead{margin:0;max-width:58ch;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--on-dark-muted)}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
 .badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
@@ -147,7 +146,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
 /* Sections */
 .sec{padding-block:clamp(64px,8vw,112px);scroll-margin-top:68px}
-.paper{background:var(--paper)}
+.paper{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
 .dark{background:var(--graphite);color:var(--on-dark)}
 .head{display:grid;gap:14px;max-width:780px;margin-bottom:clamp(32px,4vw,48px)}
 h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(32px,3.8vw,54px);line-height:1;letter-spacing:.004em}
@@ -209,9 +208,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .how-list p{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
 
 /* Delivery process and tender documents */
-.tl{list-style:none;margin:0;padding:0;counter-reset:t;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,4vw,48px);border-top:2px solid var(--ink)}
-.tl li{counter-increment:t;display:grid;grid-template-columns:56px minmax(0,1fr);align-content:start;gap:4px 16px;padding:18px 0 20px;border-bottom:1px solid var(--line)}
-.tl li::before{content:counter(t,decimal-leading-zero);grid-row:span 2;font:800 30px/1 var(--display);color:var(--steel);font-variant-numeric:tabular-nums}
+.tl{list-style:none;margin:0;padding:0;counter-reset:t;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 24px}
+.tl li{counter-increment:t;display:grid;grid-template-columns:52px minmax(0,1fr);align-content:start;gap:4px 14px;padding:0 0 18px;border-bottom:1px solid var(--line)}
+.tl li .slot{grid-row:1;grid-column:1 / -1;aspect-ratio:4/3;margin-bottom:14px}
+.tl li > b{grid-row:2;grid-column:2}
+.tl li > p{grid-row:3;grid-column:2}
+.tl li::before{content:counter(t,decimal-leading-zero);grid-row:2 / span 2;grid-column:1;font:800 30px/1 var(--display);color:var(--steel);font-variant-numeric:tabular-nums}
 .tl b{font-weight:600;font-size:17px;line-height:1.35;color:var(--ink)}
 .tl p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
 
@@ -244,21 +246,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .stock svg{flex:none;width:20px;height:20px;color:var(--sky)}
 
 /* Installed base: by machine type (bars to scale), then by model */
-.fleet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.fleet{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
 .fleet > div{display:grid;gap:14px;min-width:0}
-.bars{list-style:none;margin:0;padding:0;display:grid;gap:14px;border-top:2px solid var(--ink);padding-top:18px}
+.bars{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 32px;border-top:2px solid var(--ink);padding-top:18px}
 .bar{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px 16px;align-items:end}
 .bar span{font-weight:500;line-height:1.3}
-.bar i{display:block;grid-column:1;height:16px;background:var(--line);position:relative}
-.bar i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--steel)}
+.bar i{display:block;grid-column:1;height:14px;position:relative}
+.bar i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--n) * 14px - 4px);max-width:100%;background:repeating-linear-gradient(90deg,var(--dafo) 0 10px,transparent 10px 14px)}
 .bar b{grid-column:2;grid-row:1 / span 2;align-self:end;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--steel);text-align:right;font-variant-numeric:tabular-nums}
-.models{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-.models li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
-.models .model{min-width:0;font:500 15.5px/1.4 var(--mono);color:var(--ink)}
-.models b{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums}
-.models li.total{border-bottom:0;padding-top:14px}
-.models li.total .model{font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:12px}
-.models li.total b{font-size:34px}
 
 /* Contact nameplate */
 .contact{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:start}
@@ -332,6 +327,122 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .foot b{font-weight:600;color:var(--white)}
 .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:18px 22px;border-top:1px solid var(--graphite-line);font-size:13.5px}
 
+/* Drawing set (direction C): sheet title blocks, DAFO parts drawn in red, framed photos */
+.tb{display:flex;align-items:stretch;margin:0 0 clamp(22px,3vw,34px);border:1px solid var(--line);background:var(--white);font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tb > *{display:flex;align-items:center;padding:8px 12px;border-left:1px solid var(--line);white-space:nowrap}
+.tb > :first-child{border-left:0;font-weight:600;color:var(--steel)}
+.tb .tb-rule{flex:1;min-width:24px;padding:0;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10px) left bottom/100% 7px no-repeat}
+.dark .tb{background:transparent;border-color:var(--graphite-line);color:var(--on-dark-muted)}
+.dark .tb > *{border-color:var(--graphite-line)}
+.dark .tb > :first-child{color:var(--sky)}
+.dark .tb .tb-rule{background-image:repeating-linear-gradient(90deg,var(--graphite-line) 0 1px,transparent 1px 10px)}
+.ticks::after{content:"";position:absolute;inset:10px;z-index:2;pointer-events:none;--c:rgba(255,255,255,.85);background:
+ linear-gradient(var(--c),var(--c)) left top/16px 2px no-repeat,linear-gradient(var(--c),var(--c)) left top/2px 16px no-repeat,
+ linear-gradient(var(--c),var(--c)) right top/16px 2px no-repeat,linear-gradient(var(--c),var(--c)) right top/2px 16px no-repeat,
+ linear-gradient(var(--c),var(--c)) left bottom/16px 2px no-repeat,linear-gradient(var(--c),var(--c)) left bottom/2px 16px no-repeat,
+ linear-gradient(var(--c),var(--c)) right bottom/16px 2px no-repeat,linear-gradient(var(--c),var(--c)) right bottom/2px 16px no-repeat}
+/* Hero: title block on the left, the installation photo framed on the right */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(28px,4vw,56px);align-items:center;padding-block:clamp(44px,6vw,84px)}
+.hero-photo{display:grid;gap:10px;min-width:0}
+.hero .slot{aspect-ratio:4/3;border:1px solid var(--graphite-line)}
+.hero-tb{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 18px;margin:0;padding-top:10px;border-top:1px solid var(--graphite-line);font:500 11px/1.45 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-muted)}
+.hero-tb:lang(mn),.hero-tb span:lang(mn){font-family:var(--body);letter-spacing:.03em}
+/* Release sequence: the five steps read left to right, each with its part drawn in red */
+.how-list li{position:relative}
+.how-list .ico{width:30px;height:30px;color:var(--dafo)}
+.how-list li:not(:last-child)::after{content:"";position:absolute;z-index:1;top:22px;right:-8px;width:13px;height:13px;border-top:2px solid var(--dafo);border-right:2px solid var(--dafo);background:var(--white);transform:rotate(45deg)}
+.how-opts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0;padding:14px 22px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}
+.how-opts b{font:600 11.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dafo)}
+.how-opts b:lang(mn){font-family:var(--body);letter-spacing:.03em}
+/* Machine selector: protected zones by machine type */
+.zones{margin-top:clamp(40px,5vw,56px);background:var(--white);border:1px solid var(--line);scroll-margin-top:84px}
+.zones-head{display:grid;gap:6px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.zones-head h3{margin:0;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.zones-head h3:lang(mn){font-family:var(--body);letter-spacing:.03em}
+.zones-head p{margin:0;max-width:72ch;font-size:15px;color:var(--muted)}
+.ztabs{display:flex;flex-wrap:wrap;gap:8px;padding:16px 22px 0}
+.ztab{font:500 14.5px/1.2 var(--body);padding:10px 14px;border:1px solid var(--field);background:var(--white);color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.ztab:hover{border-color:var(--steel)}
+.ztab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.zpanel{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:24px;align-items:center;padding:18px 22px 22px}
+.zdraw{margin:0;border:1px solid var(--line);background-color:var(--white);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px}
+.zdraw svg,.drawn svg{display:block;width:100%;height:auto}
+.ml{fill:var(--white);stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round}
+.mt{fill:none;stroke:var(--ink);stroke-width:1.4}
+.mc{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.mg{stroke:var(--field);stroke-width:1.5;stroke-dasharray:6 5}
+.z{fill:url(#zh);stroke:var(--dafo);stroke-width:1.6}
+.zc{fill:var(--dafo)}
+.zt{fill:var(--white);font:600 12px var(--mono);text-anchor:middle}
+.zlist{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.zlist li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-weight:500}
+.zn{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--dafo);color:var(--white);font:600 12px/1 var(--mono)}
+.znote{margin:12px 0 0;font-size:14px;line-height:1.5;color:var(--muted)}
+/* Operating temperature scale */
+.thermo{display:grid;gap:10px;margin-top:clamp(32px,4vw,48px);padding:18px 22px 20px;background:var(--white);border:1px solid var(--line)}
+.thermo h3{margin:0;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.thermo h3:lang(mn){font-family:var(--body);letter-spacing:.03em}
+.thermo p{margin:0;font-size:15px;color:var(--muted)}
+.tscale{position:relative;height:64px;margin:8px 6px 0}
+.tscale .track{position:absolute;left:0;right:0;top:20px;height:12px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px calc(100% / 12)),var(--paper);border:1px solid var(--line)}
+.tscale .range{position:absolute;top:20px;height:12px;left:8.333%;right:8.333%;background:linear-gradient(90deg,#2f7dc1,#8fb6d6 45%,#e3a03a 75%,var(--dafo))}
+.tscale .tk{position:absolute;top:38px;transform:translateX(-50%);font:600 12.5px/1 var(--mono);color:var(--ink);white-space:nowrap}
+.tscale .tk::before{content:"";position:absolute;left:50%;top:-20px;width:1.5px;height:14px;background:var(--ink)}
+.tscale .end{position:absolute;top:0;font:500 11.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tscale .end:lang(mn){font-family:var(--body);letter-spacing:.02em}
+.tscale .e1{left:0}.tscale .e2{right:0}.tscale .t1{left:8.333%}.tscale .t2{left:41.667%}.tscale .t3{left:91.667%}
+/* Installed parts, photographed on our jobs */
+.inst{display:grid;gap:14px;margin-top:clamp(40px,5vw,56px)}
+.inst-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.inst-grid .slot{aspect-ratio:4/3}
+.inst-grid p,.pics p{margin:9px 0 0;font-size:14.5px;line-height:1.45;color:var(--muted)}
+/* Track record tiles: one photo per model */
+.fleet > .mtiles-wrap{grid-column:1 / -1;display:grid;gap:14px;min-width:0}
+.mtiles-wrap .mtiles{margin-top:0}
+.mtiles{list-style:none;margin:clamp(24px,3vw,36px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 18px}
+.mtile{display:grid;align-content:start;min-width:0}
+.mtile .slot,.mtile .drawn{aspect-ratio:4/3}
+.drawn{margin:0;display:grid;align-items:center;border:1px solid var(--line);background-color:var(--white);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px}
+.mcap{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.mcap .model{min-width:0;font:500 15px/1.35 var(--mono);color:var(--ink)}
+.mcap b{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;color:var(--steel);font-variant-numeric:tabular-nums}
+.mtile.total{align-content:center;justify-items:start;gap:6px;padding:20px;border:2px solid var(--ink);background:var(--white)}
+.mtile.total span{font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mtile.total span:lang(mn){font-family:var(--body);letter-spacing:.03em}
+.mtile.total b{font-family:var(--display);font-weight:800;font-size:64px;line-height:1;color:var(--dafo)}
+/* Photos in the parts section and About */
+.pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.pics .slot{aspect-ratio:4/3}
+.dark .pics p{color:var(--on-dark-muted)}
+.slot.wide{aspect-ratio:4/3}
+@media (max-width:1000px){
+  .mtiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;padding-block:20px 48px}
+  .hero-photo{order:-1}
+  .tl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .how-list li:not(:last-child)::after{top:auto;bottom:-8px;right:auto;left:31px;transform:rotate(135deg)}
+  .zpanel{grid-template-columns:1fr}
+  .inst-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bars{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:700px){
+  .mtiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
+  .mcap{flex-direction:column;gap:4px}
+  .mcap .model{font-size:14px}
+  .mtile.total b{font-size:48px}
+}
+@media (max-width:560px){
+  .tl{grid-template-columns:1fr}
+  .pics{grid-template-columns:1fr}
+  .bars{grid-template-columns:1fr}
+  .tb > :last-child{display:none}
+  .ztabs,.zpanel,.zones-head,.how-opts{padding-inline:16px}
+  .ztab{min-height:44px}
+  .tscale .end{display:none}
+}
+
 /* Responsive */
 @media (max-width:1180px){
   .menu{display:none}
@@ -349,10 +460,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .tl{grid-template-columns:repeat(2,minmax(0,1fr))}
   .slot.tall{aspect-ratio:16/11}
   .how-list{grid-template-columns:1fr}
-  .how-list li{grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 22px;border-left:0;border-top:1px solid var(--line)}
+  .how-list li{grid-template-columns:28px 32px minmax(0,1fr);gap:12px;padding:14px 22px;border-left:0;border-top:1px solid var(--line)}
   .how-list li:first-child{border-top:0}
-  /* single-column hero: the text runs over the bright right side of the photo, so darken top to bottom */
-  .hero .slot::after{background:linear-gradient(180deg,rgba(18,26,33,.88) 0%,rgba(18,26,33,.8) 55%,rgba(18,26,33,.6) 100%)}
 }
 @media (max-width:780px){
   .fig{padding:24px 16px 22px}
@@ -386,7 +495,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .plate{padding:26px 22px 22px}
   .plate dl{grid-template-columns:1fr;gap:4px}
   .plate dd{margin-bottom:12px}
-  .hero .slot figcaption{left:var(--gutter);right:var(--gutter);justify-content:flex-start;text-align:left}
   .quote{padding:20px 16px}
   .how-head{padding:12px 16px}
   .how-fig{padding:14px 10px 12px}
@@ -419,7 +527,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <meta property="og:image" content="https://mhs.mn/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="DAFO систем суурилуулсан уурхайн техник">
+<meta property="og:image:alt" content="CAT 6060 экскаваторын дээд тавцан дээр кранаар өргөсөн DAFO SV-K танкуудыг техникчид байрлуулж байна">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mhs.mn/#website", "name": "MHS", "alternateName": ["Material Handling Systems", "Материал Хандлинг Системс"], "url": "https://mhs.mn/", "inLanguage": ["mn", "en", "zh"], "publisher": {"@id": "https://mhs.mn/#org"}}, {"@type": "LocalBusiness", "@id": "https://mhs.mn/#org", "name": "Material Handling Systems LLC", "alternateName": ["MHS", "MHS LLC", "Материал Хандлинг Системс ХХК"], "description": "Official dealer in Mongolia for DAFO automatic fire suppression systems (Dafo Vehicle Fire Protection AB, Sweden) and SENNEBOGEN material handlers (SENNEBOGEN Maschinenfabrik GmbH, Germany). Parts, repair and field service for mining equipment. Founded 2014, Ulaanbaatar; works at mines anywhere in Mongolia.", "foundingDate": "2014", "url": "https://mhs.mn/", "logo": "https://mhs.mn/apple-touch-icon.png", "image": "https://mhs.mn/og-image.jpg", "email": "tuguldur@mhs.mn", "telephone": ["+976 9697 0276", "+976 9907 8171"], "address": {"@type": "PostalAddress", "streetAddress": "O&OCH repair shop, Tuul 10-21, 32nd khoroo, Songinokhairkhan district", "addressLocality": "Ulaanbaatar", "postalCode": "18270", "addressCountry": "MN"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}], "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+976 9697 0276", "email": "tuguldur@mhs.mn", "availableLanguage": ["mn", "en", "zh"], "areaServed": "MN"}, "areaServed": {"@type": "Country", "name": "Mongolia"}, "knowsLanguage": ["mn", "en", "zh"], "knowsAbout": ["Vehicle fire suppression", "Fire protection for mining equipment", "DAFO fire suppression systems", "SENNEBOGEN material handlers", "Mining equipment parts"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#dafo", "name": "DAFO automatic fire suppression for mining machines", "serviceType": "Vehicle fire suppression: supply, installation, training and service", "description": "Fire risk assessment, system design to SBF 127:17, installation at the mine, dry and wet discharge testing, handover, operator training, 12-month service and recharge from stock in Ulaanbaatar.", "brand": {"@type": "Brand", "name": "DAFO"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#sennebogen", "name": "SENNEBOGEN material handlers: supply, parts and maintenance", "description": "Official SENNEBOGEN dealer. 875 E Hybrid for coal and bulk material handling, factory parts, planned maintenance kits, diagnostics and repair.", "brand": {"@type": "Brand", "name": "SENNEBOGEN"}, "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "@id": "https://mhs.mn/#service", "name": "Mining equipment parts, repair and field service", "provider": {"@id": "https://mhs.mn/#org"}, "areaServed": {"@type": "Country", "name": "Mongolia"}}}]}]}</script>
@@ -440,9 +548,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     <nav class="menu" id="menu" aria-label="Үндсэн цэс" data-aria-mn="Үндсэн цэс" data-aria-en="Main" data-aria-zh="主菜单">
       <a href="#dafo">DAFO</a>
       <a href="#process"><span lang="mn">Ажлын үе шат</span><span lang="en">Process</span><span lang="zh">服务流程</span></a>
+      <a href="#references"><span lang="mn">Гүйцэтгэсэн ажил</span><span lang="en">Track record</span><span lang="zh">业绩</span></a>
       <a href="#sennebogen">SENNEBOGEN</a>
       <a href="#service"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span><span lang="zh">备件与服务</span></a>
-      <a href="#references"><span lang="mn">Гүйцэтгэсэн ажил</span><span lang="en">Track record</span><span lang="zh">业绩</span></a>
       <a href="#about"><span lang="mn">Бидний тухай</span><span lang="en">About</span><span lang="zh">关于我们</span></a>
     </nav>
     <div class="tools">
@@ -462,14 +570,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 <main id="main">
 
   <section class="hero" id="top">
-    <figure class="slot" data-photo="hero">
-          <img src="photos/hero-20261013065807.jpg" width="1920" height="1440" fetchpriority="high" alt="DAFO систем суурилуулсан уурхайн техник" data-alt-mn="DAFO систем суурилуулсан уурхайн техник" data-alt-en="mining machine fitted with DAFO" data-alt-zh="安装了 DAFO 系统的矿山设备">
-      <figcaption>
-        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
-        <span lang="mn">Зураг: DAFO систем суурилуулсан уурхайн техник</span><span lang="en">Photo: mining machine fitted with DAFO</span><span lang="zh">图：安装了 DAFO 系统的矿山设备</span>
-      </figcaption>
-    </figure>
-    <div class="wrap">
+    <div class="wrap hero-grid">
       <div class="hero-inner">
         <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК, Улаанбаатар</span><span lang="en">Material Handling Systems LLC, Ulaanbaatar</span><span lang="zh">Material Handling Systems LLC，乌兰巴托</span></p>
         <h1><span lang="mn">Тоног төхөөрөмжийг галын эрсдлээс хамгаална</span><span lang="en">We protect equipment from fire risk</span><span lang="zh">保护设备远离火灾风险</span></h1>
@@ -482,6 +583,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <a class="badge" href="#dafo"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span><span lang="zh">官方经销商</span></small><b>DAFO<span><span lang="mn">Швед</span><span lang="en">Sweden</span><span lang="zh">瑞典</span></span></b></a>
           <a class="badge" href="#sennebogen"><small><span lang="mn">Албан ёсны дилер</span><span lang="en">Official dealer</span><span lang="zh">官方经销商</span></small><b>SENNEBOGEN<span><span lang="mn">Герман</span><span lang="en">Germany</span><span lang="zh">德国</span></span></b></a>
         </div>
+      </div>
+      <div class="hero-photo">
+        <figure class="slot ticks" data-photo="hero">
+          <img src="photos/hero-cat6060-dafo.jpg" width="2000" height="1500" fetchpriority="high" alt="CAT 6060 экскаваторын дээд тавцан дээр кранаар өргөсөн DAFO SV-K танкуудыг техникчид байрлуулж байна" data-alt-mn="CAT 6060 экскаваторын дээд тавцан дээр кранаар өргөсөн DAFO SV-K танкуудыг техникчид байрлуулж байна" data-alt-en="technicians placing crane-lifted DAFO SV-K tanks on the upper deck of a CAT 6060 excavator" data-alt-zh="技术人员将吊车吊起的 DAFO SV-K 储罐安放到 CAT 6060 挖掘机上层平台">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: CAT 6060 дээр DAFO суурилуулж буй нь</span><span lang="en">Photo: installing DAFO on a CAT 6060</span><span lang="zh">图：在 CAT 6060 上安装 DAFO</span></figcaption>
+        </figure>
+        <p class="hero-tb"><span><span lang="mn">CAT 6060 экскаваторт DAFO SV-K танк суурилуулж буй нь</span><span lang="en">Installing DAFO SV-K tanks on a CAT 6060</span><span lang="zh">在 CAT 6060 上安装 DAFO SV-K 储罐</span></span><span>MHS · DAFO SV-K</span></p>
       </div>
     </div>
   </section>
@@ -496,6 +604,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="sec" id="solutions">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·01</b><span class="tb-rule"></span><span>DAFO · SENNEBOGEN</span><span>01 / 09</span></div>
       <div class="head">
         <p class="eyebrow"><span lang="mn">Бүтээгдэхүүн, үйлчилгээ</span><span lang="en">What we do</span><span lang="zh">产品与服务</span></p>
         <h2><span lang="mn">Хамгаалалт, техник, үйлчилгээг нэг газраас</span><span lang="en">Protection, machines and service from one supplier</span><span lang="zh">防护、设备与服务，一站式供应</span></h2>
@@ -503,8 +612,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       <div class="cards">
         <a class="card" href="#dafo">
           <figure class="slot" data-photo="card-dafo">
-            <img src="photos/dafo-sv-k-deck.jpg" width="1600" height="1000" loading="lazy" alt="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-mn="Экскаваторын тавцан дээрх DAFO SV-K танкууд" data-alt-en="DAFO SV-K agent tanks on an excavator deck" data-alt-zh="挖掘机平台上的 DAFO SV-K 储罐">
-            <span class="credit"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Photo: Dafo Vehicle</span><span lang="zh">图：Dafo Vehicle</span></span>
+            <img src="photos/card-dafo-tankpack.jpg" width="1600" height="1200" loading="lazy" alt="Экскаваторын тавцан дээрх DAFO SV-K танкууд, хоолойн холболт" data-alt-mn="Экскаваторын тавцан дээрх DAFO SV-K танкууд, хоолойн холболт" data-alt-en="DAFO SV-K tanks and hose connections on an excavator deck" data-alt-zh="挖掘机平台上的 DAFO SV-K 储罐及管路连接">
             <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: DAFO танк, хоолой</span><span lang="en">Photo: DAFO tank and piping</span><span lang="zh">图：DAFO 储罐和管路</span></figcaption>
           </figure>
           <div class="card-body">
@@ -526,7 +634,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </a>
         <a class="card" href="#service">
           <figure class="slot" data-photo="card-service">
-          <img src="photos/card-service-20261013135748.jpg" width="2000" height="1333" loading="lazy" alt="манай баг ажил дээрээ" data-alt-mn="манай баг ажил дээрээ" data-alt-en="MHS crew at work" data-alt-zh="MHS 团队作业现场">
+          <img src="photos/card-team-service.jpg" width="1600" height="1200" loading="lazy" alt="манай техникч машины доод хэсэгт дулаан мэдрэгч кабель угсарч байна" data-alt-mn="манай техникч машины доод хэсэгт дулаан мэдрэгч кабель угсарч байна" data-alt-en="MHS technician routing the heat-sensing cable under a machine" data-alt-zh="MHS 技术人员在设备底部敷设感温电缆">
             <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: манай баг ажил дээрээ</span><span lang="en">Photo: MHS crew at work</span><span lang="zh">图：MHS 团队作业现场</span></figcaption>
           </figure>
           <div class="card-body">
@@ -541,6 +649,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="sec paper" id="dafo">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·02</b><span class="tb-rule"></span><span>DAFO SV-K</span><span>02 / 09</span></div>
       <div class="split">
         <div class="body">
           <p class="eyebrow"><span lang="mn">DAFO автомат гал унтраах систем</span><span lang="en">DAFO automatic fire suppression system</span><span lang="zh">DAFO（达弗）车载自动灭火系统</span></p>
@@ -557,8 +666,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c.6 3.2 5 5.4 5 10.3A5 5 0 0 1 7 12.8c0-1.6.6-3 1.6-4 .3 1.4 1.2 2.3 2.5 2.5C10.2 8.6 11.3 5.6 12 2.5z"/><path d="M5 21h14v1.5H5z"/></svg><span><span lang="mn">Түлшний шүүлтүүр, насос <span class="note">(хэсгүүдийг эрсдэлийн үнэлгээгээр тогтооно)</span></span><span lang="en">Fuel filters and pumps <span class="note">(zones are set by the risk assessment)</span></span><span lang="zh">燃油滤清器和燃油泵 <span class="note">（保护区域由风险评估确定）</span></span></span></li>
           </ul>
         </div>
-        <figure class="slot tall" data-photo="dafo">
-          <img src="photos/dafo-20261013065851.jpg" width="1920" height="1440" loading="lazy" alt="Bucyrus RH170 дээрх DAFO систем" data-alt-mn="Bucyrus RH170 дээрх DAFO систем" data-alt-en="DAFO system on a Bucyrus RH170" data-alt-zh="Bucyrus RH170 上的 DAFO 系统">
+        <figure class="slot tall ticks" data-photo="dafo">
+          <img src="photos/dafo-rh170-tanks.jpg" width="1600" height="1200" loading="lazy" alt="Bucyrus RH170 дээрх DAFO систем" data-alt-mn="Bucyrus RH170 дээрх DAFO систем" data-alt-en="DAFO system on a Bucyrus RH170" data-alt-zh="Bucyrus RH170 上的 DAFO 系统">
           <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: Bucyrus RH170 дээрх DAFO систем</span><span lang="en">Photo: DAFO system on a Bucyrus RH170</span><span lang="zh">图：Bucyrus RH170 上的 DAFO 系统</span></figcaption>
         </figure>
       </div>
@@ -582,12 +691,48 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <figcaption class="how-key"><span lang="mn">Зураг: Dafo Vehicle</span><span lang="en">Image: Dafo Vehicle</span><span lang="zh">图：Dafo Vehicle</span></figcaption>
         </figure>
         <ol class="how-list">
-            <li><span class="n">1</span><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span><span lang="zh">探测</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span><span lang="zh">感温电缆敷设在发动机舱内，在 180 °C 时触发。</span></p></div></li>
-            <li><span class="n">2</span><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span><span lang="zh">报警与控制</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span><span lang="zh">CV-X 控制单元在驾驶室面板上发出声光报警并自动启动系统。操作员也可按下手动按钮启动。</span></p></div></li>
-            <li><span class="n">3</span><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span><span lang="zh">加压</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurises the tank to 20 bar. At rest the tank holds no pressure.</span><span lang="zh">氮气驱动瓶将储罐加压至 20 bar。待命状态下储罐无压力。</span></p></div></li>
-            <li><span class="n">4</span><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span><span lang="zh">管路</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span><span lang="zh">活塞将 Forrex EVO 经不锈钢管路推送至喷嘴。</span></p></div></li>
-            <li><span class="n">5</span><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span><span lang="zh">灭火</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span><span lang="zh">喷嘴将灭火剂喷向风险区域。Forrex EVO 扑灭火焰、冷却高温部件，并在表面留下保护层，防止复燃。</span></p></div></li>
+            <li><span class="n">1</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 17c2.5-2.5 4.5 2.5 7 0s4.5 2.5 7 0 4.5 2.5 6 1"/><path d="M12 3c1 2.2 3.4 3.6 3.4 6.6a3.4 3.4 0 0 1-6.8 0c0-1.2.5-2.2 1.2-2.8.2 1 .8 1.6 1.6 1.8-.4-2 .1-3.9.6-5.6z"/></svg><div><b><span lang="mn">Илрүүлэлт</span><span lang="en">Detection</span><span lang="zh">探测</span></b><p><span lang="mn">Тасалгаагаар татсан шугаман дулаан мэдрэгч кабель 180 °C-т идэвхжинэ.</span><span lang="en">A heat-sensing cable runs through the bay and activates at 180 °C.</span><span lang="zh">感温电缆敷设在发动机舱内，在 180 °C 时触发。</span></p></div></li>
+            <li><span class="n">2</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/><path d="M3 7l2 1M21 7l-2 1M12 2v2"/></svg><div><b><span lang="mn">Дохиолол, удирдлага</span><span lang="en">Alarm and control</span><span lang="zh">报警与控制</span></b><p><span lang="mn">CV-X удирдлагын блок кабины самбараар дуут, гэрлэн дохио өгч, системийг автоматаар идэвхжүүлнэ. Оператор товч дарж гараар ч идэвхжүүлж болно.</span><span lang="en">The CV-X control unit sounds and lights the alarm on the cab panel and releases the system automatically. The operator can also release it with the manual button.</span><span lang="zh">CV-X 控制单元在驾驶室面板上发出声光报警并自动启动系统。操作员也可按下手动按钮启动。</span></p></div></li>
+            <li><span class="n">3</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="9" width="11" height="6" rx="2"/><path d="M15 12h3l2-2v4l-2-2"/><circle cx="7.5" cy="6" r="2.5"/><path d="M7.5 6l1.2-1.2"/></svg><div><b><span lang="mn">Шахалт</span><span lang="en">Pressure</span><span lang="zh">加压</span></b><p><span lang="mn">Азотын баллон танкийг 20 бар даралттай болгоно. Хэвийн үед танк даралтгүй байдаг.</span><span lang="en">A nitrogen cartridge pressurises the tank to 20 bar. At rest the tank holds no pressure.</span><span lang="zh">氮气驱动瓶将储罐加压至 20 bar。待命状态下储罐无压力。</span></p></div></li>
+            <li><span class="n">4</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9h9v6h11"/><path d="M2 7v4M22 13v4"/><path d="M7 9v6M16 15V9"/></svg><div><b><span lang="mn">Хоолой</span><span lang="en">Piping</span><span lang="zh">管路</span></b><p><span lang="mn">Бүлүүр Forrex EVO бодисыг зэвэрдэггүй ган хоолойгоор хошуунууд руу шахна.</span><span lang="en">The piston drives Forrex EVO through stainless steel piping to the nozzles.</span><span lang="zh">活塞将 Forrex EVO 经不锈钢管路推送至喷嘴。</span></p></div></li>
+            <li><span class="n">5</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h7v5H3z"/><path d="M10 7.5h3"/><path d="M15 4l5-2M15 7.5h6M15 11l5 2M15 14.5l4 3"/></svg><div><b><span lang="mn">Унтраалт</span><span lang="en">Suppression</span><span lang="zh">灭火</span></b><p><span lang="mn">Хошуунууд бодисыг эрсдэлтэй хэсэг рүү цацна. Forrex EVO галыг дарж, халсан эд ангийг хөргөж, гадаргууд наалдсан хамгаалалтын давхарга үүсгэн дахин асахаас сэргийлнэ.</span><span lang="en">Nozzles spray the agent onto the risk zones. Forrex EVO suppresses the fire, cools hot parts and leaves a protective layer on surfaces so the fire cannot restart.</span><span lang="zh">喷嘴将灭火剂喷向风险区域。Forrex EVO 扑灭火焰、冷却高温部件，并在表面留下保护层，防止复燃。</span></p></div></li>
         </ol>
+        <p class="how-opts"><b><span lang="mn">Сонголтоор</span><span lang="en">Options</span><span lang="zh">可选</span></b><span><span lang="mn">идэвхжих үед хөдөлгүүрийг зогсоох, түлш таслах, массын унтраалга салгах</span><span lang="en">at release: stop the engine, cut the fuel, open the battery master switch</span><span lang="zh">启动时：发动机停机、切断燃油、断开电源总开关</span></span></p>
+      </div>
+
+      <div class="zones" id="zones">
+        <div class="zones-head"><h3><span lang="mn">Хамгаалах хэсэг, техникийн төрлөөр</span><span lang="en">Protected zones by machine type</span><span lang="zh">按设备类型划分的保护区域</span></h3><p><span lang="mn">Техникийн төрлийг сонгоход DAFO-гийн хамгаалдаг гол хэсгүүд улаанаар тэмдэглэгдэнэ.</span><span lang="en">Pick a machine type to see the main zones DAFO protects, marked in red.</span><span lang="zh">选择设备类型，即可看到 DAFO 保护的主要区域（红色标示）。</span></p></div>
+        <div class="ztabs" role="tablist" aria-label="Техникийн төрөл" data-aria-mn="Техникийн төрөл" data-aria-en="Machine type" data-aria-zh="设备类型"><button class="ztab" type="button" role="tab" id="zt-excavator" aria-controls="zp-excavator" aria-selected="true"><span lang="mn">Экскаватор</span><span lang="en">Excavator</span><span lang="zh">挖掘机</span></button><button class="ztab" type="button" role="tab" id="zt-truck" aria-controls="zp-truck" aria-selected="false" tabindex="-1"><span lang="mn">Автосамосвал</span><span lang="en">Haul truck</span><span lang="zh">矿用自卸车</span></button><button class="ztab" type="button" role="tab" id="zt-loader" aria-controls="zp-loader" aria-selected="false" tabindex="-1"><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loader</span><span lang="zh">轮式装载机</span></button><button class="ztab" type="button" role="tab" id="zt-dozer" aria-controls="zp-dozer" aria-selected="false" tabindex="-1"><span lang="mn">Бульдозер</span><span lang="en">Dozer</span><span lang="zh">推土机</span></button><button class="ztab" type="button" role="tab" id="zt-stacker" aria-controls="zp-stacker" aria-selected="false" tabindex="-1"><span lang="mn">Ричстакер</span><span lang="en">Reach stacker</span><span lang="zh">正面吊</span></button></div>
+        <div class="zpanel" role="tabpanel" id="zp-excavator" aria-labelledby="zt-excavator">
+          <figure class="zdraw"><svg viewBox="0 0 640 320" role="img" aria-label="Экскаваторын хамгаалах хэсгүүд" data-aria-mn="Экскаваторын хамгаалах хэсгүүд" data-aria-en="Protected zones on an excavator" data-aria-zh="挖掘机的保护区域"><defs><pattern id="zh" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#c8102e" fill-opacity=".12"/><line x1="0" y1="0" x2="0" y2="7" stroke="#c8102e" stroke-width="1.6"/></pattern></defs><line class="mg" x1="24" y1="281" x2="616" y2="281"/><path class="ml" d="M150 238h290a21 21 0 0 1 0 42H150a21 21 0 0 1 0-42z"/><circle class="mt" cx="178" cy="259" r="8"/><circle class="mt" cx="222" cy="259" r="8"/><circle class="mt" cx="266" cy="259" r="8"/><circle class="mt" cx="310" cy="259" r="8"/><circle class="mt" cx="354" cy="259" r="8"/><circle class="mt" cx="398" cy="259" r="8"/><circle class="mt" cx="432" cy="259" r="8"/><rect class="ml" x="250" y="224" width="110" height="14"/><path class="ml" d="M170 150h270l30 18v56H170z"/><rect class="ml" x="322" y="128" width="132" height="22"/><rect class="ml" x="430" y="104" width="10" height="24"/><path class="ml" d="M182 92h62v58h-74z"/><path class="mt" d="M190 100h46v24h-52z"/><path class="ml" d="M205 190l25-14-98-124-24 10z"/><path class="ml" d="M108 62l24-10-48 158-18-6z"/><path class="ml" d="M66 204l18 6 22 38q-22 18-54 4z"/><line class="mc" x1="214" y1="206" x2="148" y2="110"/><rect class="z" x="330" y="152" width="118" height="48"/><rect class="z" x="262" y="168" width="62" height="52"/><rect class="z" x="176" y="190" width="48" height="30"/><rect class="z" x="332" y="204" width="70" height="18"/><circle class="zc" cx="389" cy="176" r="11"/><text class="zt" x="389" y="180.5">1</text><circle class="zc" cx="293" cy="194" r="11"/><text class="zt" x="293" y="198.5">2</text><circle class="zc" cx="200" cy="205" r="11"/><text class="zt" x="200" y="209.5">4</text><circle class="zc" cx="367" cy="213" r="11"/><text class="zt" x="367" y="217.5">5</text></svg></figure>
+          <div><ul class="zlist"><li><span class="zn">1</span><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li><li><span class="zn">2</span><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li><li><span class="zn">4</span><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li><li><span class="zn">5</span><span><span lang="mn">Түлшний шүүлтүүр, насос</span><span lang="en">Fuel filters and pumps</span><span lang="zh">燃油滤清器和燃油泵</span></span></li></ul><p class="znote"><span lang="mn">Хэсгүүдийг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">The zones are set by the fire risk assessment.</span><span lang="zh">保护区域由火灾风险评估确定。</span></p></div>
+        </div>
+        <div class="zpanel" role="tabpanel" id="zp-truck" aria-labelledby="zt-truck" hidden>
+          <figure class="zdraw"><svg viewBox="0 0 640 320" role="img" aria-label="Автосамосвалын хамгаалах хэсгүүд" data-aria-mn="Автосамосвалын хамгаалах хэсгүүд" data-aria-en="Protected zones on a haul truck" data-aria-zh="矿用自卸车的保护区域"><line class="mg" x1="24" y1="281" x2="616" y2="281"/><circle class="ml" cx="170" cy="236" r="44"/><circle class="mt" cx="170" cy="236" r="15"/><circle class="ml" cx="470" cy="236" r="44"/><circle class="mt" cx="470" cy="236" r="15"/><rect class="ml" x="120" y="186" width="410" height="18"/><rect class="ml" x="96" y="150" width="172" height="10"/><rect class="ml" x="96" y="160" width="22" height="40"/><rect class="ml" x="118" y="160" width="124" height="26"/><path class="ml" d="M140 112h58v38h-58z"/><path class="mt" d="M148 118h42v18h-42z"/><path class="ml" d="M128 84l444-18-10 116H268v-78H128z"/><line class="mc" x1="104" y1="160" x2="126" y2="204"/><rect class="z" x="122" y="162" width="116" height="22"/><rect class="z" x="262" y="186" width="72" height="24"/><rect class="z" x="346" y="160" width="58" height="26"/><rect class="z" x="98" y="128" width="38" height="20"/><rect class="z" x="226" y="204" width="62" height="28"/><circle class="zc" cx="180" cy="173" r="11"/><text class="zt" x="180" y="177.5">1</text><circle class="zc" cx="298" cy="198" r="11"/><text class="zt" x="298" y="202.5">3</text><circle class="zc" cx="375" cy="173" r="11"/><text class="zt" x="375" y="177.5">2</text><circle class="zc" cx="117" cy="138" r="11"/><text class="zt" x="117" y="142.5">4</text><circle class="zc" cx="257" cy="218" r="11"/><text class="zt" x="257" y="222.5">5</text></svg></figure>
+          <div><ul class="zlist"><li><span class="zn">1</span><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li><li><span class="zn">2</span><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li><li><span class="zn">3</span><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span><span lang="zh">变速箱和液力变矩器</span></span></li><li><span class="zn">4</span><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li><li><span class="zn">5</span><span><span lang="mn">Түлшний шүүлтүүр, насос</span><span lang="en">Fuel filters and pumps</span><span lang="zh">燃油滤清器和燃油泵</span></span></li></ul><p class="znote"><span lang="mn">Хэсгүүдийг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">The zones are set by the fire risk assessment.</span><span lang="zh">保护区域由火灾风险评估确定。</span></p></div>
+        </div>
+        <div class="zpanel" role="tabpanel" id="zp-loader" aria-labelledby="zt-loader" hidden>
+          <figure class="zdraw"><svg viewBox="0 0 640 320" role="img" aria-label="Дугуйт ачигчийн хамгаалах хэсгүүд" data-aria-mn="Дугуйт ачигчийн хамгаалах хэсгүүд" data-aria-en="Protected zones on a wheel loader" data-aria-zh="轮式装载机的保护区域"><line class="mg" x1="24" y1="281" x2="616" y2="281"/><circle class="ml" cx="200" cy="240" r="40"/><circle class="mt" cx="200" cy="240" r="13"/><circle class="ml" cx="420" cy="240" r="40"/><circle class="mt" cx="420" cy="240" r="13"/><path class="ml" d="M150 196h176v24H150z"/><path class="ml" d="M330 150h176l14 16v46H330z"/><rect class="ml" x="512" y="162" width="10" height="44"/><rect class="ml" x="470" y="126" width="8" height="24"/><path class="ml" d="M300 74h66v76h-66z"/><path class="mt" d="M308 82h50v34h-50z"/><path class="ml" d="M290 176l12-12-162-14-12 12z"/><path class="ml" d="M70 152l62-12 10 82-70 8q-12-38-2-78z"/><rect class="z" x="380" y="154" width="124" height="40"/><rect class="z" x="284" y="188" width="46" height="26"/><rect class="z" x="234" y="172" width="50" height="32"/><rect class="z" x="468" y="194" width="44" height="18"/><rect class="z" x="334" y="194" width="44" height="22"/><circle class="zc" cx="442" cy="174" r="11"/><text class="zt" x="442" y="178.5">1</text><circle class="zc" cx="307" cy="201" r="11"/><text class="zt" x="307" y="205.5">3</text><circle class="zc" cx="259" cy="188" r="11"/><text class="zt" x="259" y="192.5">2</text><circle class="zc" cx="490" cy="203" r="11"/><text class="zt" x="490" y="207.5">4</text><circle class="zc" cx="356" cy="205" r="11"/><text class="zt" x="356" y="209.5">5</text></svg></figure>
+          <div><ul class="zlist"><li><span class="zn">1</span><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li><li><span class="zn">2</span><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li><li><span class="zn">3</span><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span><span lang="zh">变速箱和液力变矩器</span></span></li><li><span class="zn">4</span><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li><li><span class="zn">5</span><span><span lang="mn">Түлшний шүүлтүүр, насос</span><span lang="en">Fuel filters and pumps</span><span lang="zh">燃油滤清器和燃油泵</span></span></li></ul><p class="znote"><span lang="mn">Хэсгүүдийг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">The zones are set by the fire risk assessment.</span><span lang="zh">保护区域由火灾风险评估确定。</span></p></div>
+        </div>
+        <div class="zpanel" role="tabpanel" id="zp-dozer" aria-labelledby="zt-dozer" hidden>
+          <figure class="zdraw"><svg viewBox="0 0 640 320" role="img" aria-label="Бульдозерын хамгаалах хэсгүүд" data-aria-mn="Бульдозерын хамгаалах хэсгүүд" data-aria-en="Protected zones on a dozer" data-aria-zh="推土机的保护区域"><line class="mg" x1="24" y1="281" x2="616" y2="281"/><path class="ml" d="M140 236h300a22 22 0 0 1 0 44H140a22 22 0 0 1 0-44z"/><circle class="mt" cx="170" cy="258" r="8"/><circle class="mt" cx="214" cy="258" r="8"/><circle class="mt" cx="258" cy="258" r="8"/><circle class="mt" cx="302" cy="258" r="8"/><circle class="mt" cx="346" cy="258" r="8"/><circle class="mt" cx="390" cy="258" r="8"/><circle class="mt" cx="428" cy="258" r="8"/><path class="ml" d="M60 150q-12 60 2 128h34q-8-64 4-126z"/><line class="mc" x1="98" y1="242" x2="160" y2="240"/><path class="ml" d="M110 150h190v84H110z"/><rect class="mt" x="110" y="158" width="10" height="66"/><path class="ml" d="M300 84h80v66h-80z"/><path class="mt" d="M308 92h64v30h-64z"/><rect class="ml" x="300" y="150" width="150" height="84"/><path class="ml" d="M450 176l62-16 8 106-14 2-8-84-48 12z"/><rect class="ml" x="262" y="124" width="8" height="26"/><rect class="z" x="124" y="156" width="168" height="58"/><rect class="z" x="304" y="154" width="42" height="38"/><rect class="z" x="352" y="182" width="78" height="44"/><rect class="z" x="304" y="196" width="42" height="26"/><rect class="z" x="382" y="154" width="60" height="24"/><circle class="zc" cx="208" cy="185" r="11"/><text class="zt" x="208" y="189.5">1</text><circle class="zc" cx="325" cy="173" r="11"/><text class="zt" x="325" y="177.5">2</text><circle class="zc" cx="391" cy="204" r="11"/><text class="zt" x="391" y="208.5">3</text><circle class="zc" cx="325" cy="209" r="11"/><text class="zt" x="325" y="213.5">4</text><circle class="zc" cx="412" cy="166" r="11"/><text class="zt" x="412" y="170.5">5</text></svg></figure>
+          <div><ul class="zlist"><li><span class="zn">1</span><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li><li><span class="zn">2</span><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li><li><span class="zn">3</span><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span><span lang="zh">变速箱和液力变矩器</span></span></li><li><span class="zn">4</span><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li><li><span class="zn">5</span><span><span lang="mn">Түлшний шүүлтүүр, насос</span><span lang="en">Fuel filters and pumps</span><span lang="zh">燃油滤清器和燃油泵</span></span></li></ul><p class="znote"><span lang="mn">Хэсгүүдийг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">The zones are set by the fire risk assessment.</span><span lang="zh">保护区域由火灾风险评估确定。</span></p></div>
+        </div>
+        <div class="zpanel" role="tabpanel" id="zp-stacker" aria-labelledby="zt-stacker" hidden>
+          <figure class="zdraw"><svg viewBox="0 0 640 320" role="img" aria-label="Ричстакерын хамгаалах хэсгүүд" data-aria-mn="Ричстакерын хамгаалах хэсгүүд" data-aria-en="Protected zones on a reach stacker" data-aria-zh="正面吊的保护区域"><line class="mg" x1="24" y1="281" x2="616" y2="281"/><circle class="ml" cx="190" cy="242" r="38"/><circle class="mt" cx="190" cy="242" r="12"/><circle class="ml" cx="470" cy="242" r="38"/><circle class="mt" cx="470" cy="242" r="12"/><rect class="ml" x="130" y="196" width="410" height="22"/><path class="ml" d="M420 140h120v56H420z"/><path class="ml" d="M262 112h58v84h-58z"/><path class="mt" d="M270 120h42v34h-42z"/><path class="ml" d="M440 150l12-12-302-92-12 12z"/><rect class="ml" x="40" y="38" width="180" height="14"/><line class="mc" x1="54" y1="52" x2="54" y2="74"/><line class="mc" x1="206" y1="52" x2="206" y2="74"/><line class="mc" x1="336" y1="196" x2="292" y2="104"/><rect class="z" x="430" y="146" width="104" height="44"/><rect class="z" x="330" y="164" width="82" height="28"/><rect class="z" x="220" y="198" width="78" height="20"/><rect class="z" x="494" y="198" width="40" height="18"/><rect class="z" x="330" y="198" width="60" height="18"/><circle class="zc" cx="482" cy="168" r="11"/><text class="zt" x="482" y="172.5">1</text><circle class="zc" cx="371" cy="178" r="11"/><text class="zt" x="371" y="182.5">2</text><circle class="zc" cx="259" cy="208" r="11"/><text class="zt" x="259" y="212.5">3</text><circle class="zc" cx="514" cy="207" r="11"/><text class="zt" x="514" y="211.5">4</text><circle class="zc" cx="360" cy="207" r="11"/><text class="zt" x="360" y="211.5">5</text></svg></figure>
+          <div><ul class="zlist"><li><span class="zn">1</span><span><span lang="mn">Хөдөлгүүрийн тасалгаа, турбо, яндан</span><span lang="en">Engine bay, turbocharger and exhaust</span><span lang="zh">发动机舱、涡轮增压器和排气系统</span></span></li><li><span class="zn">2</span><span><span lang="mn">Гидравлик насос, хуваарилах хавхлагын блок</span><span lang="en">Hydraulic pumps and valve blocks</span><span lang="zh">液压泵和阀块</span></span></li><li><span class="zn">3</span><span><span lang="mn">Хурдны хайрцаг, гидротрансформатор</span><span lang="en">Transmission and torque converter</span><span lang="zh">变速箱和液力变矩器</span></span></li><li><span class="zn">4</span><span><span lang="mn">Аккумуляторын хайрцаг, цахилгааны самбар</span><span lang="en">Battery box and electrical panels</span><span lang="zh">电池箱和电气柜</span></span></li><li><span class="zn">5</span><span><span lang="mn">Түлшний шүүлтүүр, насос</span><span lang="en">Fuel filters and pumps</span><span lang="zh">燃油滤清器和燃油泵</span></span></li></ul><p class="znote"><span lang="mn">Хэсгүүдийг галын эрсдэлийн үнэлгээгээр тогтооно.</span><span lang="en">The zones are set by the fire risk assessment.</span><span lang="zh">保护区域由火灾风险评估确定。</span></p></div>
+        </div>
+      </div>
+
+      <div class="inst">
+        <p class="sub"><span lang="mn">Манай суурилуулалтаас</span><span lang="en">From our installs</span><span lang="zh">我们的安装实例</span></p>
+        <ul class="inst-grid">
+          <li><figure class="slot detail" data-photo="part-detection-lines"><img src="photos/part-detection-lines.jpg" width="1200" height="900" loading="lazy" alt="тавцангийн доогуур татсан мэдрэгч кабель, хоолой" data-alt-mn="тавцангийн доогуур татсан мэдрэгч кабель, хоолой" data-alt-en="heat-sensing cable and piping run under the deck" data-alt-zh="平台下方敷设的感温电缆和管路"></figure><p><span lang="mn">Тавцангийн доогуурх мэдрэгч кабель, хоолой</span><span lang="en">Heat-sensing cable and piping under the deck</span><span lang="zh">平台下方的感温电缆和管路</span></p></li>
+          <li><figure class="slot detail" data-photo="part-control-unit"><img src="photos/part-control-unit.jpg" width="1200" height="900" loading="lazy" alt="DAFO CV-X удирдлагын блок, кабелийн холболт" data-alt-mn="DAFO CV-X удирдлагын блок, кабелийн холболт" data-alt-en="DAFO CV-X control unit with its cabling" data-alt-zh="带线缆的 DAFO CV-X 控制单元"></figure><p><span lang="mn">CV-X удирдлагын блок</span><span lang="en">CV-X control unit</span><span lang="zh">CV-X 控制单元</span></p></li>
+          <li><figure class="slot detail" data-photo="part-cab-panels"><img src="photos/part-cab-panels.jpg" width="1200" height="900" loading="lazy" alt="операторын бүхээг дэх хоёр дохиоллын самбар" data-alt-mn="операторын бүхээг дэх хоёр дохиоллын самбар" data-alt-en="two alarm panels in the operator’s cab" data-alt-zh="驾驶室内的两块报警面板"></figure><p><span lang="mn">Кабин дахь дохиоллын самбар</span><span lang="en">Alarm panels in the cab</span><span lang="zh">驾驶室内的报警面板</span></p></li>
+          <li><figure class="slot detail" data-photo="part-manual-release"><img src="photos/part-manual-release.jpg" width="1200" height="900" loading="lazy" alt="CAT 390F дээрх SV-K танк, гар идэвхжүүлэгч, дуут дохио" data-alt-mn="CAT 390F дээрх SV-K танк, гар идэвхжүүлэгч, дуут дохио" data-alt-en="SV-K tank, manual release and sounder on a CAT 390F" data-alt-zh="CAT 390F 上的 SV-K 储罐、手动启动器和报警器"></figure><p><span lang="mn">SV-K танк, гар идэвхжүүлэгч, дуут дохио</span><span lang="en">SV-K tank, manual release and sounder</span><span lang="zh">SV-K 储罐、手动启动器和报警器</span></p></li>
+        </ul>
       </div>
 
       <div class="vids sheet-vids">
@@ -597,6 +742,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <li><a class="vid" href="https://youtu.be/xlfrOsjDK2U" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Форрекс цацагдах байдал</span><span lang="en">How the agent discharges</span><span lang="zh">灭火剂喷放效果</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
           <li><a class="vid" href="https://youtu.be/ODsWhiEJmmI" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="currentColor"/><path d="M16 13l12 7-12 7z" fill="#fff"/></svg><b><span lang="mn">Бодис цацсаны дараах цэвэрлэгээ</span><span lang="en">Cleaning up after a discharge</span><span lang="zh">喷放后的清理</span></b><small aria-hidden="true">YouTube ↗</small><span class="vh"><span lang="mn"> (YouTube, шинэ цонхонд нээгдэнэ)</span><span lang="en"> (YouTube, opens in a new tab)</span><span lang="zh">（YouTube，在新标签页中打开）</span></span></a></li>
         </ul>
+      </div>
+
+      <div class="thermo">
+        <h3><span lang="mn">Ажлын температур</span><span lang="en">Operating temperature</span><span lang="zh">工作温度</span></h3>
+        <div class="tscale" aria-hidden="true"><span class="track"></span><span class="range"></span><span class="end e1"><span lang="mn">Өвөл</span><span lang="en">Winter</span><span lang="zh">冬季</span></span><span class="end e2"><span lang="mn">Зун</span><span lang="en">Summer</span><span lang="zh">夏季</span></span><span class="tk t1">−40 °C</span><span class="tk t2">0 °C</span><span class="tk t3">+60 °C</span></div>
+        <p><span lang="mn">Forrex EVO бодис −40 °C-аас +60 °C хүртэл ажиллана: Монголын хүйтэн өвөл, Говийн халуун зун.</span><span lang="en">Forrex EVO works from −40 °C to +60 °C: Mongolian winters and Gobi summers.</span><span lang="zh">Forrex EVO 灭火剂在 −40 °C 至 +60 °C 范围内工作，适应蒙古国的严冬和戈壁的酷暑。</span></p>
       </div>
 
       <div class="sheet-row">
@@ -640,6 +791,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="sec" id="process">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·03</b><span class="tb-rule"></span><span>SBF 127:17</span><span>03 / 09</span></div>
       <div class="head">
         <p class="eyebrow"><span lang="mn">ХАБЭА, худалдан авалтын багт</span><span lang="en">For HSE and procurement teams</span><span lang="zh">致 HSE 和采购团队</span></p>
         <h2><span lang="mn">Эрсдлийн үнэлгээ, ханган нийлүүлэлт, угсралт суурилуулалт, сургалт, хуваарьт үзлэг: бүх үйлчилгээ нэг дороос</span><span lang="en">Risk assessment, supply, installation, training and scheduled inspection: every service from one team</span><span lang="zh">风险评估、供货、安装、培训和定期检查：全部服务由同一团队完成</span></h2>
@@ -647,19 +799,59 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       </div>
       <div class="process">
         <ol class="tl">
-          <li><b><span lang="mn">Галын эрсдэлийн үнэлгээ</span><span lang="en">Fire risk assessment</span><span lang="zh">火灾风险评估</span></b><p><span lang="mn">Техникийг газар дээр нь үзэж, халуун гадаргуу, түлш ба гидравликийн шугам, цахилгааны эрсдэлийг тогтооно.</span><span lang="en">We inspect the machine on site and map hot surfaces, fuel and hydraulic lines, and electrics.</span><span lang="zh">我们在现场检查设备，确定高温表面、燃油和液压管路以及电气系统的风险。</span></p></li>
-          <li><b><span lang="mn">Системийн зураг төсөл</span><span lang="en">System design</span><span lang="zh">系统设计</span></b><p><span lang="mn">Мэдрэгч кабель, хошуу, танкийн байрлал, бодисын хэмжээг тухайн техникт SBF 127-ийн дагуу тооцоолно.</span><span lang="en">Detection cable, nozzles, tank position and agent volume are calculated for that machine to SBF 127.</span><span lang="zh">按 SBF 127 标准为该设备计算探测电缆、喷嘴、储罐位置和灭火剂用量。</span></p></li>
-          <li><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span><span lang="zh">安装</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span><span lang="zh">我们的团队在矿山现场安装，并可拆除和更换原有系统。</span></p></li>
-          <li><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span><span lang="zh">测试与交付</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span><span lang="zh">进行干式测试和实际喷放测试，签署验收报告后交付。</span></p></li>
-          <li><b><span lang="mn">Сургалт</span><span lang="en">Training</span><span lang="zh">培训</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span><span lang="zh">培训操作员和机修人员了解系统工作原理及报警时的处置方法。培训和手册提供蒙古语和英语版本。</span></p></li>
-          <li><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span><span lang="zh">年度保养与再充装</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 10-year major service. Recharge from stock in Ulaanbaatar after any discharge.</span><span lang="zh">按 DAFO 计划每 12 个月保养一次，并执行 10 年大修保养。喷放后使用乌兰巴托库存再充装。</span></p></li>
+          <li><figure class="slot step" data-photo="step-1-risk"><img src="photos/step-1-risk.jpg" width="1200" height="900" loading="lazy" alt="эрсдэлийн үнэлгээний үеэр яндангийн гадаргуугийн температурыг хэмжиж байна" data-alt-mn="эрсдэлийн үнэлгээний үеэр яндангийн гадаргуугийн температурыг хэмжиж байна" data-alt-en="measuring exhaust surface temperature during the risk assessment" data-alt-zh="风险评估中测量排气管表面温度"></figure><b><span lang="mn">Галын эрсдэлийн үнэлгээ</span><span lang="en">Fire risk assessment</span><span lang="zh">火灾风险评估</span></b><p><span lang="mn">Техникийг газар дээр нь үзэж, халуун гадаргуу, түлш ба гидравликийн шугам, цахилгааны эрсдэлийг тогтооно.</span><span lang="en">We inspect the machine on site and map hot surfaces, fuel and hydraulic lines, and electrics.</span><span lang="zh">我们在现场检查设备，确定高温表面、燃油和液压管路以及电气系统的风险。</span></p></li>
+          <li><figure class="slot step" data-photo="step-2-design"><img src="photos/step-2-design.jpg" width="1200" height="900" loading="lazy" alt="техникийн тавцан дээр системийн эд ангийг бэлтгэж буй баг" data-alt-mn="техникийн тавцан дээр системийн эд ангийг бэлтгэж буй баг" data-alt-en="crew preparing system parts on the machine deck" data-alt-zh="团队在设备平台上准备系统部件"></figure><b><span lang="mn">Системийн зураг төсөл</span><span lang="en">System design</span><span lang="zh">系统设计</span></b><p><span lang="mn">Мэдрэгч кабель, хошуу, танкийн байрлал, бодисын хэмжээг тухайн техникт SBF 127-ийн дагуу тооцоолно.</span><span lang="en">Detection cable, nozzles, tank position and agent volume are calculated for that machine to SBF 127.</span><span lang="zh">按 SBF 127 标准为该设备计算探测电缆、喷嘴、储罐位置和灭火剂用量。</span></p></li>
+          <li><figure class="slot step" data-photo="step-3-install"><img src="photos/step-3-install.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX2600 экскаваторт кранаар танк өргөж буй нь" data-alt-mn="Hitachi EX2600 экскаваторт кранаар танк өргөж буй нь" data-alt-en="lifting tanks onto a Hitachi EX2600 by crane" data-alt-zh="用吊车将储罐吊装到 Hitachi EX2600 上"></figure><b><span lang="mn">Суурилуулалт</span><span lang="en">Installation</span><span lang="zh">安装</span></b><p><span lang="mn">Манай баг уурхай дээр нь суурилуулна. Хуучин системийг буулгаж солих боломжтой.</span><span lang="en">Our crew installs at the mine, and can remove and replace an existing system.</span><span lang="zh">我们的团队在矿山现场安装，并可拆除和更换原有系统。</span></p></li>
+          <li><figure class="slot step" data-photo="step-4-test"><img src="photos/step-4-test.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX2600 дээр туршилт хийж хүлээлгэн өгөх үе" data-alt-mn="Hitachi EX2600 дээр туршилт хийж хүлээлгэн өгөх үе" data-alt-en="testing and handover at a Hitachi EX2600" data-alt-zh="在 Hitachi EX2600 旁进行测试与交付"></figure><b><span lang="mn">Туршилт, хүлээлгэн өгөх</span><span lang="en">Testing and handover</span><span lang="zh">测试与交付</span></b><p><span lang="mn">Хуурай туршилт болон бодит цацалтын туршилт хийж, хүлээлцэх акт үйлдэж хүлээлгэн өгнө.</span><span lang="en">A dry test and a wet discharge test, then handover with a signed acceptance report.</span><span lang="zh">进行干式测试和实际喷放测试，签署验收报告后交付。</span></p></li>
+          <li><figure class="slot step" data-photo="step-5-training"><img src="photos/step-5-training.jpg" width="1200" height="900" loading="lazy" alt="DAFO системийн сургалт" data-alt-mn="DAFO системийн сургалт" data-alt-en="training on the DAFO system" data-alt-zh="DAFO 系统培训"></figure><b><span lang="mn">Сургалт</span><span lang="en">Training</span><span lang="zh">培训</span></b><p><span lang="mn">Оператор, механикчдад системийн ажиллагаа, дохиолол өгөх үеийн үйлдлийг заана. Сургалт, гарын авлагыг монгол, англи хэлээр өгнө.</span><span lang="en">Operators and mechanics learn how the system works and what to do on an alarm. Training and manuals come in Mongolian and English.</span><span lang="zh">培训操作员和机修人员了解系统工作原理及报警时的处置方法。培训和手册提供蒙古语和英语版本。</span></p></li>
+          <li><figure class="slot step" data-photo="step-6-service"><img src="photos/step-6-service.jpg" width="1200" height="900" loading="lazy" alt="гаднах гар идэвхжүүлэгчид үйлчилгээ хийж байна" data-alt-mn="гаднах гар идэвхжүүлэгчид үйлчилгээ хийж байна" data-alt-en="servicing an external manual release" data-alt-zh="保养外部手动启动器"></figure><b><span lang="mn">Жил бүрийн үйлчилгээ, цэнэглэлт</span><span lang="en">Annual service and recharge</span><span lang="zh">年度保养与再充装</span></b><p><span lang="mn">DAFO-гийн хуваариар 12 сар тутам үйлчилгээ хийнэ; 10 жилийн их үйлчилгээг мөн гүйцэтгэнэ. Цацагдсаны дараа Улаанбаатар дахь нөөцөөс дахин цэнэглэнэ.</span><span lang="en">Service every 12 months to the DAFO schedule, plus the 10-year major service. Recharge from stock in Ulaanbaatar after any discharge.</span><span lang="zh">按 DAFO 计划每 12 个月保养一次，并执行 10 年大修保养。喷放后使用乌兰巴托库存再充装。</span></p></li>
         </ol>
       </div>
     </div>
   </section>
 
-  <section class="sec paper" id="sennebogen">
+  <section class="sec paper" id="references">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·04</b><span class="tb-rule"></span><span>27 × DAFO</span><span>04 / 09</span></div>
+      <div class="head">
+        <h2><span lang="mn">27 систем, Монголын уул уурхайд</span><span lang="en">27 systems in Mongolian mining</span><span lang="zh">蒙古国矿山的 27 套系统</span></h2>
+        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span><span lang="zh">在蒙古国煤矿运行的 DAFO 系统，按设备类型和型号统计。</span></p>
+      </div>
+      <div class="fleet">
+        <div>
+          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span><span lang="zh">按设备类型</span></p>
+          <ul class="bars">
+            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span><span lang="zh">液压挖掘机</span></span><i style="--n:16"></i><b>16</b></li>
+            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span><span lang="zh">矿用自卸车</span></span><i style="--n:5"></i><b>5</b></li>
+            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span><span lang="zh">轮式装载机</span></span><i style="--n:4"></i><b>4</b></li>
+            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span><span lang="zh">正面吊</span></span><i style="--n:2"></i><b>2</b></li>
+          </ul>
+          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 11-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ and XCMG. Figures as of November 2026.</span><span lang="zh">品牌：CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Komatsu（小松）、Hyundai（现代）、Hitachi（日立）、BelAZ（别拉斯）和 XCMG（徐工）。数据截至 2026 年 11 月。</span></p>
+        </div>
+        <div class="mtiles-wrap">
+          <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span><span lang="zh">按型号</span></p>
+          <ul class="mtiles">
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-390f-395"><img src="photos/model-cat-390f-395.jpg" width="1200" height="900" loading="lazy" alt="CAT 390F гидравлик экскаватор" data-alt-mn="CAT 390F гидравлик экскаватор" data-alt-en="CAT 390F hydraulic excavator" data-alt-zh="CAT 390F 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 390F / 395</span><b>5</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh170"><img src="photos/model-bucyrus-rh170.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH170 гидравлик экскаватор" data-alt-mn="Bucyrus RH170 гидравлик экскаватор" data-alt-en="Bucyrus RH170 hydraulic excavator" data-alt-zh="Bucyrus RH170 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH170</span><b>5</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-793d"><img src="photos/model-cat-793d.jpg" width="1200" height="900" loading="lazy" alt="CAT 793D автосамосвал" data-alt-mn="CAT 793D автосамосвал" data-alt-en="CAT 793D haul truck" data-alt-zh="CAT 793D 矿用自卸车"></figure><div class="mcap"><span class="model">CAT 793D</span><b>4</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-hyundai-780"><img src="photos/model-hyundai-780.jpg" width="1200" height="900" loading="lazy" alt="Hyundai HL780 дугуйт ачигч" data-alt-mn="Hyundai HL780 дугуйт ачигч" data-alt-en="Hyundai HL780 wheel loader" data-alt-zh="Hyundai HL780 轮式装载机"></figure><div class="mcap"><span class="model">Hyundai 780</span><b>4</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-bucyrus-rh120"><img src="photos/model-bucyrus-rh120.jpg" width="1200" height="900" loading="lazy" alt="Bucyrus RH120 гидравлик экскаватор" data-alt-mn="Bucyrus RH120 гидравлик экскаватор" data-alt-en="Bucyrus RH120 hydraulic excavator" data-alt-zh="Bucyrus RH120 液压挖掘机"></figure><div class="mcap"><span class="model">Bucyrus RH120</span><b>2</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-xcmg-reach-stacker"><img src="photos/model-xcmg-reach-stacker.jpg" width="1200" height="900" loading="lazy" alt="XCMG ричстакер" data-alt-mn="XCMG ричстакер" data-alt-en="XCMG reach stacker" data-alt-zh="XCMG 正面吊"></figure><div class="mcap"><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span><span lang="zh">XCMG（徐工）正面吊</span></span><b>2</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-belaz-75306"><img src="photos/model-belaz-75306.jpg" width="1200" height="900" loading="lazy" alt="BelAZ 75306 автосамосвал" data-alt-mn="BelAZ 75306 автосамосвал" data-alt-en="BelAZ 75306 haul truck" data-alt-zh="BelAZ 75306 矿用自卸车"></figure><div class="mcap"><span class="model">BelAZ 75306</span><b>1</b></div></li>
+            <li class="mtile"><figure class="drawn"><svg viewBox="0 0 640 320" role="img" aria-label="Hitachi EX1200 гидравлик экскаваторын зураглал" data-aria-mn="Hitachi EX1200 гидравлик экскаваторын зураглал" data-aria-en="drawing of a Hitachi EX1200 hydraulic excavator" data-aria-zh="Hitachi EX1200 液压挖掘机示意图"><line class="mg" x1="24" y1="281" x2="616" y2="281"/><path class="ml" d="M150 238h290a21 21 0 0 1 0 42H150a21 21 0 0 1 0-42z"/><circle class="mt" cx="178" cy="259" r="8"/><circle class="mt" cx="222" cy="259" r="8"/><circle class="mt" cx="266" cy="259" r="8"/><circle class="mt" cx="310" cy="259" r="8"/><circle class="mt" cx="354" cy="259" r="8"/><circle class="mt" cx="398" cy="259" r="8"/><circle class="mt" cx="432" cy="259" r="8"/><rect class="ml" x="250" y="224" width="110" height="14"/><path class="ml" d="M170 150h270l30 18v56H170z"/><rect class="ml" x="322" y="128" width="132" height="22"/><rect class="ml" x="430" y="104" width="10" height="24"/><path class="ml" d="M182 92h62v58h-74z"/><path class="mt" d="M190 100h46v24h-52z"/><path class="ml" d="M205 190l25-14-98-124-24 10z"/><path class="ml" d="M108 62l24-10-48 158-18-6z"/><path class="ml" d="M66 204l18 6 22 38q-22 18-54 4z"/><line class="mc" x1="214" y1="206" x2="148" y2="110"/></svg></figure><div class="mcap"><span class="model">Hitachi EX1200</span><b>1</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-cat-6060"><img src="photos/model-cat-6060.jpg" width="1200" height="900" loading="lazy" alt="CAT 6060 гидравлик экскаватор" data-alt-mn="CAT 6060 гидравлик экскаватор" data-alt-en="CAT 6060 hydraulic excavator" data-alt-zh="CAT 6060 液压挖掘机"></figure><div class="mcap"><span class="model">CAT 6060</span><b>1</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-hitachi-ex2600"><img src="photos/model-hitachi-ex2600.jpg" width="1200" height="900" loading="lazy" alt="Hitachi EX2600 гидравлик экскаватор" data-alt-mn="Hitachi EX2600 гидравлик экскаватор" data-alt-en="Hitachi EX2600 hydraulic excavator" data-alt-zh="Hitachi EX2600 液压挖掘机"></figure><div class="mcap"><span class="model">Hitachi EX2600</span><b>1</b></div></li>
+            <li class="mtile"><figure class="slot tile" data-photo="model-komatsu-pc7000"><img src="photos/model-komatsu-pc7000.jpg" width="1200" height="900" loading="lazy" alt="Komatsu PC7000 гидравлик экскаватор" data-alt-mn="Komatsu PC7000 гидравлик экскаватор" data-alt-en="Komatsu PC7000 hydraulic excavator" data-alt-zh="Komatsu PC7000 液压挖掘机"></figure><div class="mcap"><span class="model">Komatsu PC7000</span><b>1</b></div></li>
+            <li class="mtile total"><span><span lang="mn">Нийт</span><span lang="en">Total</span><span lang="zh">合计</span></span><b>27</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sennebogen">
+    <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·05</b><span class="tb-rule"></span><span>SENNEBOGEN 875 E</span><span>05 / 09</span></div>
       <div class="split rev">
         <figure class="slot tall" data-photo="sennebogen">
           <img src="photos/sennebogen-20261013065641.jpg" width="1920" height="1440" loading="lazy" alt="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-mn="SENNEBOGEN 875 E Hybrid нүүрс ачиж буй нь" data-alt-en="SENNEBOGEN 875 E Hybrid loading coal" data-alt-zh="SENNEBOGEN 875 E Hybrid 装煤作业">
@@ -710,6 +902,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 
   <section class="sec dark" id="service">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·06</b><span class="tb-rule"></span><span>DAFO · Forrex EVO</span><span>06 / 09</span></div>
       <div class="head">
         <p class="eyebrow"><span lang="mn">Сэлбэг, үйлчилгээ</span><span lang="en">Parts &amp; service</span><span lang="zh">备件与服务</span></p>
         <h2><span lang="mn">Тоног төхөөрөмжийн сэлбэг, засвар үйлчилгээ</span><span lang="en">Equipment parts, repair and maintenance</span><span lang="zh">设备备件、维修与保养</span></h2>
@@ -745,6 +938,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           </ul>
         </div>
       </div>
+      <div class="pics">
+        <div><figure class="slot pair" data-photo="stock-dafo-parts"><img src="photos/stock-dafo-parts.jpg" width="1200" height="900" loading="lazy" alt="Улаанбаатар дахь DAFO-гийн сэлбэгийн нөөц: хайрцагнууд, мэдрэгч кабелийн ороомог" data-alt-mn="Улаанбаатар дахь DAFO-гийн сэлбэгийн нөөц: хайрцагнууд, мэдрэгч кабелийн ороомог" data-alt-en="DAFO spares in stock in Ulaanbaatar: boxes and reels of heat-sensing cable" data-alt-zh="乌兰巴托库存的 DAFO 备件：零件箱和感温电缆卷"></figure><p><span lang="mn">Улаанбаатар дахь DAFO-гийн сэлбэгийн нөөц</span><span lang="en">DAFO spares in stock in Ulaanbaatar</span><span lang="zh">乌兰巴托库存的 DAFO 备件</span></p></div>
+        <div><figure class="slot pair" data-photo="stock-fittings"><img src="photos/stock-fittings.jpg" width="1200" height="900" loading="lazy" alt="засварт зориулсан холбох хэрэгслийн иж бүрдэл" data-alt-mn="засварт зориулсан холбох хэрэгслийн иж бүрдэл" data-alt-en="fittings kit for repairs on site" data-alt-zh="现场维修用管接头套件"></figure><p><span lang="mn">Засварын холбох хэрэгслийн иж бүрдэл</span><span lang="en">Fittings kit for repairs on site</span><span lang="zh">现场维修用管接头套件</span></p></div>
+      </div>
       <p class="stock">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
         <span><span lang="mn">Forrex EVO бодис, азотын баллон, чухал сэлбэгийг Улаанбаатар дахь агуулахдаа байнга нөөцөлдөг.</span><span lang="en">Forrex EVO agent, nitrogen cartridges and critical spares are always in stock in Ulaanbaatar.</span><span lang="zh">Forrex EVO 灭火剂、氮气驱动瓶和关键备件在乌兰巴托常年备有库存。</span></span>
@@ -752,46 +949,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
     </div>
   </section>
 
-  <section class="sec" id="references">
-    <div class="wrap">
-      <div class="head">
-        <h2><span lang="mn">27 систем, Монголын уул уурхайд</span><span lang="en">27 systems in Mongolian mining</span><span lang="zh">蒙古国矿山的 27 套系统</span></h2>
-        <p><span lang="mn">Монголын нүүрсний уурхайнуудад ажиллаж буй DAFO системүүд, техникийн төрөл ба маркаар.</span><span lang="en">DAFO systems in service at Mongolian coal mines, by machine type and model.</span><span lang="zh">在蒙古国煤矿运行的 DAFO 系统，按设备类型和型号统计。</span></p>
-      </div>
-      <div class="fleet">
-        <div>
-          <p class="sub"><span lang="mn">Техникийн төрлөөр</span><span lang="en">By machine type</span><span lang="zh">按设备类型</span></p>
-          <ul class="bars">
-            <li class="bar"><span><span lang="mn">Гидравлик экскаватор</span><span lang="en">Hydraulic excavators</span><span lang="zh">液压挖掘机</span></span><i style="--w:100%"></i><b>16</b></li>
-            <li class="bar"><span><span lang="mn">Автосамосвал</span><span lang="en">Haul trucks</span><span lang="zh">矿用自卸车</span></span><i style="--w:31.25%"></i><b>5</b></li>
-            <li class="bar"><span><span lang="mn">Дугуйт ачигч</span><span lang="en">Wheel loaders</span><span lang="zh">轮式装载机</span></span><i style="--w:25%"></i><b>4</b></li>
-            <li class="bar"><span><span lang="mn">Ричстакер</span><span lang="en">Reach stackers</span><span lang="zh">正面吊</span></span><i style="--w:12.5%"></i><b>2</b></li>
-          </ul>
-          <p class="fine"><span lang="mn">Марк: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ, XCMG. Тоо баримт 2026 оны 11-р сарын байдлаар.</span><span lang="en">Brands: CAT, Bucyrus, Komatsu, Hyundai, Hitachi, BelAZ and XCMG. Figures as of November 2026.</span><span lang="zh">品牌：CAT（卡特彼勒）、Bucyrus（比塞洛斯）、Komatsu（小松）、Hyundai（现代）、Hitachi（日立）、BelAZ（别拉斯）和 XCMG（徐工）。数据截至 2026 年 11 月。</span></p>
-        </div>
-        <div>
-          <p class="sub"><span lang="mn">Маркаар</span><span lang="en">By model</span><span lang="zh">按型号</span></p>
-          <ul class="models">
-            <li><span class="model">CAT 395</span><b>5</b></li>
-            <li><span class="model">Bucyrus RH170</span><b>5</b></li>
-            <li><span class="model">CAT 793D</span><b>4</b></li>
-            <li><span class="model">Hyundai 780</span><b>4</b></li>
-            <li><span class="model">Bucyrus RH120</span><b>2</b></li>
-            <li><span class="model"><span lang="mn">XCMG ричстакер</span><span lang="en">XCMG reach stacker</span><span lang="zh">XCMG（徐工）正面吊</span></span><b>2</b></li>
-            <li><span class="model">BelAZ 75306</span><b>1</b></li>
-            <li><span class="model">Hitachi EX1200</span><b>1</b></li>
-            <li><span class="model">CAT 6060</span><b>1</b></li>
-            <li><span class="model">Hitachi EX2600</span><b>1</b></li>
-            <li><span class="model">Komatsu PC7000</span><b>1</b></li>
-            <li class="total"><span class="model"><span lang="mn">Нийт</span><span lang="en">Total</span><span lang="zh">合计</span></span><b>27</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="sec paper" id="about">
     <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·07</b><span class="tb-rule"></span><span>MHS · 2014</span><span>07 / 09</span></div>
       <div class="split">
         <div class="body">
           <p class="eyebrow"><span lang="mn">Материал Хандлинг Системс ХХК</span><span lang="en">Material Handling Systems LLC</span><span lang="zh">Material Handling Systems LLC</span></p>
@@ -805,16 +966,18 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span><span lang="mn">Мэргэжлийн хариуцлагын даатгалтай (МИГ даатгал)</span><span lang="en">Professional-indemnity insured with MIG Insurance</span><span lang="zh">已投保职业责任保险（MIG 保险）</span></span></li>
           </ul>
         </div>
-        <figure class="slot tall" data-photo="crew">
-          <img src="photos/crew-20261013125314.jpg" width="1920" height="1440" loading="lazy" alt="MHS-ийн баг" data-alt-mn="MHS-ийн баг" data-alt-en="the MHS crew" data-alt-zh="MHS 团队">
-          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: MHS-ийн баг</span><span lang="en">Photo: the MHS crew</span><span lang="zh">图：MHS 团队</span></figcaption>
+        <figure class="slot wide ticks" data-photo="crew">
+          <img src="photos/crew-mhs.jpg" width="1600" height="1200" loading="lazy" alt="MHS-ийн угсралтын баг Komatsu PC7000-ийн дэргэд" data-alt-mn="MHS-ийн угсралтын баг Komatsu PC7000-ийн дэргэд" data-alt-en="the MHS installation crew beside a Komatsu PC7000" data-alt-zh="MHS 安装团队在 Komatsu PC7000 旁">
+          <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: MHS-ийн угсралтын баг</span><span lang="en">Photo: the MHS installation crew</span><span lang="zh">图：MHS 安装团队</span></figcaption>
         </figure>
       </div>
     </div>
   </section>
 
   <section class="sec" id="faq">
-    <div class="wrap faq">
+    <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·08</b><span class="tb-rule"></span><span>DAFO · SENNEBOGEN</span><span>08 / 09</span></div>
+      <div class="faq">
       <div class="head">
         <p class="eyebrow"><span lang="mn">Түгээмэл асуулт</span><span lang="en">Questions</span><span lang="zh">常见问题</span></p>
         <h2><span lang="mn">Худалдан авагчид юу асуудаг вэ</span><span lang="en">What buyers ask us</span><span lang="zh">客户常问的问题</span></h2>
@@ -858,11 +1021,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <p><span lang="mn">Материал Хандлинг Системс ХХК нь Dafo Vehicle Fire Protection AB-ийн Монгол дахь албан ёсны дилер. DAFO-гийн албан ёсны вэбсайтын дистрибьютерийн жагсаалтад Монгол Улсаас бүртгэлтэй. Утас: +976 9697 0276, +976 9907 8171. И-мэйл: tuguldur@mhs.mn.</span><span lang="en">Material Handling Systems LLC is the official dealer in Mongolia for Dafo Vehicle Fire Protection AB, and is listed for Mongolia on DAFO’s own distributor finder. Phone +976 9697 0276 or +976 9907 8171; email tuguldur@mhs.mn.</span><span lang="zh">Material Handling Systems LLC 是 Dafo Vehicle Fire Protection AB 在蒙古国的官方经销商，并在 DAFO 官方网站的经销商名录中登记为蒙古国经销商。电话 +976 9697 0276 或 +976 9907 8171；电子邮件 tuguldur@mhs.mn。</span></p>
         </details>
       </div>
+      </div>
     </div>
   </section>
 
   <section class="sec paper" id="contact">
-    <div class="wrap contact">
+    <div class="wrap">
+      <div class="tb" aria-hidden="true"><b>MHS·09</b><span class="tb-rule"></span><span>+976 9697 0276</span><span>09 / 09</span></div>
+      <div class="contact">
       <div class="body">
         <p class="eyebrow"><span lang="mn">Холбоо барих</span><span lang="en">Contact</span><span lang="zh">联系我们</span></p>
         <h2><span lang="mn">Үнийн санал авах</span><span lang="en">Request a quote</span><span lang="zh">索取报价</span></h2>
@@ -949,6 +1115,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
           <a class="btn outline" href="tel:+97696970276">
             <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg><span lang="mn">Залгах</span><span lang="en">Call</span><span lang="zh">致电</span></a>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -1178,6 +1345,27 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   }
 
   /* Photo slots: hide the hint once a photo has loaded */
+  // Protected zones: one machine type at a time (tabs, arrow keys move between them)
+  var ztabs = Array.prototype.slice.call(document.querySelectorAll('.ztab'));
+  function showZones(tab, focus) {
+    ztabs.forEach(function (t) {
+      var on = t === tab, panel = document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+  ztabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { showZones(t); });
+    t.addEventListener('keydown', function (e) {
+      var n = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: ztabs.length - 1 }[e.key];
+      if (n === undefined) return;
+      e.preventDefault();
+      showZones(ztabs[(n + ztabs.length) % ztabs.length], true);
+    });
+  });
+
   document.querySelectorAll('.slot img').forEach(function (img) {
     var mark = function () { img.closest('.slot').classList.add('has-photo'); };
     if (img.complete && img.naturalWidth) mark(); else img.addEventListener('load', mark);

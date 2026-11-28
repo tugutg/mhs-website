@@ -8,9 +8,8 @@ Needs Python 3.9+ and Pillow, nothing else. docs/ stays the only thing anyone ed
 
   * Everything in docs/ is copied as it is (CNAME, robots.txt, sitemap.xml, og-image.jpg, fonts, photos).
   * Photos in a <figure class="slot"> get smaller copies (photos/NAME-800w.jpg, ...) and their <img> gets
-    srcset and sizes, so phones download a file that fits their screen. The hero also gets a centre crop
-    for portrait phones (photos/NAME-phone.jpg) through <picture>; it shows the same part of the photo at
-    the same scale, from a smaller file.
+    srcset and sizes, so phones download a file that fits their screen. (The hero is a framed 4:3 photo
+    beside the heading since Nov 2026, so it no longer needs a portrait crop: HERO_PHONE_MAX = 0.)
   * en/index.html and zh/index.html are the same page with English or Chinese as the default language
     and their own addresses (LANGS below).
   * Every page gets hreflang links, and the МН/EN/CN buttons switch between the addresses.
@@ -44,17 +43,29 @@ WIDTHS = [480, 640, 800, 1000, 1200, 1440, 1600, 1920, 2400]
 MARGIN = 1.10
 MAX_QUALITY = 80  # the hero is saved at q80, the other photos at q75; copies never go above the original
 
-# Rendered photo boxes, measured in Chromium in both languages (CSS px; vw = viewport width).
-#   card: 16:10 box, one column up to 900px (at most 92vw), three columns up to 1200px (at most 30vw), then 356px.
-#   tall: one column up to 900px, 16:11 box (at most 92vw); two columns above, a 4:5 box at most 42vw / 504px wide.
-#   hero: full width; its height follows the text, so it is listed per viewport width (the tallest of MN and EN).
-HERO_HEIGHTS = [(320, 950), (360, 885), (400, 860), (430, 815), (560, 775), (620, 565),
-                (760, 555), (900, 590), (1100, 650), (1300, 790), (None, 815)]
-# Portrait phones up to this width get the hero's centre crop. Their hero box is at most 0.64 as wide as
-# it is tall; the crop keeps 15% more width than that so it always covers the box, which makes
-# object-fit: cover show the same part of the photo at the same scale as the full file (placement can differ
-# by under one device pixel from rounding). Set HERO_PHONE_MAX = 0 to publish without the crop.
-HERO_PHONE_MAX = 430
+# Rendered photo boxes, measured in Chromium in all three languages (CSS px; vw = viewport width).
+# Each kind: (box aspect ratio, [(max viewport width or None, box width as a fraction of vw or in px)]).
+#   card:   16:10 box, one column up to 900px (92vw), three columns up to 1200px (30vw), then 356px.
+#   tall:   one column up to 900px with a 16:11 box (92vw); two columns above, a 4:5 box (42vw / 504px).
+#   hero:   4:3 box; one column up to 900px (92vw), beside the heading above (50vw / 591px).
+#   wide:   4:3 box in a two-column split (About): 92vw up to 900px, then 42vw / 498px.
+#   step:   4:3 process photos: 1 column up to 560px, 2 up to 900px, 3 above (92vw, 45vw, 30vw / 357px).
+#   tile:   4:3 track-record tiles: 2 columns up to 700px, 3 up to 1000px, 4 above (45vw, 30vw, 23vw / 266px).
+#   detail: 4:3 photos of installed parts: 2 columns up to 900px, 4 above (45vw, 23vw / 268px).
+#   pair:   4:3 photos two to a row (parts section): 1 column up to 560px, 2 above (92vw, 46vw / 552px).
+BOXES = {
+    "card": (1.6, [(900, 0.92), (1200, 0.30), (None, "356px")]),
+    "hero": (4 / 3, [(900, 0.92), (1200, 0.50), (None, "591px")]),
+    "wide": (4 / 3, [(900, 0.92), (1200, 0.42), (None, "498px")]),
+    "step": (4 / 3, [(560, 0.92), (900, 0.45), (1200, 0.30), (None, "357px")]),
+    "tile": (4 / 3, [(700, 0.45), (1000, 0.30), (1200, 0.23), (None, "266px")]),
+    "detail": (4 / 3, [(900, 0.45), (1200, 0.23), (None, "268px")]),
+    "pair": (4 / 3, [(560, 0.92), (1200, 0.46), (None, "552px")]),
+}
+KINDS = ("wide", "step", "tile", "detail", "pair")  # figure classes that name a slot kind
+# The hero used to fill the viewport and got a centre crop for portrait phones; since it became a 4:3 box
+# the crop is off. Set HERO_PHONE_MAX back to a width (and HERO_PHONE_ASPECT to the box) only for such a hero.
+HERO_PHONE_MAX = 0
 HERO_PHONE_ASPECT = 0.64 * 1.15
 
 warnings = []
@@ -181,31 +192,18 @@ def vw(value):
 def sizes_for(kind, ar):
     """The sizes attribute: CSS px of image width needed to cover the slot with object-fit: cover."""
     m = MARGIN
-    if kind == "card":
-        f = max(1.0, ar / 1.6)
-        return "(max-width: 900px) %s, (max-width: 1200px) %s, %s" % (vw(0.92 * f * m), vw(0.30 * f * m), px(356 * f * m))
+    if kind in BOXES:
+        box_ar, steps = BOXES[kind]
+        f = max(1.0, ar / box_ar)
+        parts = []
+        for high, width in steps:
+            value = px(float(width[:-2]) * f * m) if isinstance(width, str) else vw(width * f * m)
+            parts.append(value if high is None else "(max-width: %dpx) %s" % (high, value))
+        return ", ".join(parts)
     if kind == "tall":
         f1, f2 = max(1.0, ar / (16 / 11)), max(1.0, ar / 0.8)
         return "(max-width: 900px) %s, (max-width: 1200px) %s, %s" % (vw(0.92 * f1 * m), vw(0.42 * f2 * m), px(504 * f2 * m))
-    # hero: the box is the full viewport width and HERO_HEIGHTS tall
-    parts, low = [], 0
-    for high, height in HERO_HEIGHTS:
-        need = height * ar * m
-        if high is None:
-            if need > low:
-                parts.append("(max-width: %s) %s" % (px(need), px(need)))
-            parts.append("100vw")
-            break
-        parts.append("(max-width: %dpx) %s" % (high, px(max(need, high)) if need > low else "100vw"))
-        low = high
-    # drop a "100vw" entry when the next one says the same
-    out = []
-    for i, p in enumerate(parts):
-        nxt = parts[i + 1] if i + 1 < len(parts) else None
-        if nxt is not None and p.endswith(" 100vw") and nxt.endswith("100vw"):
-            continue
-        out.append(p)
-    return ", ".join(out)
+    raise ValueError("unknown slot kind %r" % kind)
 
 
 def slot_kind(img):
@@ -218,6 +216,9 @@ def slot_kind(img):
         return figure, "card"
     if "tall" in figure.cls():
         return figure, "tall"
+    for kind in KINDS:
+        if kind in figure.cls():
+            return figure, kind
     return figure, "unknown"
 
 
@@ -233,7 +234,7 @@ def process_photos(page, src_dir, out_dir):
         name = figure.attrs.get("data-photo") or img.attrs.get("src") or "?"
         src = img.attrs.get("src") or ""
         if kind == "unknown":
-            warn("slot '%s' is not a hero, card or tall slot; its photo is published unchanged" % name)
+            warn("slot '%s' is not a hero, card, tall, %s slot; its photo is published unchanged" % (name, ", ".join(KINDS)))
             continue
         if "srcset" in img.attrs:
             warn("slot '%s' already has srcset; left as it is" % name)
