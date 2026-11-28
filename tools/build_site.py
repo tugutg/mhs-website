@@ -44,7 +44,8 @@ MARGIN = 1.10
 MAX_QUALITY = 80  # the hero is saved at q80, the other photos at q75; copies never go above the original
 
 # Rendered photo boxes, measured in Chromium in all three languages (CSS px; vw = viewport width).
-# Each kind: (box aspect ratio, [(max viewport width or None, box width as a fraction of vw or in px)]).
+# Each kind: (box aspect ratio, [(max viewport width or None, box width as a fraction of vw or in px
+#             [, that step's own box aspect ratio when it differs])]).
 #   card:   16:10 box, one column up to 900px (92vw), three columns up to 1200px (30vw), then 356px.
 #   tall:   one column up to 900px with a 16:11 box (92vw); two columns above, a 4:5 box (42vw / 504px).
 #   hero:   4:3 box; one column up to 900px (92vw), beside the heading above (50vw / 591px).
@@ -53,6 +54,9 @@ MAX_QUALITY = 80  # the hero is saved at q80, the other photos at q75; copies ne
 #   tile:   4:3 track-record tiles: 2 columns up to 700px, 3 up to 1000px, 4 above (45vw, 30vw, 23vw / 266px).
 #   detail: 4:3 photos of installed parts: 2 columns up to 900px, 4 above (45vw, 23vw / 268px).
 #   pair:   4:3 photos two to a row (parts section): 1 column up to 560px, 2 above (92vw, 46vw / 552px).
+#   feature: the lead photo of the installed-parts strip: full width (4:3) up to 900px (92vw); above that two
+#           columns and both rows beside the four close-ups (46vw / 552px), a box of 1.07-1.22:1 (it follows the
+#           caption lengths; Mongolian is the tallest), so those steps use 1.06 and 1.12.
 BOXES = {
     "card": (1.6, [(900, 0.92), (1200, 0.30), (None, "356px")]),
     "hero": (4 / 3, [(900, 0.92), (1200, 0.50), (None, "591px")]),
@@ -61,8 +65,9 @@ BOXES = {
     "tile": (4 / 3, [(700, 0.45), (1000, 0.30), (1200, 0.23), (None, "266px")]),
     "detail": (4 / 3, [(900, 0.45), (1200, 0.23), (None, "268px")]),
     "pair": (4 / 3, [(560, 0.92), (1200, 0.46), (None, "552px")]),
+    "feature": (4 / 3, [(900, 0.92), (1200, 0.46, 1.06), (None, "552px", 1.12)]),
 }
-KINDS = ("wide", "step", "tile", "detail", "pair")  # figure classes that name a slot kind
+KINDS = ("wide", "step", "tile", "detail", "pair", "feature")  # figure classes that name a slot kind
 # The hero used to fill the viewport and got a centre crop for portrait phones; since it became a 4:3 box
 # the crop is off. Set HERO_PHONE_MAX back to a width (and HERO_PHONE_ASPECT to the box) only for such a hero.
 HERO_PHONE_MAX = 0
@@ -194,9 +199,10 @@ def sizes_for(kind, ar):
     m = MARGIN
     if kind in BOXES:
         box_ar, steps = BOXES[kind]
-        f = max(1.0, ar / box_ar)
         parts = []
-        for high, width in steps:
+        for step in steps:
+            high, width = step[0], step[1]
+            f = max(1.0, ar / (step[2] if len(step) > 2 else box_ar))
             value = px(float(width[:-2]) * f * m) if isinstance(width, str) else vw(width * f * m)
             parts.append(value if high is None else "(max-width: %dpx) %s" % (high, value))
         return ", ".join(parts)

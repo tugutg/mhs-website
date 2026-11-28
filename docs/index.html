@@ -395,6 +395,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
 .inst{display:grid;gap:14px;margin-top:clamp(40px,5vw,56px)}
 .inst-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .inst-grid .slot{aspect-ratio:4/3}
+.inst-grid .big{grid-column:1 / span 2;grid-row:1 / span 2;display:flex;flex-direction:column}
+.inst-grid .big .slot{flex:1 1 auto;aspect-ratio:auto;min-height:0}
 .inst-grid p{margin:9px 0 0;font-size:14.5px;line-height:1.45;color:var(--muted)}
 /* Track record tiles: one photo per model */
 .fleet > .mtiles-wrap{grid-column:1 / -1;display:grid;gap:14px;min-width:0}
@@ -421,6 +423,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
   .how-list li:not(:last-child)::after{top:auto;bottom:-8px;right:auto;left:31px;transform:rotate(135deg)}
   .zpanel{grid-template-columns:1fr}
   .inst-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .inst-grid .big{grid-row:auto}
+  .inst-grid .big .slot{flex:none;aspect-ratio:4/3}
   .bars{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:700px){
@@ -629,7 +633,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
         </a>
         <a class="card" href="#service">
           <figure class="slot" data-photo="card-service">
-          <img src="photos/card-team-service.jpg" width="1600" height="1200" loading="lazy" alt="манай техникч машины доод хэсэгт халуун мэдрэгч кабель угсарч байна" data-alt-mn="манай техникч машины доод хэсэгт халуун мэдрэгч кабель угсарч байна" data-alt-en="MHS technician routing the heat-sensing cable under a machine" data-alt-zh="MHS 技术人员在设备底部敷设感温电缆">
+          <img src="photos/card-team-service.jpg" width="1600" height="1000" loading="lazy" alt="MHS-ийн баг DAFO-гийн сургагч багшийн хамт" data-alt-mn="MHS-ийн баг DAFO-гийн сургагч багшийн хамт" data-alt-en="the MHS crew with the DAFO trainer" data-alt-zh="MHS 团队与 DAFO 培训讲师合影">
             <figcaption><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span lang="mn">Зураг: манай баг ажил дээрээ</span><span lang="en">Photo: MHS crew at work</span><span lang="zh">图：MHS 团队作业现场</span></figcaption>
           </figure>
           <div class="card-body">
@@ -723,6 +727,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;
       <div class="inst">
         <p class="sub"><span lang="mn">Манай суурилуулалтаас</span><span lang="en">From our installs</span><span lang="zh">我们的安装实例</span></p>
         <ul class="inst-grid">
+          <li class="big"><figure class="slot feature" data-photo="part-tank-pack-12"><img src="photos/part-tank-pack-12.jpg" width="1600" height="1189" loading="lazy" alt="Komatsu PC7000 дээрх 12 танктай DAFO SV-K багц, хоолойн холболт" data-alt-mn="Komatsu PC7000 дээрх 12 танктай DAFO SV-K багц, хоолойн холболт" data-alt-en="12-tank DAFO SV-K pack and its hose connections on a Komatsu PC7000" data-alt-zh="Komatsu PC7000 上由 12 个 DAFO SV-K 储罐组成的储罐组及管路连接"></figure><p><span lang="mn">Komatsu PC7000 дээрх 12 танктай багц</span><span lang="en">12-tank pack on a Komatsu PC7000</span><span lang="zh">Komatsu PC7000 上的 12 罐储罐组</span></p></li>
           <li><figure class="slot detail" data-photo="part-detection-lines"><img src="photos/part-detection-lines.jpg" width="1200" height="900" loading="lazy" alt="тавцангийн доогуур татсан халуун мэдрэгч кабель, хоолой" data-alt-mn="тавцангийн доогуур татсан халуун мэдрэгч кабель, хоолой" data-alt-en="heat-sensing cable and piping run under the deck" data-alt-zh="平台下方敷设的感温电缆和管路"></figure><p><span lang="mn">Тавцангийн доогуурх халуун мэдрэгч кабель, хоолой</span><span lang="en">Heat-sensing cable and piping under the deck</span><span lang="zh">平台下方的感温电缆和管路</span></p></li>
           <li><figure class="slot detail" data-photo="part-control-unit"><img src="photos/part-control-unit.jpg" width="1200" height="900" loading="lazy" alt="DAFO CV-X удирдлагын блок, кабелийн холболт" data-alt-mn="DAFO CV-X удирдлагын блок, кабелийн холболт" data-alt-en="DAFO CV-X control unit with its cabling" data-alt-zh="带线缆的 DAFO CV-X 控制单元"></figure><p><span lang="mn">CV-X удирдлагын блок</span><span lang="en">CV-X control unit</span><span lang="zh">CV-X 控制单元</span></p></li>
           <li><figure class="slot detail" data-photo="part-cab-panels"><img src="photos/part-cab-panels.jpg" width="1200" height="900" loading="lazy" alt="операторын бүхээг дэх хоёр дохиоллын самбар" data-alt-mn="операторын бүхээг дэх хоёр дохиоллын самбар" data-alt-en="two alarm panels in the operator’s cab" data-alt-zh="驾驶室内的两块报警面板"></figure><p><span lang="mn">Кабин дахь дохиоллын самбар</span><span lang="en">Alarm panels in the cab</span><span lang="zh">驾驶室内的报警面板</span></p></li>
