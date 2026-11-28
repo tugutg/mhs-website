@@ -55,6 +55,7 @@ python3 .claude/skills/mhs-site-change/site_text.py replace "OLD" "NEW" --count 
 - **Insertions:** use a short Python script that asserts its anchor string occurs exactly once, then inserts after it. Keep the indentation and the `<p><span lang="mn">…</span><span lang="en">…</span></p>` pattern.
 - **Content changes:** set both `<lastmod>` dates in `docs/sitemap.xml` to today (`date -u +%F`) if they are older.
 - **Untouched files:** don't touch photos, fonts, `og-image.jpg` or CNAME unless asked. When you do change the hero photo, regenerate `og-image.jpg` as CLAUDE.md says. Never commit build output (see CLAUDE.md).
+- **Photos:** follow `photos.md`. It covers fetching the owner's photos, painting over names and plates, cropping, and `photo_prep.py`.
 
 ## 3. Build and serve (one server per session)
 
@@ -106,6 +107,11 @@ T=<scratchpad>/tools; NODE_PATH="$T/node_modules" node .claude/skills/mhs-site-c
     ```
 
   - **Build or redirect logic:** a review workflow (several reviewers, plus a skeptic who tries to refute each finding) found real bugs that single checks missed.
+- **Owner review (layout, photos, drawings):** he looks at these himself before they merge.
+  - Publish `docs/index.html` with `photos/` and `fonts/` as a private artifact; the source page shows all three languages and works on its own. Send him the link.
+  - Republish to the same artifact so his link stays the same: "mhs.mn redesign preview", slug `d3aecb48-ad6f-4051-8107-f543a197b669`. Run `list_files` before `publish_files`.
+  - He replies with short directives ("swap 3 and 2", "put 5 below 1"). Apply them, rebuild, check, republish.
+  - Each round still ends with the merge question. During a review he answers "No, I'll review" until he says "merge and deploy" (28 Nov 2026).
 
 ## 5. Ship
 
